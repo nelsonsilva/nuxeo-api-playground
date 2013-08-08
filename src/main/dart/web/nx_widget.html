@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+    <element name="nx-widget" constructor="NXWidget" extends="div">
+      <template>
+        <div class="control-group">
+          <label class="control-label" for="{{widgetId}}">{{label}}</label>
+          <div class="controls">
+            <template instantiate='if type == "text"'>
+              <input id="{{widgetId}}" type="text" bind-value="value" required="{{required}}"/>
+            </template>
+          </div>
+        </div>
+      </template>
+      <script type="application/dart" src="nx_widget.dart"></script>
+    </element>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+    <element name="nx-directory" constructor="NXDirectory" extends="div">
+      <template>
+        <div>
+          <h3>{{name}}</h3>
+          <ul>
+            <template iterate="entry in entries">
+              <li>{{entry}}</li>
+            </template>
+          </ul>
+        </div>
+      </template>
+      <script type="application/dart" src="nx_directory.dart"></script>
+    </element>
+  </body>
+</html>

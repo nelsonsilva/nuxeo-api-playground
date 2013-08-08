@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Nuxeo Automation Sample App</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="import" href="nx_directory.html">
+    <link rel="import" href="nx_operation.html">
+  </head>
+  <body>
+    <div class="container-fluid">
+
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="page-header">
+            <h1>Nuxeo Automation <small>with Dart</small></h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="form-inline">
+            <label class="control-label" for="nuxeoURL">Nuxeo @ </label>
+            <input type="text" class="input-xxlarge" id="nuxeoURL" value="{{nuxeoUrl}}">
+            <template if="!isConnected">
+              <button class="btn" on-click="connect()">Connect</button>
+            </template>
+            <template if="isConnected">
+              <select template
+                      iterate="category in categories.keys"
+                      bind-value="selectedCategory">
+                  <option value="{{category}}">{{category}}</option>
+              </select>
+              <template if="selectedCategory != null">
+                <select template
+                        iterate="op in categories[selectedCategory]"
+                        bind-value="selectedOp">
+                    <option value="{{op.id}}">{{op.id}}</option>
+                </select>
+              </template>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <br/>
+
+      <div class="row-fluid">
+         <template if="selectedOp != null">
+           <nx-operation opid="{{selectedOp}}"></nx-operation>
+         </template>
+      </div>
+
+    </div>
+    <script type="application/dart">
+      import 'package:web_ui/observe.dart';
+      import 'package:web_ui/observe/html.dart';
+      import "model.dart";
+
+      @observable
+      String selectedCategory = null;
+
+      @observable
+      String selectedOp = null;
+
+      main(){}
+    </script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>
