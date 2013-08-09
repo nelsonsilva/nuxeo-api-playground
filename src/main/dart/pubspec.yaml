@@ -3,7 +3,7 @@ description: A Nuxeo Automation Sandbox in Dart
 dependencies:
   browser: any
   js: any
-  nuxeo_automation: '0.0.1'
+  nuxeo_automation: '0.0.1+1'
   web_ui: '>=0.4.17'
 dev_dependencies:
   hop: '>=0.24.1'
