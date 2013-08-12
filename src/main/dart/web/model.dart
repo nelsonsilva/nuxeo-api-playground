@@ -1,31 +1,48 @@
 library model;
 
-import 'package:web_ui/observe.dart';
-import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
+import 'dart:collection';
+import 'package:polymer/polymer.dart';
+import 'package:nuxeo_automation/automation.dart' as nuxeo;
 
 nuxeo.Client NX = null;
 
-var nuxeoUrl = "http://localhost:8080/nuxeo/site/automation";
+final appModel = new Model._();
 
-@observable
-bool isConnected = false;
+class Model extends ObservableBase {
 
-@observable
-Map<String, List> categories = toObservable({});
+  @observable
+  bool isConnected = false;
 
-connect() {
+  @observable
+  List<NXOperationCategory> categories = toObservable(new LinkedHashSet());
 
-  NX = new nuxeo.Client(url: nuxeoUrl);
+  @observable
+  List list = toObservable([]);
 
-  NX.registry.then((nuxeo.OperationRegistry registry) {
-    isConnected = true;
-    registry.ops.forEach((name, nuxeo.Operation op) {
-      if (!categories.containsKey(op.category)) {
-        categories[op.category] = toObservable([]);
-      }
-      categories[op.category].add(op);
-    });
-  });
+  @observable
+  String selectedOp = null;
+
+  Model._();
 }
 
 
+class NXOperationCategory extends ObservableBase {
+
+  static var ID = 1;
+
+  final id = ID++;
+
+  @observable
+  List<nuxeo.Operation> operations = toObservable([]);
+
+  @observable String name;
+
+  @observable String collapse = "collapse";
+
+  toggle() {
+    collapse = (collapse == "") ? "collapse" : "";
+  }
+
+  NXOperationCategory(this.name);
+
+}

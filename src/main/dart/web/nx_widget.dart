@@ -1,28 +1,38 @@
-import 'model.dart';
-import 'package:web_ui/web_ui.dart';
-import 'package:nuxeo_automation/automation.dart' as nuxeo;
+library nx_widget;
 
-class NXWidget extends WebComponent {
+import 'package:polymer/polymer.dart';
+
+@CustomTag("nx-widget")
+class NXWidget extends PolymerElement with ObservableMixin {
 
   static int COUNT = 0;
 
-  int _widgetCount;
-  String label;
-  String type;
-  String datatype;
+  String widgetId;
 
-  @observable
-  dynamic value;
+  @observable String datatype;
 
-  bool required;
+  @observable dynamic value;
 
-  get widgetId => "nx_widget_${_widgetCount}_$label";
+  @observable bool required;
+
+  @observable bool isText = true;
+
+  @observable String label;
+
+  bool get applyAuthorStyles => true;
+
 
   String get widgetTemplate {
     return "nx_text_widget";
   }
 
-  inserted() {
-    _widgetCount = ++COUNT;
+  created() {
+    super.created();
+    widgetId = (++COUNT).toString();
   }
+
+  set type(String t) {
+    isText = (t == "text");
+  }
+
 }

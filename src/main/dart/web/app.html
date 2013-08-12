@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="import" href="nx_directory.html">
+    <link rel="import" href="nx_operation.html">
+  </head>
+
+  <body>
+  <polymer-element name="nx-sandbox-app" constructor="NXSandboxApp">
+  <template>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-brand">
+          <span class="brand">nuxeo</span><span class="separator">/</span>Automation Sandbox
+        </div>
+        <div class="navbar-form pull-right form-inline">
+          <template bind if="{{!app.isConnected}}">
+            <input type="text" class="form-control" style="width:80%" size="50" id="nuxeoURL" value="{{nuxeoUrl}}" bind>
+            <button class="btn btn-nuxeo" on-click="connect">Connect</button>
+          </template>
+          <template bind if="{{app.isConnected}}">
+            <button class="btn btn-nuxeo" on-click="disconnect">Disconnect</button>
+          </template>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <template bind if="{{!app.isConnected}}">
+        <div class="row">
+
+          <div class="col-4">
+            <img width="100%" src="logo.png">
+            <p class="pull-right"><small>powered by <a href="http://www.dartlang.org" target="_blank"><img src="dart.png"></a></small></p>
+          </div>
+
+          <div class="col-8">
+            <div class="jumbotron">
+              <div id="readme"></div>
+              <p><a class="btn btn-primary btn-large pull-right"
+              target="_blank"
+              href="https://github.com/nelsonsilva/nuxeo-dart-automation-sandbox">Learn more &raquo;</a></p>
+              <br>
+            </div>
+          </div>
+        </div>
+     </template>
+
+      <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-4">
+          <div class="sidebar">
+            <template if="{{app.isConnected}}">
+              <h3 class="title">Operations</h3>
+              <div class="accordion" id="categories">
+                <template repeat="{{category in app.categories}}">
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" on-click="toggleCategory" data-category-id="{{category.id}}">
+                        {{category.name}}
+                      </a>
+                    </div>
+                    <div id="category_{{category.id}}" class="accordion-body {{category.collapse}}">
+                      <div class="accordion-inner">
+                        <ul class="list-unstyled">
+                          <template repeat="{{op in category.operations}}">
+                            <li><a on-click="selectOperation" data-operation-id="{{op.id}}">{{op.label}}</a></li>
+                          </template>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <div class="col-8">
+           <template if="{{app.selectedOp}}">
+             <nx-operation opid="{{app.selectedOp}}"></nx-operation>
+           </template>
+        </div>
+
+      </div>
+
+    </div>
+
+  <footer>
+    <p>&copy; Nelson Silva - 2013</p>
+  </footer>
+
+  </template>
+  <script type="application/dart" src="app.dart"></script>
+  </polymer-element>
+  </body>
+</html>
