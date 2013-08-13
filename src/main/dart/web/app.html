@@ -16,12 +16,14 @@
           <span class="brand">nuxeo</span><span class="separator">/</span>Automation Sandbox
         </div>
         <div class="navbar-form pull-right form-inline">
-          <template bind if="{{!app.isConnected}}">
-            <input type="text" class="form-control" style="width:80%" size="50" id="nuxeoURL" value="{{nuxeoUrl}}" bind>
-            <button class="btn btn-nuxeo" on-click="connect">Connect</button>
+          <template if="{{!app.isConnected}}">
+            <i class="icon-globe icon-large"></i>&nbsp;
+            <input type="text" class="form-control" style="width:70%" size="50" id="nuxeoURL" value="{{nuxeoUrl}}" bind>
+            <button class="btn btn-nuxeo" on-click="connect"><i class="icon-bolt icon-large"></i>&nbsp;Connect</button>
           </template>
-          <template bind if="{{app.isConnected}}">
-            <button class="btn btn-nuxeo" on-click="disconnect">Disconnect</button>
+          <template if="{{app.isConnected}}">
+            <i class="icon-user icon-large"></i>&nbsp;{{app.username}}&nbsp;
+            <button class="btn btn-nuxeo" on-click="disconnect"><i class="icon-off"></i>&nbsp;Disconnect</button>
           </template>
         </div>
       </div>
@@ -39,6 +41,11 @@
           </div>
 
           <div class="col-8">
+            <template repeat="{{app.alerts}}">
+              <div class="alert alert-{{style}}">
+                <strong>{{title}}</strong> {{message}}
+              </div>
+            </template>
             <div class="jumbotron">
               <div id="readme"></div>
               <p><a class="btn btn-primary btn-large pull-right"

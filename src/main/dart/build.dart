@@ -20,6 +20,8 @@ main() {
     log(' - skipping copy assets');
   }
 
+  args.addAll(['--', '--no-rewrite-urls']);
+
   build(args, ['web/index.html']);
 }
 

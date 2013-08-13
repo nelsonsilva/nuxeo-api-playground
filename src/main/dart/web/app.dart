@@ -28,9 +28,14 @@ class NXSandboxApp extends PolymerElement with ObservableMixin {
 
   connect() {
 
+    app.alerts.clear();
+
     NX = new nuxeo.Client(url: nuxeoUrl);
 
-    NX.registry.then((nuxeo.OperationRegistry registry) {
+    NX.login
+    .then((login) { app.username = login.username; }) // Get the username
+    .then((_) => NX.registry)                         // Get the op registry
+    .then((nuxeo.OperationRegistry registry) {        // Get the ops
       app.isConnected = true;
       registry.ops.forEach((name, nuxeo.Operation op) {
         var category = app.categories.firstWhere((c) =>
@@ -42,7 +47,18 @@ class NXSandboxApp extends PolymerElement with ObservableMixin {
             });
         category.operations.add(op);
       });
+    })
+    .catchError((e) {
+      app.alerts.add(
+        new Alert.danger("Oh snap!", "Please check the Nuxeo URL and try connecting again.")
+      );
     });
+  }
+
+  disconnect() {
+     app.isConnected = false;
+     app.categories.clear();
+     // TODO - Reload README
   }
 
   toggleCategory(event, detail, target) {

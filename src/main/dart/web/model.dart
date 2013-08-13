@@ -22,9 +22,14 @@ class Model extends ObservableBase {
   @observable
   String selectedOp = null;
 
+  @observable
+  String username;
+
+  @observable
+  List<Alert> alerts = toObservable([]);
+
   Model._();
 }
-
 
 class NXOperationCategory extends ObservableBase {
 
@@ -45,4 +50,11 @@ class NXOperationCategory extends ObservableBase {
 
   NXOperationCategory(this.name);
 
+}
+
+class Alert {
+  String style;
+  String title;
+  String message;
+  Alert.danger(this.title, this.message) : style = "danger";
 }
