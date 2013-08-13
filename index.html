@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!-- This file was auto-generated from web/index.html. -->
+<html><head><style>template { display: none; }</style>
+    <title>Nuxeo Automation Sample App</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="favicon.ico">
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700" rel="stylesheet" type="text/css">
+
+    
+
+    
+  </head>
+  <body><polymer-element name="nx-widget" constructor="NXWidget" attributes="value,label,type,datatype,required">
+  <template>
+    <div class="form-group">
+      <label bind="" class="col-lg-2 control-label" for="{{'nx_widget_' + widgetId + '_' + label}}">{{label}}</label>
+      <div class="col-lg-10">
+        <template if="{{isText}}">
+          <input id="{{'nx_widget_' + widgetId + '_' + label}}" class="form-control" type="text" bind="" value="{{value}}" required="{{required}}">
+        </template>
+      </div>
+    </div>
+  </template>
+  
+  </polymer-element>
+<polymer-element name="nx-sandbox-app" constructor="NXSandboxApp">
+  <template>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-brand">
+          <span class="brand">nuxeo</span><span class="separator">/</span>Automation Sandbox
+        </div>
+        <div class="navbar-form pull-right form-inline">
+          <template if="{{!app.isConnected}}">
+            <i class="icon-globe icon-large"></i>&nbsp;
+            <input type="text" class="form-control" style="width:70%" size="50" id="nuxeoURL" value="{{nuxeoUrl}}" bind="">
+            <button class="btn btn-nuxeo" on-click="connect"><i class="icon-bolt icon-large"></i>&nbsp;Connect</button>
+          </template>
+          <template if="{{app.isConnected}}">
+            <i class="icon-user icon-large"></i>&nbsp;{{app.username}}&nbsp;
+            <button class="btn btn-nuxeo" on-click="disconnect"><i class="icon-off"></i>&nbsp;Disconnect</button>
+          </template>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <template bind="" if="{{!app.isConnected}}">
+        <div class="row">
+
+          <div class="col-4">
+            <img width="100%" src="logo.png">
+            <p class="pull-right"><small>powered by <a href="http://www.dartlang.org" target="_blank"><img src="dart.png"></a></small></p>
+          </div>
+
+          <div class="col-8">
+            <template repeat="{{app.alerts}}">
+              <div class="alert alert-{{style}}">
+                <strong>{{title}}</strong> {{message}}
+              </div>
+            </template>
+            <div class="jumbotron">
+              <div id="readme"></div>
+              <p><a class="btn btn-primary btn-large pull-right" target="_blank" href="https://github.com/nelsonsilva/nuxeo-dart-automation-sandbox">Learn more »</a></p>
+              <br>
+            </div>
+          </div>
+        </div>
+     </template>
+
+      <div class="row">
+        <!-- SIDEBAR -->
+        <div class="col-4">
+          <div class="sidebar">
+            <template if="{{app.isConnected}}">
+              <h3 class="title">Operations</h3>
+              <div class="accordion" id="categories">
+                <template repeat="{{category in app.categories}}">
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" on-click="toggleCategory" data-category-id="{{category.id}}">
+                        {{category.name}}
+                      </a>
+                    </div>
+                    <div id="category_{{category.id}}" class="accordion-body {{category.collapse}}">
+                      <div class="accordion-inner">
+                        <ul class="list-unstyled">
+                          <template repeat="{{op in category.operations}}">
+                            <li><a on-click="selectOperation" data-operation-id="{{op.id}}">{{op.label}}</a></li>
+                          </template>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <div class="col-8">
+           <template if="{{app.selectedOp}}">
+             <span is="nx-operation" opid="{{app.selectedOp}}"></span>
+           </template>
+        </div>
+
+      </div>
+
+    </div>
+
+  <footer>
+    <p>© Nelson Silva - 2013</p>
+  </footer>
+
+  </template>
+  
+  </polymer-element>
+<polymer-element name="nx-operation" constructor="NXOperation" attributes="opid">
+  <template>
+    <div class="row">
+      <div class="col-12">
+        <div class="panel panel-operation">
+          <div class="panel-heading">{{name}} ({{label}})</div>
+          <p>{{description}}</p>
+
+          <form id="op_{{name}}" class="form-horizontal" on-submit="callOp">
+            <template repeat="{{params}}">
+              <span is="nx-widget" label="{{name}}" type="{{widget}}" datatype="{{dataType}}" required="{{required}}" value="{{value}}">
+              </span>
+            </template>
+            <div class="form-group">
+              <div class="col-lg-offset-2 col-lg-10">
+                <button type="submit" class="btn btn-default">Run</button>
+              </div>
+            </div>
+          </form>
+
+          <hr>
+
+          <template bind="" if="{{result.isNotEmpty}}">
+            <div class="well well-large">
+              <ul class="unstyled" template="" repeat="{{result}}">
+                <li>{{}}</li>
+              </ul>
+            </div>
+         </template>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+
+      </div>
+    </div>
+  </template>
+  
+  </polymer-element>
+
+    <span is="nx-sandbox-app"></span>
+
+    
+  
+
+<script type="text/javascript" src="packages/shadow_dom/shadow_dom.debug.js"></script>
+<script type="text/javascript" src="packages/browser/dart.js"></script>
+<script type="application/dart" src="index.html_bootstrap.dart"></script></body></html>
