@@ -5,7 +5,7 @@ dependencies:
   js: any
   markdown: any
   nuxeo_automation: #'0.0.1+1'
-    path: ../../../../nuxeo-dart-automation
+    git: https://github.com/nelsonsilva/nuxeo-dart-automation.git
   polymer:
     git:
       ref: polymer
