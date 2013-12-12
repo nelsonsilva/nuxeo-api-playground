@@ -11,7 +11,7 @@
   <groupId>org.nuxeo.ecm.platform</groupId>
   <artifactId>nuxeo-dart-automation-sandbox</artifactId>
   <version>1.0</version>
-  <name>DartAutomationSandbox</name>
+  <name>Dart Automation Sandbox</name>
 
   <description>
     
@@ -38,19 +38,18 @@
               </arguments>
             </configuration>
           </execution>
-          <!-- Run hop -->
+          <!-- Run pub build -->
           <execution>
-            <id>hop</id>
+            <id>pub build</id>
             <phase>generate-sources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>dart</executable>
+              <executable>pub</executable>
               <workingDirectory>src/main/dart</workingDirectory>
               <arguments>
-                <argument>tool/hop_runner.dart</argument>
-                <argument>build_js</argument>
+                <argument>build</argument>
               </arguments>
             </configuration>
           </execution>
@@ -69,7 +68,7 @@
             <configuration>
               <resources>
                 <resource>
-                  <directory>src/main/dart/web/out</directory>
+                  <directory>src/main/dart/build</directory>
                   <targetPath>web/nuxeo.war/automation-sandbox</targetPath>
                 </resource>
               </resources>

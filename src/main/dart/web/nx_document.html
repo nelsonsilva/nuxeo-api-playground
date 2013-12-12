@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="import" href="packages/polymer_elements/polymer_collapse/polymer_collapse.html">
+    <link rel="import" href="packages/polymer_elements/polymer_collapse/polymer_collapse_toggle.html">
+  </head>
+
+  <body>
+<polymer-element name="nx-document" attributes="document">
+  <template>
+    <style>
+      .panel-document {
+        border-color: #eee;
+        border-radius: 0px !important;
+        background-color: white;
+      }
+      
+      .panel-document .panel-heading {
+        border-color: none;
+        background-color: white;
+        margin-top: 0px;
+        margin-left: 0px;
+        line-height: 20px;
+        font-weight: normal;
+        color: black;
+        border-radius: 0px !important;
+        display: block;
+      }
+
+    </style>
+    <div class="panel panel-document">
+      <div class="panel-heading">      
+        <div class="panel-title">
+          <a on-click="{{toggleContent}}">{{document.path}}</a>
+        </div>
+      </div>
+      <div id="content" class="panel-body panel-collapse">
+        <dl class="dl-horizontal">
+          <dt>Title</dt><dd>{{document.title}}</dd>
+          <dt>Repository</dt><dd>{{document.repository}}</dd>
+          <dt>Uid</dt><dd>{{document.uid}}</dd>
+          <dt>Type</dt><dd>{{document.type}}</dd>
+          <dt>State</dt><dd>{{document.state}}</dd>
+          <dt>Version</dt><dd>{{document.versionLabel}}</dd>
+          <dt>Is Checked Out</dt><dd>{{document.isCheckedOut}}</dd>
+          <dt>Last Modified</dt><dd>{{document.lastModified}}</dd>
+          <dt>Facets</dt><dd>{{document.facets}}</dd>
+          <template repeat="{{prop in document.properties.keys}}">
+            <dt>{{prop}}</dt><dd>{{document.properties[prop]}}</dd>
+          </template>
+        </dl>
+      </div>
+      <polymer-collapse id="collapse-content" targetId="content" closed></polymer-collapse>
+    </div>
+
+  </template>
+  <script type="application/dart" src="nx_document.dart"></script>
+</polymer-element>
+</body>
+</html>

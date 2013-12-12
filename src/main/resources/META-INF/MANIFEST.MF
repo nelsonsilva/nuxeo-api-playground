@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-Vendor: Nuxeo
-Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .
+Nuxeo-RequiredBy: org.nuxeo.ecm.war
 Bundle-Version: 1.0
-Bundle-Name: DartAutomationSandbox
+Bundle-Name: Dart Automation Sandbox
 Bundle-ManifestVersion: 2
-Bundle-SymbolicName: DartAutomationSandbox
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-SymbolicName: org.nuxeo.dart.automation.sandbox;singleton:=true
+Nuxeo-Component: OSGI-INF/authentication-contrib.xml
+
+

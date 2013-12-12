@@ -1,14 +1,16 @@
 name: nuxeo_dart_automation_sandbox
 description: A Nuxeo Automation Sandbox in Dart
+environment:
+  sdk: '>=1.0.0 <2.0.0'
 dependencies:
-  browser: any
+  browser: '>=0.9.0 <1.0.0'
   js: any
   markdown: any
-  nuxeo_automation: #'0.0.1+1'
+  nuxeo_automation:
     git: https://github.com/nelsonsilva/nuxeo-dart-automation.git
-  polymer:
-    git:
-      ref: polymer
-      url: https://github.com/dart-lang/web-ui.git
-dev_dependencies:
-  hop: '>=0.24.1'
+  polymer: '>=0.9.0 <1.0.0'
+  polymer_elements: '>=0.1.1 <1.0.0'
+  route: '>=0.4.6 <1.0.0'
+transformers:
+- polymer:
+    entry_points: web/index.html

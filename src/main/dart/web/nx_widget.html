@@ -1,19 +1,32 @@
 <!DOCTYPE html>
 
 <html>
+  <head>
+    <link rel="import" href="nx_document.html">
+    <link rel="import" href="nx_widget.html">
+  </head>
   <body>
-  <polymer-element name="nx-widget" constructor="NXWidget" attributes="value,label,type,datatype,required">
+<polymer-element name="nx-widget" attributes="value,label,type,datatype,required">
   <template>
-    <div class="form-group">
-      <label bind class="col-lg-2 control-label" for="{{'nx_widget_' + widgetId + '_' + label}}">{{label}}</label>
-      <div class="col-lg-10">
-        <template if="{{isText}}">
-          <input id="{{'nx_widget_' + widgetId + '_' + label}}" class="form-control" type="text" bind value="{{value}}" required="{{required}}"/>
+      <template if="{{label.isNotEmpty}}">
+        <label class="col-sm-4 control-label" for="widget">{{label}}</label>
+      </template>
+      <div class="col-sm-{{cols}}">
+        <template if="{{type == 'text'}}">
+          <input id="widget" class="form-control" type="text" value="{{value}}" required?="{{required}}"/>
+        </template>
+        <template if="{{type == 'document' || type == 'documents'}}">
+          <input id="widget" class="form-control" type="text" value="{{value}}" required?="{{required}}"/>
+        </template>
+        <template if="{{type == 'blob'}}">
+          <input id="widget" type="file" name="file" on-change="{{onFileSelected}}" required?="{{required}}">
+          <div hidden?="{{value == null}}">
+            <div>Size: {{value.length | asFileSize}}.</div>
+          </div>
         </template>
       </div>
-    </div>
   </template>
   <script type="application/dart" src="nx_widget.dart"></script>
-  </polymer-element>
-  </body>
+</polymer-element>
+</body>
 </html>

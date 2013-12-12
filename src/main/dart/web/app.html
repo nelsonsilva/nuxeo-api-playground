@@ -2,28 +2,51 @@
 
 <html>
   <head>
-    <link rel="import" href="nx_directory.html">
     <link rel="import" href="nx_operation.html">
+    <link rel="import" href="packages/polymer_elements/polymer_collapse/polymer_collapse.html">
+    <!-- TODO(nfgs) link rel="import" href="packages/polymer_elements/polymer_collapse/polymer_collapse_toggle.html" -->
   </head>
 
   <body>
-  <polymer-element name="nx-sandbox-app" constructor="NXSandboxApp">
+  <polymer-element name="nx-sandbox-app">
   <template>
-
+    <style>
+      .panel-category {
+        border-color: #428bca;
+        border-radius: 0px !important;
+      }
+      .panel-category>.panel-heading {
+        color: #fff;
+        background-color: #428bca;
+        border-color: #428bca;
+        border-radius: 0px !important;
+      }
+    </style>
     <div class="navbar navbar-fixed-top">
       <div class="container">
         <div class="navbar-brand">
           <span class="brand">nuxeo</span><span class="separator">/</span>Automation Sandbox
         </div>
+        <!-- TODO(nfgs) - Enable Tracing 
+        <div class="navbar-form col-md-2">
+          <template if="{{isConnected && canManageTraces}}">
+            <div class="checkbox">
+              <label style="vertical-align:middle;">
+                <input type="checkbox" title="Enable Tracing" checked="{{tracesEnabled}}">&nbsp;<i  class="glyphicon glyphicon-record glyphicon-large"></i>&nbsp;
+              </label>
+            </div>    
+           </template>
+        </div>
+        -->
         <div class="navbar-form pull-right form-inline">
-          <template if="{{!app.isConnected}}">
-            <i class="icon-globe icon-large"></i>&nbsp;
-            <input type="text" class="form-control" style="width:70%" size="50" id="nuxeoURL" value="{{nuxeoUrl}}" bind>
-            <button class="btn btn-nuxeo" on-click="connect"><i class="icon-bolt icon-large"></i>&nbsp;Connect</button>
+          <template if="{{!isConnected}}">
+            <i class="glyphicon glyphicon-globe glyphicon-large"></i>&nbsp;
+            <input type="text" class="form-control" style="width:70%" size="50" id="nuxeoURL" value="{{nuxeoUrl}}">
+            <button class="btn btn-nuxeo" on-click="{{connect}}"><i class="glyphicon glyphicon-flash"></i>&nbsp;Connect</button>
           </template>
-          <template if="{{app.isConnected}}">
-            <i class="icon-user icon-large"></i>&nbsp;{{app.username}}&nbsp;
-            <button class="btn btn-nuxeo" on-click="disconnect"><i class="icon-off"></i>&nbsp;Disconnect</button>
+          <template if="{{isConnected}}">         
+            <i class="glyphicon glyphicon-user glyphicon-large"></i>&nbsp;{{username}}&nbsp;
+            <button class="btn btn-nuxeo" on-click="{{disconnect}}"><i class="glyphicon glyphicon-off"></i>&nbsp;Disconnect</button>
           </template>
         </div>
       </div>
@@ -32,16 +55,16 @@
 
     <div class="container">
 
-      <template bind if="{{!app.isConnected}}">
+      <template if="{{!isConnected}}">
         <div class="row">
 
-          <div class="col-4">
+          <div class="col-md-4">
             <img width="100%" src="logo.png">
             <p class="pull-right"><small>powered by <a href="http://www.dartlang.org" target="_blank"><img src="dart.png"></a></small></p>
           </div>
 
-          <div class="col-8">
-            <template repeat="{{app.alerts}}">
+          <div class="col-md-8">
+            <template repeat="{{alerts}}">
               <div class="alert alert-{{style}}">
                 <strong>{{title}}</strong> {{message}}
               </div>
@@ -59,27 +82,32 @@
 
       <div class="row">
         <!-- SIDEBAR -->
-        <div class="col-4">
+        <div class="col-md-4">
           <div class="sidebar">
-            <template if="{{app.isConnected}}">
+            <template if="{{isConnected}}">
               <h3 class="title">Operations</h3>
-              <div class="accordion" id="categories">
-                <template repeat="{{category in app.categories}}">
-                  <div class="accordion-group">
-                    <div class="accordion-heading">
-                      <a class="accordion-toggle" on-click="toggleCategory" data-category-id="{{category.id}}">
-                        {{category.name}}
+              <input type="search" class="form-control" value="{{filter}}" placeholder="Search..." x-webkit-speech>
+              <div class="panel-group" id="categories">                               
+                <template repeat="{{category in categories}}">
+                  <div class="panel panel-category">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                      <a on-click="{{toggleCategory}}" data-category-id="{{category | asID}}">
+                        {{category}}
                       </a>
+                      </h4>
                     </div>
-                    <div id="category_{{category.id}}" class="accordion-body {{category.collapse}}">
-                      <div class="accordion-inner">
-                        <ul class="list-unstyled">
-                          <template repeat="{{op in category.operations}}">
-                            <li><a on-click="selectOperation" data-operation-id="{{op.id}}">{{op.label}}</a></li>
-                          </template>
-                        </ul>
-                      </div>
+                    <div id="category-{{category | asID}}" class="panel-collapse panel-body">
+                      <ul class="list-unstyled">
+                        <template repeat="{{op in operations[category]}}">
+                          <li><a href="#{{op.id}}">{{op.label}}</a></li>
+                        </template>
+                      </ul>
                     </div>
+                    <polymer-collapse id="collapse-{{category | asID}}" 
+                    targetId="category-{{category | asID}}" 
+                    closed="{{selectedOpCategory != category}}">
+                    </polymer-collapse>
                   </div>
                 </template>
               </div>
@@ -87,10 +115,21 @@
           </div>
         </div>
 
-        <div class="col-8">
-           <template if="{{app.selectedOp}}">
-             <nx-operation opid="{{app.selectedOp}}"></nx-operation>
-           </template>
+        <div class="col-md-8" style="padding-left:30px">
+          <template repeat="{{alerts}}">
+            <div class="alert alert-{{style}}">
+              <strong>{{title}}</strong> {{message}}
+            </div>
+          </template>
+          
+          <template if="{{isConnected && selectedOp == null}}">
+            <div class="alert alert-info">
+              <h4><i class="glyphicon glyphicon-hand-left"></i>&nbsp; Please choose an operation to play with...</h4>
+            </div>
+          </template>  
+          <template if="{{selectedOp}}">
+            <nx-operation opid="{{selectedOp}}"></nx-operation>
+          </template>
         </div>
 
       </div>
