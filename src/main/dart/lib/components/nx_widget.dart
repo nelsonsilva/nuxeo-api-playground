@@ -8,15 +8,15 @@ import 'package:nuxeo_automation/http.dart' as http;
 @CustomTag("nx-widget")
 class NXWidget extends PolymerElement {
 
-  @observable String datatype;
+  @published String datatype;
 
-  @observable String type;
+  @published String type;
 
-  @observable var value;
+  @published var value;
 
-  @observable bool required;
+  @published bool required;
 
-  @observable String label = "";
+  @published String label = "";
 
   bool get applyAuthorStyles => true;
 
@@ -26,6 +26,7 @@ class NXWidget extends PolymerElement {
 
   NXWidget.created() : super.created();
 
+  get valid => input.validity.valid;
   get input => shadowRoot.querySelector("#widget");
 
   /// File handling
@@ -46,7 +47,4 @@ class NXWidget extends PolymerElement {
     ..readAsArrayBuffer(file);
   }
 
-  // TODO(nfgs) - Try to get this working in the template
-  @observable int cols = 12;
-  labelChanged() { cols = (label.isEmpty) ? 12 : 8; }
 }

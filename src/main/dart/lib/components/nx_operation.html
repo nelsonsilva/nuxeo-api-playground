@@ -1,0 +1,97 @@
+<link rel="import" href="nx_document.html">
+<link rel="import" href="nx_widget.html">
+<polymer-element name="nx-operation">
+<template>
+  
+  <div class="ui huge header">POST /api/automation/{{name}}</div>
+  {{label}}
+  <p>{{description}}</p>
+  <!-- Input -->
+  <div id="input">
+  <template if="{{method != null && method.inputType != 'void'}}">
+    <div class="ui medium header">Input {{method.inputType}}</div>
+    <table class="ui large table">
+      <tbody>
+        <tr>
+          <td>
+            <select class="ui dropdown selection" value="{{selectedInputType}}">
+              <option template repeat="{{method in methods}}">{{method.inputType}}</option>
+            </select>
+            <!--            
+            <div class="ui dropdown selection">
+              <div class="default text">Choose</div>
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <template repeat="{{m in methods}}">
+                  <div class="item" data-value="{{m.inputType}}">{{m.inputType}}</div>
+                </template>
+              </div>
+            </div>
+            -->
+          </td>
+          <td>
+            <nx-widget
+              type="{{method.inputType}}"
+              datatype="{{method.inputType}}"
+              required="{{true}}"
+              value="{{method.input}}">
+              </nx-widget>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+  </div>
+       
+  <div class="ui form">   
+    
+    <!-- Parameters -->
+    <template if="{{params.length > 0}}">
+      <div class="ui medium header">Parameters</div>
+      
+      <table class="ui large basic blue table">
+        <thead>
+          <tr><th>Name</th>
+          <th>Value</th>
+        </tr></thead>
+        <tbody>
+          <tr template repeat="{{param in params}}">
+            <td>{{param.name}} ({{param.widget}} / {{param.dataType}})</td>
+            <td>
+              <div class="field">
+                <nx-widget
+                type="{{param.widget}}"
+                datatype="{{param.dataType}}"
+                required="{{param.required}}"
+                value="{{param.value}}">
+                </nx-widget>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+    </template>
+  </div>
+  
+  <!-- Submit button -->
+  <div style="float:right" class="ui red submit button" on-click="{{callOp}}">Run</div>
+  
+  <!-- Output -->
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><i class="glyphicon glyphicon-circle-arrow-left"></i>&nbsp;Output {{method.outputType}}</h3>
+    </div>
+    <div class="panel-body">
+      <template repeat="{{error in errors}}">
+        <div class="alert alert-error">{{error}}</div>
+      </template>
+      <div id="result"></div>
+    </div>
+  </div>
+                        
+
+</template>
+<script type="application/dart;component=1" src="nx_operation.dart"></script>
+</polymer-element>

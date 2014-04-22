@@ -2,9 +2,10 @@ library nx_operation;
 
 import 'dart:async';
 import 'dart:html';
-import 'model.dart';
 import 'nx_document.dart';
 import 'ui_filters.dart';
+import 'ui_module.dart';
+import 'package:polymer_expressions/filter.dart' show Transformer;
 import 'package:polymer/polymer.dart';
 import 'package:nuxeo_automation/client.dart' as nuxeo;
 import 'package:nuxeo_automation/http.dart' as http;
@@ -43,7 +44,7 @@ class NxOperationParamValue implements Comparable<NxOperationParamValue> {
 }
 
 @CustomTag("nx-operation")
-class NXOperation extends PolymerElement {
+class NXOperation extends NXElement {
 
   @published String opid;
   nuxeo.Operation _op;
@@ -53,7 +54,7 @@ class NXOperation extends PolymerElement {
   @observable String description;
   final List<NxOperationParamValue> params = toObservable([]);
 
-  @observable int selectedMethodIndex = -1;
+  @observable String selectedInputType;
   final List<NxOperationMethod> methods = toObservable([]);
   @observable NxOperationMethod method;
 
@@ -61,9 +62,34 @@ class NXOperation extends PolymerElement {
 
   bool get applyAuthorStyles => true;
 
-  NXOperation.created() : super.created();
+  NXOperation.created() : super.created() {
+
+  }
+
+  enteredView() {
+    /* Update the according when the operations change
+     onDomChange('#input', () {
+       jQuery(".ui.dropdown").callMethod('dropdown', []);
+     });*/
+  }
 
   void opidChanged() {
+    if (isConnected) {
+      _fetchOp();
+    }
+  }
+
+  @override
+  onConnect() {
+    _fetchOp();
+  }
+
+  void _fetchOp() {
+
+    // Check if we have already fetched the current op
+    if (opid == null || (_op != null && _op.id == opid)) {
+      return;
+    }
 
     // Clear the result area
     var results = shadowRoot.querySelector("#result");
@@ -74,7 +100,7 @@ class NXOperation extends PolymerElement {
     // Clear the errors
     errors.clear();
     // Reset the selected method
-    selectedMethodIndex = -1;
+    method = null;
 
     NX.registry.then((registry) {
       _op = registry[opid];
@@ -90,19 +116,20 @@ class NXOperation extends PolymerElement {
       // Setup the parameters
       methods.clear();
       methods.addAll(_op.methods.map((m) => new NxOperationMethod(m)));
-      selectedMethodIndex = 0;
+      selectedInputType = methods.first.inputType;
+
     });
   }
 
-  void selectedMethodIndexChanged() {
-    var m = (selectedMethodIndex == -1) ? null: methods[selectedMethodIndex];
+  void selectedInputTypeChanged() {
+    var m = methods.where((m) => m.inputType == selectedInputType).first;
     method = notifyPropertyChange(#method, method, m);
   }
 
   void callOp(evt) {
     evt.preventDefault(); // don't submit the form
 
-    var valid = shadowRoot.querySelectorAll("nx-widget").every((_) => _.input.validity.valid);
+    var valid = shadowRoot.querySelectorAll("nx-widget").every((_) => _.valid);
 
     if (!valid) {
       return;
@@ -164,5 +191,4 @@ class NXOperation extends PolymerElement {
       errors.add(message);
     });
   }
-
 }

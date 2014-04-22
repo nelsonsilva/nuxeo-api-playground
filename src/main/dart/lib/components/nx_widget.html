@@ -1,0 +1,39 @@
+<link rel="import" href="tree/nx_tree.html">
+<link rel="import" href="nx_document.html">
+<polymer-element name="nx-widget">
+  <template>
+
+        <div class="ui input">
+        <!-- Document(s) -->
+        <template if="{{datatype == 'document' || datatype == 'documents'}}">
+          <input id="widget" type="hidden" value="{{value}}" required?="{{required}}"/>
+          <!-- TODO(nfgs): Do not hardcode connectionId -->
+          <nx-tree root="/default-domain" multipleSelection="{{datatype == 'documents'}}" selected="{{value}}" connectionId="connection"></nx-tree>
+        </template>
+          
+        <template if="{{type == 'text'}}">
+
+         <!-- Checkbox -->
+          <template if="{{datatype == 'boolean'}}"> 
+            <div class="ui checkbox">
+              <input id="widget" type="checkbox"/>
+              <label for="widget"></label>
+            </div>
+          </template>
+          <!-- Text input -->
+          <template if="{{datatype == 'string'}}"> 
+            <input id="widget" type="text" value="{{value}}" required?="{{required}}"/>
+          </template>
+        </template>
+        
+        <!-- Blob -->
+        <template if="{{type == 'blob'}}">
+          <input id="widget" type="file" name="file" on-change="{{onFileSelected}}" required?="{{required}}">
+          <div hidden?="{{value == null}}">
+            <div>Size: {{value.length | asFileSize}}.</div>
+          </div>
+        </template>
+      </div>
+  </template>
+  <script type="application/dart;component=1" src="nx_widget.dart"></script>
+</polymer-element>

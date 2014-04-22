@@ -1,0 +1,30 @@
+<polymer-element name="nx-tree-node">
+  <template>
+    <template if="{{isFolderish}}">  
+      <div class="ui basic accordion">                        
+        <div class="title" on-click="{{toggle}}">
+          <img class="ui left floated tiny image" src="{{icon}}">
+          <span on-click="{{toggleSelection}}">
+            {{doc.title}} 
+            <template if="{{selected}}"><i class="checkmark icon"></i></template>
+          </span>
+        </div>
+        
+        <div class="content">
+          <template repeat="{{child in children}}">
+              <nx-tree-node connectionId="{{connectionId}}" docId="{{child.uid}}"></nx-tree-node>
+          </template>
+        </div>
+      </div>
+    </template>
+    
+    <template if="{{!isFolderish}}">
+      <img class="ui left floated tiny image" src="{{icon}}">
+      <span on-click="{{toggleSelection}}">
+        {{doc.title}} 
+        <template if="{{selected}}"><i class="checkmark icon"></i></template>
+      </span>
+    </template>
+  </template>
+  <script type="application/dart;component=1" src="tree_node.dart"></script>
+</polymer-element>

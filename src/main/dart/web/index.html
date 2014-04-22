@@ -9,18 +9,21 @@
 
     <link rel="icon" href="favicon.ico" />
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
-
-    <link href="http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700" rel="stylesheet" type="text/css">
-
-    <link rel="import" href="app.html">
-
-    <script type="application/dart"> export 'package:polymer/init.dart';</script>
-    <script src="packages/browser/dart.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    
+    <link rel="import" href="packages/polymer/polymer.html">
+    <link rel="import" href="packages/nuxeo_dart_automation_sandbox/app.html">
+    <link rel="import" href="packages/nuxeo_dart_automation_sandbox/components/nx_connection.html">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+    <script src="javascript/semantic.js"></script>
+  
   </head>
   <body>
-    <nx-sandbox-app></nx-sandbox-app>
+    <!-- Connection Area -->
+    <nx-connection id="connection"></nx-connection>
+    <!-- App -->
+    <nx-sandbox-app connectionId="connection"></nx-sandbox-app>
   </body>
 </html>
