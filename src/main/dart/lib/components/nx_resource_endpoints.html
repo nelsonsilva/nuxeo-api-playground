@@ -1,44 +1,53 @@
+<link rel="import" href="nx_request_monitor.html">
+<link rel="import" href="nx_request_options.html">
+<link rel="import" href="nx_widget.html">
 <link rel="import" href="ui_sidebar.html">
 <polymer-element name="nx-resource-endpoints">
+
   <template>
+    <link rel="stylesheet"  href="../css/semantic.css" no-shim>
+    <link rel="stylesheet"  href="../css/style.css" no-shim>
+
     <!-- Sidebar -->
-    <div class="ui large floating vertical sidebar menu active">
-      <!-- Navigation -->
-      <a class="ui red inverted header item">
-        <i class="home icon"></i>
-        {{title}}
-      </a>
-      <!-- Search -->
-      <div class="item">
-        <div class="ui icon input">
-          <input type="search" class="form-control" value="{{searchTerm}}" placeholder="Search...">
-          <i class="search icon"></i>
-        </div>
-      </div>
-      
-      <!-- Endpoints -->
-      <div class="ui fluid blue accordion" style="overflow:hidden">
-       
-        <template repeat="{{endpoint in endpoints}}">                    
-          <div class="title">{{endpoint.name}}</div>
-          <div class="content" style="padding:0">
-            <div class="ui small animated list">
-              <template repeat="{{method in endpoint.methods.keys}}">
-                  <div class="item">
-                    <div class="content">
-                      <div on-click="{{select}}" data-target="{{endpoint.path}}/{{method}}">{{endpoint.methods[method].name}}</div>
-                    </div>
-                  </div>
-              </template>
-            </div>
+    <ui-sidebar>
+      <div class="ui fluid vertical menu">
+        <!-- Navigation -->
+        <a class="ui red inverted header item">
+          <i class="circle left icon" on-click="{{goHome}}"></i>
+          {{title}}
+        </a>
+        <!-- TODO(nfgs): Search -->
+        <!-- div class="item">
+          <div class="ui icon input">
+            <input type="search" class="form-control" value="{{searchTerm}}" placeholder="Search...">
+            <i class="search icon"></i>
           </div>
-        </template>
-        
+        </div-->
+
+        <!-- Endpoints -->
+        <div id="endpoints" class="ui fluid blue accordion" style="overflow:hidden">
+
+          <template repeat="{{key in endpoints.keys}}">
+            <div class="title">{{key | capitalize}}</div>
+            <div class="content" style="padding:0">
+              <div class="ui small animated list">
+                <template repeat="{{operation in endpoints[key].operations}}">
+                    <div class="item">
+                      <div class="content">
+                        <div on-click="{{select}}" data-target="{{key}}/{{operation.method}}">{{operation.method}}</div>
+                      </div>
+                    </div>
+                </template>
+              </div>
+            </div>
+          </template>
+
+          </div>
       </div>
-    </div>
+    </ui-sidebar>
     
     <!-- Main page -->
-    <div class="ui page grid">
+    <div class="ui page grid pushed">
       <div id="main" class="column">
         
         <!-- Breadcrumb -->
@@ -49,9 +58,9 @@
           <a class="section" on-click="{{goRoot}}">{{title}}</a>
           <template if="{{endpoint}}">
             <div class="divider"> / </div>
-            <div class="active section">{{endpoint.name}}</div>
+            <div class="active section">{{endpointKey | capitalize}}</div>
             <div class="divider"> / </div>
-            <div class="active section">{{endpoint[method].name}}</div>
+            <div class="active section">{{operation.method}}</div>
           </template>
         </div>
        </div>
@@ -69,36 +78,57 @@
         </template>  
         
         <template if="{{endpoint}}">
-          <div class="ui huge header">{{method}} /{{endpoint.path}}</div> 
-          
-          <!-- Schema -->
-          <template if="{{selection.type == 'schemas'}}">
-            
-            <template if="{{selection.item.prefix.isNotEmpty}}">
-              <div class="ui label">
-                PREFIX: {{selection.item.prefix}}
-              </div>
-            </template>
-            
-            <br/>
-            
-            <table class="ui large basic blue table">
+          <div class="ui huge header">{{operation.method}} {{endpoint.path}}</div> 
+          <div class="ui description segment">{{operation.summary}}</div>
+          <div class="ui medium blue header">Parameters</div>
+          <div class="ui form">   
+    
+            <table class="ui large blue basic table">
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Type</th>
+                  <th>Value</th>
+                  <th>Description</th>
                 </tr>
               </thead>
               <tbody>
-                <tr template repeat="{{field in selection.item.fields | sort('name')}}">
-                  <td>{{field.name}}</td>
-                  <td>{{field.type}}</td>
+                <tr template repeat="{{param in params}}">
+                  <td>{{param.name}}</td>
+                  <td>
+                    <div class="field">
+                      <nx-widget
+                      type="{{(param.name == 'docPath' || param.name == 'docId') ? 'document' : 'text'}}"
+                      datatype="{{(param.name == 'docPath') ? 'path' : (param.name == 'docId') ? 'uid' : param.dataType}}"
+                      required="{{param.required}}"
+                      value="{{param.value}}">
+                      </nx-widget>
+                    </div>
+                  </td>
+                  <td>{{param.description}}
                 </tr>
               </tbody>
             </table>
-    
-         </template>
-         
+        
+          </div>
+          
+          <!-- Run with options -->
+          <div id="options" class="ui fluid accordion">                        
+            <div class="title" style="text-align: right;">
+              <i class="settings icon"></i>
+              <!-- Submit button -->
+              <div class="ui red submit button" on-click="{{runRequest}}">Run</div>
+            </div>
+            
+            <div class="content">
+              <nx-request-options connectionId="{{connectionId}}"></nx-request-options>
+            </div>
+          </div>
+          
+          <br/>
+          
+          <!-- Output -->
+          <nx-request-monitor request="{{request}}" response="{{response}}"></nx-request-monitor>
+          
         </template>           
       </div>
     </div>

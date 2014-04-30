@@ -5,7 +5,8 @@
 <link rel="import" href="components/nx_command_endpoints.html">
 <polymer-element name="nx-sandbox-app">
 <template>
-
+  <link rel="stylesheet"  href="css/semantic.css" no-shim>
+  <link rel="stylesheet"  href="css/style.css" no-shim>
   <!-- Home -->
   <template if="{{module == null}}">
     <div class="ui two column stackable page grid">
@@ -17,7 +18,6 @@
               <div class="four wide column"><img class="ui medium image" src="{{modules[key].icon}}"></div>
               <div class="twelve wide column">
                 <p class="description">{{modules[key].description}}</p>
-                <p><a href="">Properties, documents, files folders</a></p>
                 <div class="ui right floated red button" on-click="{{navigate}}" data-target="{{key}}">{{modules[key].action}}</div>
               </div>
             </div>

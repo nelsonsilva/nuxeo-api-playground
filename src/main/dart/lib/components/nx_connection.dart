@@ -1,20 +1,19 @@
 library nx_connection;
 
 import 'dart:async';
-import 'dart:js' as js;
-import 'dart:html';
 import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
 import 'package:polymer/polymer.dart';
+import 'semantic.dart';
 
 @CustomTag(NXConnection.TAG)
-class NXConnection extends PolymerElement {
+class NXConnection extends PolymerElement with SemanticUI {
 
   static const String TAG = "nx-connection";
 
   /// Global Nuxeo Automation Client instance
   nuxeo.Client NX;
 
-  @reflectable @observable bool isConnected = false;
+  @observable bool isConnected = false;
 
   @observable String username = "Administrator";
   @observable String password = "Administrator";
@@ -22,15 +21,21 @@ class NXConnection extends PolymerElement {
 
   @observable var nuxeoUrl = "http://localhost:8080/nuxeo";
 
+  /// Global request options
+  Map requestOptions = toObservable({
+      "Nuxeo-Transaction-Timeout": "35",
+      "X-NXDocumentProperties": "",
+      "X-NXRepository": "default",
+      "X-NXContext-Category": "",
+      "Content-Type": ""
+  });
+
   // Tracing
   @observable bool canManageTraces = false;
   @observable bool tracesEnabled = false;
 
   // Error messages
   final List<Alert> alerts = toObservable([]);
-
-  // This lets the CSS "bleed through" into the Shadow DOM of this element.
-  bool get applyAuthorStyles => true;
 
   NXConnection.created() : super.created() {
   }
@@ -62,7 +67,7 @@ class NXConnection extends PolymerElement {
      })
     .catchError((e) {
       alerts.add(
-        new Alert.danger("Oh snap!", "Please check the Nuxeo URL and try connecting again.")
+        new Alert.error("Please check the Nuxeo URL and try connecting again.")
       );
     });
   }
@@ -70,9 +75,7 @@ class NXConnection extends PolymerElement {
   isConnectedChanged() {
 
     async((_) {
-      var el = shadowRoot.querySelector('.ui.dropdown');
-      var jq = js.context.callMethod(r'$', [el]);
-      jq.callMethod('dropdown', []);
+      dropdown('.ui.dropdown');
     });
 
     // Check if we can toggle tracing if so set the default traing level
@@ -106,7 +109,6 @@ class NXConnection extends PolymerElement {
 
 class Alert {
   String style;
-  String title;
   String message;
-  Alert.danger(this.title, this.message) : style = "danger";
+  Alert.error(this.message) : style = "error";
 }

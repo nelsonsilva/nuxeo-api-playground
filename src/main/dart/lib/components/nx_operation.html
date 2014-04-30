@@ -1,15 +1,19 @@
-<link rel="import" href="nx_document.html">
+<link rel="import" href="nx_request_monitor.html">
 <link rel="import" href="nx_widget.html">
 <polymer-element name="nx-operation">
 <template>
-  
+  <link rel="stylesheet"  href="../css/semantic.css" no-shim>
+  <link rel="stylesheet"  href="../css/style.css" no-shim>
   <div class="ui huge header">POST /api/automation/{{name}}</div>
-  {{label}}
-  <p>{{description}}</p>
+  <div class="ui blue label">{{label}}</div>
+  <div class="ui description segment">
+    <p>{{description}}</p>
+  </div>
+
   <!-- Input -->
   <div id="input">
   <template if="{{method != null && method.inputType != 'void'}}">
-    <div class="ui medium header">Input {{method.inputType}}</div>
+    <div class="ui medium blue header">Input</div>
     <table class="ui large table">
       <tbody>
         <tr>
@@ -47,9 +51,9 @@
     
     <!-- Parameters -->
     <template if="{{params.length > 0}}">
-      <div class="ui medium header">Parameters</div>
+      <div class="ui medium blue header">Parameters</div>
       
-      <table class="ui large basic blue table">
+      <table class="ui large blue basic table">
         <thead>
           <tr><th>Name</th>
           <th>Value</th>
@@ -74,23 +78,33 @@
     </template>
   </div>
   
-  <!-- Submit button -->
-  <div style="float:right" class="ui red submit button" on-click="{{callOp}}">Run</div>
-  
-  <!-- Output -->
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title"><i class="glyphicon glyphicon-circle-arrow-left"></i>&nbsp;Output {{method.outputType}}</h3>
+  <div class="ui fluid accordion">                        
+    <div class="title" style="text-align: right;">
+      <i class="settings icon"></i>
+      <!-- Submit button -->
+      <div class="ui red submit button" on-click="{{callOp}}">Run</div>
     </div>
-    <div class="panel-body">
-      <template repeat="{{error in errors}}">
-        <div class="alert alert-error">{{error}}</div>
-      </template>
-      <div id="result"></div>
+    
+    <div class="content">
+      <div class="ui form">
+        <template repeat="{{key in connection.requestOptions.keys}}">
+          <div class="two fields">
+            <div class="field"><label>{{key}}</label></div>
+            <div class="field"><input type="text" value="{{connection.requestOptions[key]}}"></div>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
-                        
+  
+  <br/>
+  
+  <!-- Output -->
+  <nx-request-monitor request="{{opRequest}}" response="{{opResponse}}"></nx-request-monitor>
+
+  <template repeat="{{error in errors}}">
+    <div class="alert alert-error">{{error}}</div>
+  </template>
 
 </template>
 <script type="application/dart;component=1" src="nx_operation.dart"></script>

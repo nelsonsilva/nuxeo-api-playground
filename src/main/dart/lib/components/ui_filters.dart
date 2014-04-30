@@ -2,9 +2,15 @@ library filters;
 
 import 'dart:async';
 import 'dart:math' show max;
+// TODO: @MirrorsUsed(symbols: 'name,label')
 import 'dart:mirrors';
-import 'package:polymer/polymer.dart';
 import 'package:polymer_expressions/filter.dart';
+
+class Capitalize extends Transformer<String, String> {
+  Capitalize();
+  String forward(String s) => s.split(" ").map((p) => p.substring(0, 1) .toUpperCase() + p.substring(1)).join(" ");
+  String reverse(String s) => s; //throw new UnimplementedError("Capitalize transformer is irreversible!");
+}
 
 class StringToID extends Transformer<String, String> {
   StringToID();
@@ -27,11 +33,16 @@ class FileSizeToString extends Transformer<String, num> {
   num reverse(String s) => 0; // TODO(nfgs)
 }
 
-abstract class SearchFilter extends Object implements Observable {
+abstract class SearchFilter extends Object {
+  // TODO(nfgs) - Find out why dart2js does not like the @observable annotation
   /// The term to filter with
-  @observable String searchTerm = '';
+  //@observable
+  String searchTerm = '';
+  /// searchFilter adds a delay to the searchTerm to prevent immediate changes to the results
+  //@observable
+  String searchFilter = '';
 
-  String labelFor(item);
+  String labelFor(item) => item.toString();
 
   filter(term) => (items) => term.isEmpty ? items : items.where((i) => labelFor(i).toLowerCase().contains(term.toLowerCase())).toList();
 
@@ -45,9 +56,6 @@ abstract class SearchFilter extends Object implements Observable {
     });
     return lst;
   };
-
-  /// searchFilter adds a delay to the searchTerm to prevent immediate changes to the results
-  @observable String searchFilter = '';
 
   Timer _searchTimer;
 

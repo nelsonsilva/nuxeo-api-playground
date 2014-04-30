@@ -2,7 +2,6 @@ library nx_structures_browser;
 
 import 'dart:async';
 import 'dart:convert' show JSON;
-import 'dart:js' as js;
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import '../doctypes.dart' as nuxeo;
@@ -10,15 +9,17 @@ import 'ui_filters.dart';
 import 'ui_module.dart';
 import 'nx_connection.dart';
 import '../yuml.dart' as yuml;
+import 'semantic.dart';
 
 class Selection extends Observable {
   @observable var type;
   @observable var id;
   @observable var item;
+  Selection({this.type, this.id});
 }
 
 @CustomTag(NXStructuresBrowser.TAG)
-class NXStructuresBrowser extends NXModule with SearchFilter {
+class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
   static const String TAG = "nx-structures-browser";
 
@@ -29,8 +30,12 @@ class NXStructuresBrowser extends NXModule with SearchFilter {
 
   final Map<String, List> items = toObservable({
     "schemas": [],
-     "facets": [],
-     "types": []});
+    "facets": [],
+    "types": []});
+
+  // SearchFilter
+  @observable String searchTerm = '';
+  @observable String searchFilter = '';
 
   List<nuxeo.Schema> get schemas => items["schemas"];
   List<nuxeo.Facet> get facets => items["facets"];
@@ -40,9 +45,6 @@ class NXStructuresBrowser extends NXModule with SearchFilter {
 
   factory NXStructuresBrowser() => new Element.tag(TAG);
 
-  // This lets the CSS "bleed through" into the Shadow DOM of this element.
-  bool get applyAuthorStyles => true;
-
   yuml.DiagramGenerator _diagram;
 
   NXStructuresBrowser.created() : super.created() {
@@ -50,29 +52,16 @@ class NXStructuresBrowser extends NXModule with SearchFilter {
 
   enteredView() {
     // Setup the accordion
-    jQuery(".ui.accordion").callMethod('accordion', []);
-
-    // Wait for the DOM to be updated
-    onDomChange('#main', () {
-      if (selection.item != null) {
-         jQuery('#diagram').callMethod('popup', [new js.JsObject.jsify({
-           "on": "click",
-           "position": "bottom right",
-           "html": "<img src='$_currentItemDiagram'>"
-         })]);
-        }
-    });
-
+    accordion(".ui.accordion");
   }
 
   get _currentItemDiagram {
     if (selection.item is nuxeo.Doctype) {
       return _diagram.generateForDoctype(selection.item.name);
+    } else if (selection.item is nuxeo.Facet) {
+      return _diagram.generateForFacet(selection.item.name);
     }
   }
-
-  @override
-  String labelFor(item) => item.toString();
 
   @override
   onConnect() {
@@ -117,7 +106,7 @@ class NXStructuresBrowser extends NXModule with SearchFilter {
     })
     .catchError((e) {
       connection.alerts.add(
-        new Alert.danger("Oh snap!", "Please check the Nuxeo URL and try connecting again.")
+        new Alert.error("Please check the Nuxeo URL and try connecting again.")
       );
       return false;
     });
@@ -127,14 +116,22 @@ class NXStructuresBrowser extends NXModule with SearchFilter {
   void selectionChanged() {
     if (selection != null && items[selection.type].isNotEmpty) {
       selection.item = items[selection.type].where((d) => d.name == selection.id).first;
+
+      // Update the UI
+      if (selection.item != null) {
+        async((_) {
+          popup('.diagram', on: "click", position: "bottom right", html: "<img src='$_currentItemDiagram'>");
+        });
+      }
     }
+
   }
 
   @override
    void setupRoutes(Route route) {
     route.addRoute(
         name: 'home',
-        path: '',
+        path: '/',
         enter: (e) {
           selection = null;
         }
@@ -143,12 +140,10 @@ class NXStructuresBrowser extends NXModule with SearchFilter {
          name: 'view',
          path: '/:type/:id',
          enter: (e) {
-           selection = new Selection()
-           ..type = e.parameters['type']
-           ..id = e.parameters['id'];
+           selection = new Selection(type: e.parameters['type'], id: e.parameters['id']);
          },
          leave: (e) {
-           jQuery('#diagram').callMethod('popup', ['remove']);
+           jQuery('.diagram').callMethod('popup', ["destroy"]);
          }
      );
    }
@@ -158,4 +153,6 @@ class NXStructuresBrowser extends NXModule with SearchFilter {
     var id = target.dataset["id"].split("-");
     router.go("$path.view", {"type": id[0], "id": id[1]});
   }
+
+  get capitalize => new Capitalize();
 }

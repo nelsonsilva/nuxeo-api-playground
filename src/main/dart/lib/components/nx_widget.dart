@@ -1,5 +1,6 @@
 library nx_widget;
 
+import 'dart:js' as js;
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'ui_filters.dart';
@@ -18,13 +19,18 @@ class NXWidget extends PolymerElement {
 
   @published String label = "";
 
-  bool get applyAuthorStyles => true;
-
   String get widgetTemplate {
     return "nx_text_widget";
   }
 
   NXWidget.created() : super.created();
+
+  showModal() {
+    var el = shadowRoot.querySelector(".ui.modal");
+    var jqEl = js.context.callMethod(r'$', [el]);
+    jqEl.callMethod('modal', [new js.JsObject.jsify({"detachable": false})]);
+    jqEl.callMethod('modal', ['show']);
+  }
 
   get valid => input.validity.valid;
   get input => shadowRoot.querySelector("#widget");

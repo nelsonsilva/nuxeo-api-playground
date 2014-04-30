@@ -2,21 +2,23 @@
 <link rel="import" href="ui_sidebar.html">
 <polymer-element name="nx-repository-browser">
   <template>
-     <!-- Sidebar -->
-    <div class="ui large floating vertical sidebar menu active">
-      <!-- Navigation -->
-      <a class="ui red inverted header item">
-        <i class="home icon"></i>
-        {{title}}
-      </a>
-      <div class="item">
-      
-      <!-- Endpoints -->
-      <nx-tree root="/default-domain" connectionId="{{connectionId}}" selected="{{selectedDocuments}}"></nx-tree>
-      
+    <link rel="stylesheet"  href="../css/semantic.css" no-shim>
+    <link rel="stylesheet"  href="../css/style.css" no-shim>
+
+    <ui-sidebar>
+      <div class="ui fluid vertical menu">
+          <!-- Navigation -->
+          <a class="ui red inverted header item">
+            <i class="circle left icon" on-click="{{goHome}}"></i>
+            {{title}}
+          </a>
+          <div class="item">
+            <!-- Endpoints -->
+            <nx-tree root="/default-domain" connectionId="{{connectionId}}" selected="{{documentId}}"></nx-tree>
+          </div>
       </div>
-    </div>
-    
+    </ui-sidebar>
+
     <div class="ui page grid">
       <div class="column">
       
@@ -29,25 +31,39 @@
           </div>
        </div>
         
-        <div class="ui vertical segment">
-          <div class="ui huge header">{{document.type}}</div>
-          <p>Description of the document type. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
-          <div class="ui medium header">Properties</div>
-          <table class="ui large basic blue table">
-            <thead>
-              <tr><th>Name</th>
-              <th>Value</th>
-            </tr></thead>
-            <tbody>
-              <tr template repeat="{{key in document.properties.keys}}">
-                <td>{{key}}</td>
-                <td>{{document.properties[key]}}</td>
-              </tr>
-            </tbody>
-          </table>
-
-       </div>
-
+        <template if="{{document == null}}">
+          <div class="ui raised segment">
+            <h3 class="ui blue header">{{title}}</h3>
+            <div class="ui grid">
+              <div class="four wide column"><img class="ui medium image" src="{{icon}}"></div>
+              <div class="twelve wide column">
+                <p class="description">{{description}}</p>
+              </div>
+            </div>
+          </div>
+        </template>  
+        
+        <template if="{{document}}">
+          <div class="ui vertical segment">
+            <div class="ui huge header">{{document.type}}</div>
+            <p>Description of the document type. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+            <div class="ui medium header">Properties</div>
+            <table class="ui large basic blue table">
+              <thead>
+                <tr><th>Name</th>
+                <th>Value</th>
+              </tr></thead>
+              <tbody>
+                <tr template repeat="{{key in document.properties.keys}}">
+                  <td><strong>{{key}}</strong></td>
+                  <td>{{document.properties[key]}}</td>
+                </tr>
+              </tbody>
+            </table>
+  
+         </div>
+        </template>
+        
       </div>
     </div>
     

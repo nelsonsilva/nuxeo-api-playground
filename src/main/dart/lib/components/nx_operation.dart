@@ -1,24 +1,20 @@
 library nx_operation;
 
-import 'dart:async';
-import 'dart:html';
-import 'nx_document.dart';
-import 'ui_filters.dart';
 import 'ui_module.dart';
-import 'package:polymer_expressions/filter.dart' show Transformer;
 import 'package:polymer/polymer.dart';
 import 'package:nuxeo_automation/client.dart' as nuxeo;
-import 'package:nuxeo_automation/http.dart' as http;
+import 'semantic.dart';
 
 class NxOperationMethod extends Observable {
-  nuxeo.OperationMethod _method;
   String name = "run";
   @observable var input;
+  @observable var inputType;
+  @observable var outputType;
 
-  NxOperationMethod(this._method);
-
-  String get inputType => _method.input;
-  String get outputType => _method.output;
+  NxOperationMethod(nuxeo.OperationMethod method) {
+    inputType = method.input;
+    outputType = method.output;
+  }
 }
 
 class NxOperationParamValue implements Comparable<NxOperationParamValue> {
@@ -44,10 +40,12 @@ class NxOperationParamValue implements Comparable<NxOperationParamValue> {
 }
 
 @CustomTag("nx-operation")
-class NXOperation extends NXElement {
+class NXOperation extends NXElement with SemanticUI {
 
   @published String opid;
   nuxeo.Operation _op;
+  @observable nuxeo.OperationRequest opRequest;
+  @observable var opResponse;
 
   @observable String name;
   @observable String label;
@@ -60,13 +58,12 @@ class NXOperation extends NXElement {
 
   final List errors = toObservable([]);
 
-  bool get applyAuthorStyles => true;
-
   NXOperation.created() : super.created() {
-
   }
 
   enteredView() {
+    accordion(".ui.accordion");
+
     /* Update the according when the operations change
      onDomChange('#input', () {
        jQuery(".ui.dropdown").callMethod('dropdown', []);
@@ -127,7 +124,9 @@ class NXOperation extends NXElement {
   }
 
   void callOp(evt) {
-    evt.preventDefault(); // don't submit the form
+    // don't submit the form
+    evt.stopImmediatePropagation();
+    evt.preventDefault();
 
     var valid = shadowRoot.querySelectorAll("nx-widget").every((_) => _.valid);
 
@@ -136,8 +135,6 @@ class NXOperation extends NXElement {
     }
 
     // Clear previous results and errors
-    var container = shadowRoot.querySelector("#result");
-    container.children.clear();
     errors.clear();
 
     // Setup the parameters
@@ -147,48 +144,16 @@ class NXOperation extends NXElement {
     });
 
     // Call the op
-    NX.op(_op.id)(input: method.input, params: opParams)
+    opRequest = NX.op(_op.id);
+
+    opRequest(input: method.input, params: opParams)
     .then((res) {
-      if ( (res is nuxeo.Document) || (res is Iterable)) {
-        var docs = (res is nuxeo.Document) ? [res] : res;
-        if (docs.isEmpty) {
-          container.appendText("Empty");
-        } else {
-          docs.forEach((doc) {
-            NXDocument docEl = new Element.tag("nx-document");
-            docEl.document = doc;
-            container.append(docEl);
-          });
-        }
-      } else if (res is http.Blob) {
-        var blob = new Blob([res.content], res.mimetype);
-        var info = new Element.tag("div");
-        info.text = res.mimetype + " (" + new FileSizeToString().forward(res.length) + ")";
-        container.append(info);
-        /* TODO(nfgs) - Read the Blob
-        var reader = new FileReader()
-        ..onLoadEnd.listen((e) {
-          var url = e.target.result;
-          var link = new Element.tag("a");
-          link.href = url;
-          link.text = "Download";
-          link.target = "_blank";
-          container.append(link);
-          if (res.mimetype.startsWith("image")) {
-            var img = new Element.tag("image");
-            img.src = url;
-            container.append(img);
-          }
-        })
-        ..readAsDataUrl(blob);
-        */
-      } else {
-        container.append(new Element.tag("div")..text = res.toString());
-      }
+      opResponse = opRequest.response;
     })
     .catchError((e) {
       var message = (e is nuxeo.ClientException)? e.message : e.toString();
       errors.add(message);
     });
   }
+
 }

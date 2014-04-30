@@ -1,6 +1,5 @@
 library nx_command_endpoints;
 
-import 'dart:js' as js;
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
@@ -8,9 +7,10 @@ import 'package:polymer_expressions/filter.dart' show Transformer;
 import 'nx_connection.dart';
 import 'ui_filters.dart';
 import 'ui_module.dart';
+import 'semantic.dart';
 
 @CustomTag(NXCommandEndpoints.TAG)
-class NXCommandEndpoints extends NXModule {
+class NXCommandEndpoints extends NXModule with SearchFilter, SemanticUI {
 
   static const String TAG = "nx-command-endpoints";
 
@@ -20,34 +20,21 @@ class NXCommandEndpoints extends NXModule {
          action = "Discover";
 
   // Map with Category => List<Operation>
-  final Map<String, List<nuxeo.Operation>> allOperations = toObservable({});
-
-  // Filtered operations
-  @observable String filter;
   final Map<String, List<nuxeo.Operation>> operations = toObservable({});
 
   @observable String selectedOp = null;
+
+  // SearchFilter
+  @observable String searchTerm = '';
+  @observable String searchFilter = '';
 
   // Tracing
   @observable bool canManageTraces = false;
   @observable bool tracesEnabled = false;
 
-
   factory NXCommandEndpoints() => new Element.tag(TAG);
 
-  // This lets the CSS "bleed through" into the Shadow DOM of this element.
-  bool get applyAuthorStyles => true;
-
-
   NXCommandEndpoints.created() : super.created() {
-  }
-
-  enteredView() {
-    jQuery(".ui.accordion").callMethod('accordion', []);
-    // Update the according when the operations change
-    onDomChange('#operations', () {
-      jQuery(".ui.accordion").callMethod('accordion', []);
-    });
   }
 
   @override
@@ -68,45 +55,37 @@ class NXCommandEndpoints extends NXModule {
     NX.registry // Get the op registry
     .then((nuxeo.OperationRegistry registry) {        // Get the ops
       registry.ops.forEach((name, nuxeo.Operation op) {
-        var ops = allOperations.putIfAbsent(op.category,() => toObservable([]));
+        var ops = operations.putIfAbsent(op.category,() => toObservable([]));
         ops.add(op);
       });
 
-      // Update the filter
-      filter = "";
+      async((_) { accordion(".ui.accordion"); });
 
-      return registry;
+      notifyPropertyChange(#categories, null, categories);
     })
     .catchError((e) {
       connection.alerts.add(
-        new Alert.danger("Oh snap!", "Please check the Nuxeo URL and try connecting again.")
+        new Alert.error("Failed to retrieve operations.")
       );
       return false;
     });
   }
 
-  get categories => operations.keys;
+  // Only show categories with operations
+  get categories => operations.keys.where((c) => filter(searchFilter)(operations[c]).isNotEmpty);
 
-  filterChanged() {
+  @override
+  String labelFor(item) => item.label;
 
-    var oldValue = categories;
-     operations.clear();
-     allOperations.forEach((category, ops) {
-       ops.forEach((op) {
-         if (op.label.toLowerCase().contains(filter.toLowerCase())) {
-           operations.putIfAbsent(category,() => []);
-           operations[category].add(op);
-         }
-       });
-     });
+  searchFilterChanged() {
+    notifyPropertyChange(#categories, null, categories);
+    async((_) { accordion(".ui.accordion"); });
+  }
 
-     notifyPropertyChange(#categories, oldValue, categories);
-   }
+  selectOperation(event, detail, target) {
+    router.go("$path.op", {"opId": target.dataset["operation-id"]});
+  }
 
-   selectOperation(event, detail, target) {
-     router.go("$path.op", {"opId": target.dataset["operation-id"]});
-   }
-
-   // Filters and transformers can be referenced as fields.
-   final Transformer asID = new StringToID();
+  // Filters and transformers can be referenced as fields.
+  final Transformer asID = new StringToID();
 }

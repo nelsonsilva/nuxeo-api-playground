@@ -9,16 +9,65 @@
 
     <link rel="icon" href="favicon.ico" />
 
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="css/semantic.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    
+    <style>
+        body {
+            background: #fafafa;
+            margin: 0px;
+            padding: 0px;
+            /* sidebar transitions */
+            -webkit-transition: margin 0.3s ease, -webkit-transform 0.3s ease /*rtl:append:,padding 0.3s ease*/;
+            -moz-transition: margin 0.3s ease, -moz-transform 0.3s ease /*rtl:append:,padding 0.3s ease*/;
+            transition: margin 0.3s ease, transform 0.3s ease /*rtl:append:,padding 0.3s ease*/;
+        }
+
+        /* Font Faces don't work in the shadow DOM yet :( */
+
+        /* http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700 */
+        @font-face {
+          font-family: 'Open Sans';
+          font-style: normal;
+          font-weight: 300;
+          src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+        }
+
+        @font-face {
+          font-family: 'Open Sans';
+          font-style: normal;
+          font-weight: 700;
+          src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+        }
+        @font-face {
+          font-family: 'Open Sans';
+          font-style: italic;
+          font-weight: 300;
+          src: local('Open Sans Light Italic'), local('OpenSansLight-Italic'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/PRmiXeptR36kaC0GEAetxh_xHqYgAV9Bl_ZQbYUxnQU.woff) format('woff');
+        }
+
+        @font-face {
+          font-family: 'Open Sans';
+          font-style: normal;
+          font-weight: 400;
+          src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+        }
+
+        /* Semantic icons */
+        @font-face {
+          font-family: 'Icons';
+          src: url(fonts/icons.eot);
+          src: url(fonts/icons.eot?#iefix) format('embedded-opentype'), url(fonts/icons.svg#icons) format('svg'), url(fonts/icons.woff) format('woff'), url(fonts/icons.ttf) format('truetype');
+          font-style: normal;
+          font-weight: normal;
+          font-variant: normal;
+          text-decoration: inherit;
+          text-transform: none;
+        }
+    </style>
     <link rel="import" href="packages/polymer/polymer.html">
     <link rel="import" href="packages/nuxeo_dart_automation_sandbox/app.html">
     <link rel="import" href="packages/nuxeo_dart_automation_sandbox/components/nx_connection.html">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+    <script src="javascript/jquery.js"></script>
     <script src="javascript/semantic.js"></script>
-  
+    <script src="javascript/highlight.pack.js"></script>
   </head>
   <body>
     <!-- Connection Area -->

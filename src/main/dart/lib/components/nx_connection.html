@@ -1,5 +1,7 @@
 <polymer-element name="nx-connection">
   <template>
+    <link rel="stylesheet"  href="../css/semantic.css" no-shim>
+    <link rel="stylesheet"  href="../css/style.css" no-shim>
     <div class="connection">
       <div class="ui page grid">
       
@@ -12,7 +14,7 @@
      
             <p>Connect the playground with your server and browse repository, data structures, resources and command endpoints, adapters, REST contributors and business objects.</p>
             
-            <div class="ui form segment">
+            <div class="ui form attached segment">
               <div class="four fields">
                 <div class="field">
                   <input placeholder="http://localhost:8080/nuxeo" type="text" value="{{nuxeoUrl}}">
@@ -28,6 +30,13 @@
                 </div>
               </div>
             </div>
+
+            <template repeat="{{alert in alerts}}">
+              <div class="ui bottom attached {{alert.style}} message">
+                <i class="icon warning"></i>{{alert.message}}
+              </div>
+            </template>
+
           </template>
           
           <!-- Connected -->
@@ -39,15 +48,6 @@
                 <img class="ui avatar image" src="{{avatar}}">
                 {{username}}
 
-              <div class="ui left pointing dropdown icon button">
-                <i class="settings icon"></i>
-                <div class="menu">
-                  <div class="item"><i class="edit icon"></i>Edit</div>
-                  <div class="item"><i class="delete icon"></i>Remove</div>
-                  <div class="item"><i class="hide icon"></i>Hide</div>
-                </div>
-              </div>
-              
               <div class="ui red button" on-click="{{disconnect}}">Sign out</div>
               
             </div>

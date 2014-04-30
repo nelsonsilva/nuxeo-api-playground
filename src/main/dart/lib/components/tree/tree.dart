@@ -1,16 +1,20 @@
 library nx_tree;
 
-import 'dart:html';
-import '../ui_module.dart';
+// This should reduce the size of the JS
+// TODO: @MirrorsUsed(symbols: 'uid,path')
+import 'dart:mirrors';
 import 'tree_node.dart';
+import '../semantic.dart';
+import '../ui_module.dart';
 import 'package:polymer/polymer.dart';
-import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
 
 @CustomTag("nx-tree")
-class Tree extends NXElement {
+class Tree extends NXElement with SemanticUI {
 
   @published String root;
   @published bool multipleSelection = false;
+  /// The document field to use as key
+  @published String key = "uid"; // uid, path, etc...
 
   List _selection = toObservable([]);
 
@@ -18,7 +22,7 @@ class Tree extends NXElement {
     if (v is! Iterable) {
       v = [v];
     }
-    _selection.addAll(v.where((i) => i != null));
+    _selection..clear()..addAll(v.where((i) => i != null));
   }
 
   @published get selected {
@@ -31,15 +35,11 @@ class Tree extends NXElement {
   Tree.created() : super.created() {
   }
 
-  // This lets the CSS "bleed through" into the Shadow DOM of this element.
-  bool get applyAuthorStyles => true;
-
   bool get valid => true;
 
   enteredView() {
-      jQuery(".ui.accordion").callMethod('accordion', []);
+    accordion(".ui.accordion");
   }
-
 
   @override
   onConnect() {
@@ -53,22 +53,26 @@ class Tree extends NXElement {
   }
 
   _expandRoot() {
-    shadowRoot.querySelector("nx-tree-node").expand();
+    (shadowRoot.querySelector("nx-tree-node") as TreeNode).expand();
   }
 
   nodeSelected(event, detail, target) {
 
     var oldValue = selected;
-    var docId = detail;
 
-    if (!multipleSelection) {
-      _clearSelections(shadowRoot);
-    }
+    // Get the document key
+    var doc = detail;
+    var docId = reflect(doc).getField(new Symbol(key)).reflectee;
 
-    if (_selection.contains(docId)) { // Remove existing selection
-      _selection.remove(docId);
-    } else { // Add new selection
+    // New selection
+    if (!_selection.contains(docId)) {
+      // Clear others if not multiple
+      if (!multipleSelection) {
+        _clearSelections(shadowRoot);
+      }
       _selection.add(docId);
+    } else { // Remove existing selection
+      _selection.remove(docId);
     }
     notifyPropertyChange(#selected, oldValue, selected);
   }

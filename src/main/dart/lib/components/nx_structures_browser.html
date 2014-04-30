@@ -1,46 +1,50 @@
 <link rel="import" href="ui_sidebar.html">
 <polymer-element name="nx-structures-browser">
   <template>
+    <link rel="stylesheet"  href="../css/semantic.css" no-shim>
+    <link rel="stylesheet"  href="../css/style.css" no-shim>
     <!-- Sidebar -->
-    <div class="ui large floating vertical sidebar menu active">
-      <!-- Navigation -->
-      <a class="ui red inverted header item">
-        <i class="home icon"></i>
-        {{title}}
-      </a>
-      <!-- Search -->
-      <div class="item">
-        <div class="ui icon input">
-          <input type="search" class="form-control" value="{{searchTerm}}" placeholder="Search...">
-          <i class="search icon"></i>
+    <ui-sidebar>
+      <div class="ui large vertical menu">
+        <!-- Navigation -->
+        <a class="ui red inverted header item">
+          <i class="circle left icon" on-click="{{goHome}}"></i>
+          {{title}}
+        </a>
+        <!-- Search -->
+        <div class="item">
+          <div class="ui icon input">
+            <input type="search" class="form-control" value="{{searchTerm}}" placeholder="Search...">
+            <i class="search icon"></i>
+          </div>
+        </div>
+
+        <!-- Schemas, Facets and Doctypes -->
+        <div class="ui fluid blue accordion" style="overflow:hidden">
+
+          <template repeat="{{type in items.keys}}">
+            <div class="title">{{type | capitalize}}</div>
+            <div class="content" style="padding:0">
+              <div class="ui small animated list">
+                <template repeat="{{item in items[type] | filter(searchFilter) | sort('name')}}">
+                    <div class="item">
+                      <div class="content">
+                        <a on-click="{{select}}" data-id="{{type}}-{{item.name}}">{{item.name}}</a>
+                      </div>
+                    </div>
+                </template>
+              </div>
+            </div>
+          </template>
+
         </div>
       </div>
-      
-      <!-- Schemas, Facets and Doctypes -->
-      <div class="ui fluid blue accordion" style="overflow:hidden">
-       
-        <template repeat="{{type in items.keys}}">                    
-          <div class="title">{{type}}</div>
-          <div class="content" style="padding:0">
-            <div class="ui small animated list">
-              <template repeat="{{item in items[type] | filter(searchFilter) | sort('name')}}">
-                  <div class="item">
-                    <div class="content">
-                      <div on-click="{{select}}" data-id="{{type}}-{{item.name}}">{{item.name}}</div>
-                    </div>
-                  </div>
-              </template>
-            </div>
-          </div>
-        </template>
-        
-      </div>
-    </div>
-    
+    </ui-sidebar>
+
     <!-- Main page -->
-    <div class="ui page grid">
+    <div class="ui page grid pushed">
       <div id="main" class="column">
-        
+
         <!-- Breadcrumb -->
         <div class="ui segment">
          <div class="ui breadcrumb">
@@ -49,13 +53,13 @@
           <a class="section" on-click="{{goRoot}}">{{title}}</a>
           <template if="{{selection}}">
             <div class="divider"> / </div>
-            <div class="active section">{{selection.type}}</div>
+            <div class="active section">{{selection.type | capitalize}}</div>
             <div class="divider"> / </div>
             <div class="active section">{{selection.item.name}}</div>
           </template>
         </div>
        </div>
-        
+
         <template if="{{selection == null}}">
           <div class="ui raised segment">
             <h3 class="ui blue header">{{title}}</h3>
@@ -66,22 +70,22 @@
               </div>
             </div>
           </div>
-        </template>  
-        
+        </template>
+
         <template if="{{selection}}">
-          <div class="ui huge header">{{selection.item.name}}</div> 
-          
-          <!-- Schema -->
+          <div class="ui huge header">{{selection.item.name}}</div>
+
+          <!-- SCHEMA -->
           <template if="{{selection.type == 'schemas'}}">
-            
+
             <template if="{{selection.item.prefix.isNotEmpty}}">
               <div class="ui label">
                 PREFIX: {{selection.item.prefix}}
               </div>
             </template>
-            
+
             <br/>
-            
+
             <table class="ui large basic blue table">
               <thead>
                 <tr>
@@ -96,42 +100,51 @@
                 </tr>
               </tbody>
             </table>
-    
-         </template>
-          
-          <!-- Facet -->
-          <template if="{{selection.type == 'facets'}}">
 
+         </template>
+
+          <!-- FACET -->
+          <template if="{{selection.type == 'facets'}}">
+            <i class="sitemap icon diagram link"></i>
+
+            <template if="{{selection.item.schemas.isNotEmpty}}">
             <div class="ui medium header">Related schemas</div>
             <template repeat="{{schema in selection.item.schemas}}">
               <a class="link" on-click="{{select}}" data-id="schemas-{{schema}}">{{schema}}</a>
             </template>
-            
+            </template>
+
          </template>
-         
-          <!-- Doctype -->
+
+          <!-- DOCTYPE -->
           <template if="{{selection.type == 'types'}}">
-            
+
             <template if="{{selection.item.parent}}">
-              <i id="diagram" class="sitemap icon link"></i>
+              <i class="sitemap icon diagram link"></i>
               <div class="ui label">
                 EXTENDS: <a style="color:#00adff;" on-click="{{select}}" data-id="types-{{selection.item.parent}}">{{selection.item.parent}}</a>
               </div>
             </template>
-            
+
+            <!-- Schemas -->
+            <template if="{{selection.item.schemas.isNotEmpty}}">
             <div class="ui medium header">Schemas</div>
             <template repeat="{{schema in selection.item.schemas}}">
               <a class="link" on-click="{{select}}" data-id="schemas-{{schema}}">{{schema}}</a>
             </template>
-            
+            </template>
+
+            <!-- Facets -->
+            <template if="{{selection.item.facets.isNotEmpty}}">
             <div class="ui medium header">Facets</div>
             <template repeat="{{facet in selection.item.facets}}">
               <a class="link" on-click="{{select}}" data-id="facets-{{facet}}">{{facet}}</a>
             </template>
-            
+            </template>
+
          </template>
-         
-        </template>           
+
+        </template>
       </div>
     </div>
     

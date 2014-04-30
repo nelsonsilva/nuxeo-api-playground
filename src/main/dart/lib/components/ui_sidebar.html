@@ -1,0 +1,14 @@
+<polymer-element name="ui-sidebar">
+  <template>
+    <link rel="stylesheet"  href="../css/semantic.css" no-shim>
+    <!-- Sidebar -->
+    <div class="ui large vertical sidebar">
+        <content></content>
+    </div>
+    <!-- Button -->
+    <div class="ui launch right attached button" style="color:white;background-color:#888;width:50px" on-click="{{toggleSidebar}}">
+        <i class="icon list layout"></i>
+    </div>
+  </template>
+  <script type="application/dart;component=1" src="ui_sidebar.dart"></script>
+</polymer-element>

@@ -1,6 +1,7 @@
 library nx_tree_node;
 
 import 'dart:html';
+import '../semantic.dart';
 import '../ui_module.dart';
 import 'package:polymer/polymer.dart';
 import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
@@ -18,23 +19,19 @@ const DOCTYPE_ICONS = const {
 };
 
 @CustomTag("nx-tree-node")
-class TreeNode extends NXElement {
+class TreeNode extends NXElement with SemanticUI {
 
   static const String SELECTED_EVENT = "nodeselected";
 
   @published String docId;
   @published nuxeo.Document doc;
   @published List children = toObservable([]);
-  @published bool selected = false;
-
-  // This lets the CSS "bleed through" into the Shadow DOM of this element.
-  bool get applyAuthorStyles => true;
 
   TreeNode.created() : super.created() {
   }
 
   enteredView() {
-    jQuery(".ui.accordion").callMethod('accordion', []);
+    accordion(".ui.accordion");
   }
 
   @published bool multiple = false;
@@ -74,7 +71,6 @@ class TreeNode extends NXElement {
     if (children.isNotEmpty) {
       return;
     }
-    print("fetching and expanding ${docId}");
     NX.doc(docId).children().fetch().then((docs) {
       children..clear()..addAll(docs);
     });
@@ -87,12 +83,18 @@ class TreeNode extends NXElement {
     expand();
   }
 
+  set selected(bool flag) {
+    var classes = shadowRoot.querySelector(".label").classes;
+    (flag)? classes.add("selected") : classes.remove("selected");
+  }
+
+  bool get selected => shadowRoot.querySelector(".label").classes.contains("selected");
 
   void toggleSelection(MouseEvent event, detail, target) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    selected = !selected;
-    dispatchEvent(new CustomEvent(SELECTED_EVENT, detail: doc.uid));
+    selected = shadowRoot.querySelector(".label").classes.toggle("selected");
+    dispatchEvent(new CustomEvent(SELECTED_EVENT, detail: doc));
   }
 
   _fetchDoc() {

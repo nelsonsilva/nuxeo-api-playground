@@ -29,6 +29,7 @@ class DiagramGenerator {
   }
 
   String generateForDoctype(String name) => URL + _umlForDoctype(name).join(",");
+  String generateForFacet(String name) => URL + _umlForFacet(name).join(",");
 
   List _umlForDoctype(String name) {
     var doctype = doctypes[name];
@@ -40,8 +41,7 @@ class DiagramGenerator {
 
     // Inheritance
     // [Parent]^-[Child]
-    // TODO(nfgs) - Remove None!!! test
-    if (doctype.parent != null && doctype.parent != "None!!!") {
+    if (doctype.parent != null) {
       uml.add("[${doctype.parent}]^-[${doctype.name}]");
       uml.addAll(_umlForDoctype(doctype.parent));
 

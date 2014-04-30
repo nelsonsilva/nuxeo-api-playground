@@ -4,10 +4,10 @@ import 'dart:html';
 import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
 import 'package:polymer/polymer.dart';
 import 'ui_module.dart';
-//import 'ui_sidebar.dart';
+import 'semantic.dart';
 
 @CustomTag(NXRepositoryBrowser.TAG)
-class NXRepositoryBrowser extends NXModule {
+class NXRepositoryBrowser extends NXModule with SemanticUI {
 
   static const String TAG = "nx-repository-browser";
 
@@ -16,23 +16,19 @@ class NXRepositoryBrowser extends NXModule {
          description = "Browse your repository and discover the properties of your documents.",
          action = "Explore";
 
-  @published List selectedDocuments = toObservable([]);
+  @published String documentId;
 
-  @published nuxeo.Document document;
+  @observable nuxeo.Document document;
 
   factory NXRepositoryBrowser() => new Element.tag(TAG);
 
-  // This lets the CSS "bleed through" into the Shadow DOM of this element.
-  bool get applyAuthorStyles => true;
-
   NXRepositoryBrowser.created() : super.created() {
   }
-
-  selectedDocumentsChanged() {
-    if (selectedDocuments.isEmpty) {
+  documentIdChanged() {
+    if (documentId == null) {
       document = null;
     } else {
-      NX.doc(selectedDocuments.first).fetch().then((doc) { document = doc; });
+      NX.doc(documentId).fetch().then((doc) { document = doc; });
     }
   }
 

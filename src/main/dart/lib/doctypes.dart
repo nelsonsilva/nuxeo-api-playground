@@ -1,16 +1,22 @@
 library doctypes;
 
+/// [Doctype]
 class Doctype {
+
+  static const NONE = "None!!!";
+
   String name;
   String parent;
   List<String> facets;
   List<String> schemas;
 
-  Doctype(this.name, {this.parent, this.facets, this.schemas});
+  Doctype(this.name, {String parent, this.facets, this.schemas}) :
+    this.parent = (parent == NONE) ? null : parent;
 
   toString() => name;
 }
 
+/// [Schema] field
 class SchemaField {
   String name;
   var type;
@@ -26,8 +32,10 @@ class SchemaField {
     }
   }
 
+  toString() => name;
 }
 
+/// [Schema]
 class Schema {
   String name, prefix;
   List<SchemaField> fields = [];
@@ -39,8 +47,11 @@ class Schema {
     json["fields"].forEach((k, v) { schema.fields.add(new SchemaField(k, v)); });
     return schema;
   }
+
+  toString() => name;
 }
 
+/// [Facet]
 class Facet {
   String name;
   List<String> schemas = [];
@@ -54,4 +65,6 @@ class Facet {
     }
     return facet;
   }
+
+  toString() => name;
 }

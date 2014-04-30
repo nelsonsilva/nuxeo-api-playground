@@ -1,14 +1,38 @@
 <link rel="import" href="tree/nx_tree.html">
-<link rel="import" href="nx_document.html">
 <polymer-element name="nx-widget">
-  <template>
 
+  <template>
+      <link rel="stylesheet"  href="../css/semantic.css" no-shim>
+      <link rel="stylesheet"  href="../css/style.css" no-shim>
         <div class="ui input">
         <!-- Document(s) -->
-        <template if="{{datatype == 'document' || datatype == 'documents'}}">
-          <input id="widget" type="hidden" value="{{value}}" required?="{{required}}"/>
-          <!-- TODO(nfgs): Do not hardcode connectionId -->
-          <nx-tree root="/default-domain" multipleSelection="{{datatype == 'documents'}}" selected="{{value}}" connectionId="connection"></nx-tree>
+        <template if="{{type == 'document' || type == 'documents'}}">
+          <div class="ui action input">
+            <input id="widget" type="text" value="{{value}}" required?="{{required}}"/>
+            <div class="ui icon button" on-click="{{showModal}}"><i class="open folder outline icon"></i></div>
+          </div>
+          <div class="ui modal">
+            <i class="close icon"></i>
+            <div class="header">
+              Pick {{type}}:
+            </div>
+            <div class="content">
+              <div class="ui segment">
+
+              <!-- TODO(nfgs): Do not hardcode connectionId -->
+              <nx-tree root="/default-domain"
+                       key="{{(datatype == 'document' || datatype == 'documents') ? 'uid' : datatype}}"
+                       multipleSelection="{{type == 'documents'}}"
+                       selected="{{value}}"
+                       connectionId="connection"></nx-tree>
+              </div>
+            </div>
+            <div class="actions">
+              <div class="ui button">Cancel</div>
+              <div class="ui button">OK</div>
+            </div>
+          </div>
+
         </template>
           
         <template if="{{type == 'text'}}">
