@@ -50,6 +50,8 @@ abstract class NXModule extends NXElement {
 
   NXModule.created() : super.created();
 
+  bool get preventDispose => true;
+
   // Store the root router and return the mountFn
   mount(String path, Router router) {
     this.path = path;

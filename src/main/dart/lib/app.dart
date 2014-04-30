@@ -57,7 +57,7 @@ class NXSandboxApp extends PolymerElement {
 
     // default handler
 
-    router.root.addRoute(name: 'home', defaultRoute: true, path: '', enter: showHome);
+    router.root.addRoute(name: 'home', defaultRoute: true, path: '/', enter: showHome);
 
     router.listen();
   }

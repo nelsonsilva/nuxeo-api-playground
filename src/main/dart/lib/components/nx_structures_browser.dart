@@ -129,13 +129,6 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
   @override
    void setupRoutes(Route route) {
-    route.addRoute(
-        name: 'home',
-        path: '/',
-        enter: (e) {
-          selection = null;
-        }
-    );
      route.addRoute(
          name: 'view',
          path: '/:type/:id',

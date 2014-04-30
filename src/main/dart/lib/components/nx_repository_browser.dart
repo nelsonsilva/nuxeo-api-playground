@@ -24,6 +24,7 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
 
   NXRepositoryBrowser.created() : super.created() {
   }
+
   documentIdChanged() {
     if (documentId == null) {
       document = null;
@@ -33,13 +34,5 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
   }
 
   void setupRoutes(route) {
-      route.addRoute(
-          name: 'home',
-          path: '/',
-          enter: home);
-  }
-
-  home(_) {
-
   }
 }
