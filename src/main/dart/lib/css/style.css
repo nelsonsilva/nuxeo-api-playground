@@ -21,12 +21,6 @@ a {
 /*******************************
             Custom
 *******************************/
-.connection {
-  margin: 0em;
-  overflow: hidden;
-  background-color: #00adff;
-  color: white;
-}
 
 .ui.description.segment {
   position: relative;

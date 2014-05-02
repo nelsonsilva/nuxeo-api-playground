@@ -1,9 +1,24 @@
 <link rel="import" href="nx_request_monitor.html">
+<link rel="import" href="nx_request_options.html">
 <link rel="import" href="nx_widget.html">
 <polymer-element name="nx-operation">
 <template>
-  <link rel="stylesheet"  href="../css/semantic.css" no-shim>
+
+  <link rel="stylesheet"  href="../semantic/elements/button.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/elements/header.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/elements/icon.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/elements/input.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/elements/label.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
+
+  <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/collections/table.min.css" no-shim>
+  
+  <link rel="stylesheet"  href="../semantic/modules/accordion.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/modules/dropdown.min.css" no-shim>
+  
   <link rel="stylesheet"  href="../css/style.css" no-shim>
+
   <div class="ui huge header">POST /api/automation/{{name}}</div>
   <div class="ui blue label">{{label}}</div>
   <div class="ui description segment">
@@ -77,8 +92,9 @@
       
     </template>
   </div>
-  
-  <div class="ui fluid accordion">                        
+
+  <!-- Run with options -->
+  <div id="options" class="ui fluid accordion">                        
     <div class="title" style="text-align: right;">
       <i class="settings icon"></i>
       <!-- Submit button -->
@@ -86,17 +102,10 @@
     </div>
     
     <div class="content">
-      <div class="ui form">
-        <template repeat="{{key in connection.requestOptions.keys}}">
-          <div class="two fields">
-            <div class="field"><label>{{key}}</label></div>
-            <div class="field"><input type="text" value="{{connection.requestOptions[key]}}"></div>
-          </div>
-        </template>
-      </div>
+      <nx-request-options connectionId="{{connectionId}}"></nx-request-options>
     </div>
   </div>
-  
+          
   <br/>
   
   <!-- Output -->
