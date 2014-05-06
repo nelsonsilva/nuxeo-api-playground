@@ -338,6 +338,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -471,6 +481,7 @@ input:required:valid:after {
       background-color: transparent;
       -webkit-box-shadow: none;
       box-shadow: none;
+      max-width: none;
       }
 
       .ui.tree.accordion .title,
@@ -798,6 +809,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -821,7 +842,7 @@ input:required:valid:after {
             <i class="circle left icon" on-click="{{goHome}}"></i>
             {{title}}
           </a>
-          <div class="item">
+          <div class="item" style="overflow:auto">
             <!-- Endpoints -->
             <nx-tree root="/default-domain" connectionid="{{connectionId}}" selected="{{documentId}}"></nx-tree>
           </div>
@@ -837,6 +858,10 @@ input:required:valid:after {
             <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
             <div class="divider"> / </div>
              <a class="active section" on-click="{{goRoot}}">{{title}}</a>
+             <template if="{{document}}">
+              <div class="divider"> / </div>
+              <div class="active section">{{document.title}}</div>
+             </template>
           </div>
        </div>
         
@@ -1039,6 +1064,48 @@ input:required:valid:after {
 */
 
 .ui.accordion,.ui.accordion .accordion{width:600px;max-width:100%;font-size:1rem;border-radius:.3125em;background-color:#FFF;-webkit-box-shadow:0 0 0 1px rgba(0,0,0,.1);box-shadow:0 0 0 1px rgba(0,0,0,.1)}.ui.accordion .title,.ui.accordion .accordion .title{cursor:pointer;margin:0;padding:.75em 1em;color:rgba(0,0,0,.6);border-top:1px solid rgba(0,0,0,.05);-webkit-transition:background-color .2s ease-out;-moz-transition:background-color .2s ease-out;transition:background-color .2s ease-out}.ui.accordion .title:first-child,.ui.accordion .accordion .title:first-child{border-top:0}.ui.accordion .content,.ui.accordion .accordion .content{display:none;margin:0;padding:1.3em 1em}.ui.accordion .title .dropdown.icon,.ui.accordion .accordion .title .dropdown.icon{display:inline-block;float:none;margin:0 .5em 0 0;-webkit-transition:-webkit-transform .2s ease,opacity .2s ease;-moz-transition:-moz-transform .2s ease,opacity .2s ease;transition:transform .2s ease,opacity .2s ease;-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg)}.ui.accordion .title .dropdown.icon:before,.ui.accordion .accordion .title .dropdown.icon:before{content:'\f0da'}.ui.basic.accordion.menu{background-color:#FFF;-webkit-box-shadow:0 0 0 1px rgba(0,0,0,.1);box-shadow:0 0 0 1px rgba(0,0,0,.1)}.ui.basic.accordion.menu .title,.ui.basic.accordion.menu .content{padding:0}.ui.basic.accordion{background-color:transparent;-webkit-box-shadow:none;box-shadow:none}.ui.basic.accordion .title,.ui.basic.accordion .accordion .title{background-color:transparent;border-top:0;padding-left:0;padding-right:0}.ui.basic.accordion .content,.ui.basic.accordion .accordion .content{padding:.5em 0}.ui.basic.accordion .active.title,.ui.basic.accordion .accordion .active.title{background-color:transparent}.ui.accordion .title:hover,.ui.accordion .active.title,.ui.accordion .accordion .title:hover,.ui.accordion .accordion .active.title{color:rgba(0,0,0,.8)}.ui.accordion .active.title,.ui.accordion .accordion .active.title{background-color:rgba(0,0,0,.1);color:rgba(0,0,0,.8)}.ui.accordion .active.title .dropdown.icon,.ui.accordion .accordion .active.title .dropdown.icon{-webkit-transform:rotate(90deg);-moz-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}.ui.accordion .active.content,.ui.accordion .accordion .active.content{display:block}.ui.fluid.accordion,.ui.fluid.accordion .accordion{width:100%}</style>
+    <style>/*
+* # Semantic UI
+* Version: 0.15.4
+* http://github.com/jlukic/semantic-ui
+*
+*
+* Copyright 2014 Contributors
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+* Released: 04/04/2014
+*/
+
+.ui.dimmable{position:relative}.ui.dimmer{display:none;position:absolute;top:0!important;left:0!important;width:0;height:0;text-align:center;vertical-align:middle;background-color:rgba(0,0,0,.85);opacity:0;line-height:1;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:.5s;-moz-animation-duration:.5s;animation-duration:.5s;-webkit-transition:background-color .5s linear;-moz-transition:background-color .5s linear;transition:background-color .5s linear;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;z-index:1000}.ui.dimmer>.content{width:100%;height:100%;display:table;-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text}.ui.dimmer>.content>div{display:table-cell;vertical-align:middle;color:#FFF}.ui.segment>.ui.dimmer{border-radius:5px}.ui.horizontal.segment>.ui.dimmer,.ui.vertical.segment>.ui.dimmer{border-radius:5px}.ui.dimmed.dimmable:not(body){overflow:hidden}.ui.dimmed.dimmable>.ui.animating.dimmer,.ui.dimmed.dimmable>.ui.visible.dimmer,.ui.active.dimmer{display:block;width:100%;height:100%;opacity:1}.ui.disabled.dimmer{width:0!important;height:0!important}.ui.page.dimmer{position:fixed;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-perspective:2000px;-moz-perspective:2000px;-ms-perspective:2000px;perspective:2000px;-webkit-transform-origin:center center;-moz-transform-origin:center center;-ms-transform-origin:center center;transform-origin:center center}.ui.scrolling.dimmable>.dimmer,.ui.scrolling.page.dimmer{position:absolute}.ui.dimmer>.top.aligned.content>*{vertical-align:top}.ui.dimmer>.bottom.aligned.content>*{vertical-align:bottom}.ui.inverted.dimmer{background-color:rgba(255,255,255,.85)}.ui.inverted.dimmer>.content>*{color:rgba(0,0,0,.8)}.ui.simple.dimmer{display:block;overflow:hidden;opacity:1;z-index:-100;background-color:rgba(0,0,0,0)}.ui.dimmed.dimmable>.ui.simple.dimmer{overflow:visible;opacity:1;width:100%;height:100%;background-color:rgba(0,0,0,.85);z-index:1}.ui.simple.inverted.dimmer{background-color:rgba(255,255,255,0)}.ui.dimmed.dimmable>.ui.simple.inverted.dimmer{background-color:rgba(255,255,255,.85)}</style>
+    <style>/*
+* # Semantic UI
+* Version: 0.15.4
+* http://github.com/jlukic/semantic-ui
+*
+*
+* Copyright 2014 Contributors
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+* Released: 04/04/2014
+*/
+
+.ui.modal{display:none;position:fixed;z-index:1001;top:50%;left:50%;text-align:left;width:90%;margin-left:-45%;background-color:#FFF;border:1px solid #DDD;border-radius:5px;-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text}.ui.modal>.close{cursor:pointer;position:absolute;z-index:1;opacity:.8;font-size:1.25em;top:-1.75em;right:-1.75em;color:#FFF}.ui.modal>.close:hover{opacity:1}.ui.modal>.header{margin:0;padding:1.5rem 2rem;font-size:1.6em;font-weight:700;border-radius:.325em .325em 0 0}.ui.modal>.content{display:table;width:100%;position:relative;padding:2em;background-color:#F4F4F4;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}.ui.modal>.content>.left:not(.ui){display:table-cell;padding-right:1.5%;min-width:25%}.ui.modal>.content>.right:not(.ui){display:table-cell;padding-left:1.5%;vertical-align:top}.ui.modal>.content>.left:not(.ui)>i.icon{font-size:8em;margin:0}.ui.modal>.content p{line-height:1.6}.ui.modal .actions{padding:1rem 2rem;text-align:right}.ui.modal .actions>.button{margin-left:.75em}@media only screen and (max-width:768px){.ui.modal .content>.left:not(.ui){display:block;padding:0 0 1em}.ui.modal .content>.right:not(.ui){display:block;padding:1em 0 0;-webkit-box-shadow:none;box-shadow:none}.ui.modal .content .image{width:auto!important;max-width:100%}.ui.modal .actions{padding-bottom:0}.ui.modal .actions>.buttons,.ui.modal .actions>.button{margin-bottom:1em}}@media only screen and (max-width:998px){.ui.modal{width:92%;margin-left:-46%}.ui.modal>.close{color:rgba(0,0,0,.8);top:1.5rem;right:1rem}}@media only screen and (min-width:998px){.ui.modal{width:74%;margin-left:-37%}}@media only screen and (min-width:1500px){.ui.modal{width:56%;margin-left:-28%}}@media only screen and (min-width:1750px){.ui.modal{width:42%;margin-left:-21%}}@media only screen and (min-width:2000px){.ui.modal{width:36%;margin-left:-18%}}.ui.basic.modal{background-color:transparent;border:0;color:#FFF}.ui.basic.modal>.close{top:1.5rem;right:1rem}.ui.basic.modal .content{background-color:transparent}.ui.modal.scrolling{position:absolute;margin-top:10px}.ui.active.modal{display:block}.ui.small.modal>.header{font-size:1.3em}@media only screen and (min-width:998px){.ui.small.modal{width:58%;margin-left:-29%}}@media only screen and (min-width:1500px){.ui.small.modal{width:40%;margin-left:-20%}}@media only screen and (min-width:1750px){.ui.small.modal{width:26%;margin-left:-13%}}@media only screen and (min-width:2000px){.ui.small.modal{width:20%;margin-left:-10%}}@media only screen and (min-width:998px){.ui.large.modal{width:74%;margin-left:-37%}}@media only screen and (min-width:1500px){.ui.large.modal{width:64%;margin-left:-32%}}@media only screen and (min-width:1750px){.ui.large.modal{width:54%;margin-left:-27%}}@media only screen and (min-width:2000px){.ui.large.modal{width:44%;margin-left:-22%}}</style>
+    <style>/*
+* # Semantic UI
+* Version: 0.15.4
+* http://github.com/jlukic/semantic-ui
+*
+*
+* Copyright 2014 Contributors
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+* Released: 04/04/2014
+*/
+
+.ui.transition{-webkit-animation-iteration-count:1;-moz-animation-iteration-count:1;animation-iteration-count:1;-webkit-animation-duration:1s;-moz-animation-duration:1s;animation-duration:1s;-webkit-animation-timing-function:ease;-moz-animation-timing-function:ease;animation-timing-function:ease;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;animation-fill-mode:both}.ui.animating.transition{display:block;-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;backface-visibility:hidden;-webkit-transform:translateZ(0);-moz-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}.ui.loading.transition{position:absolute;top:-999999px;left:-99999px}.ui.hidden.transition{display:none}.ui.visible.transition{display:block;visibility:visible}.ui.disabled.transition{-webkit-animation-play-state:paused;-moz-animation-play-state:paused;animation-play-state:paused}.ui.looping.transition{-webkit-animation-iteration-count:infinite;-moz-animation-iteration-count:infinite;animation-iteration-count:infinite}.ui.flash.transition{-webkit-animation-name:flash;-moz-animation-name:flash;animation-name:flash}.ui.shake.transition{-webkit-animation-name:shake;-moz-animation-name:shake;animation-name:shake}.ui.bounce.transition{-webkit-animation-name:bounce;-moz-animation-name:bounce;animation-name:bounce}.ui.tada.transition{-webkit-animation-name:tada;-moz-animation-name:tada;animation-name:tada}.ui.pulse.transition{-webkit-animation-name:pulse;-moz-animation-name:pulse;animation-name:pulse}.ui.flip.transition.in,.ui.flip.transition.out{-webkit-perspective:2000px;-moz-perspective:2000px;-ms-perspective:2000px;perspective:2000px}.ui.horizontal.flip.transition.in,.ui.horizontal.flip.transition.out{-webkit-animation-name:horizontalFlip;-moz-animation-name:horizontalFlip;animation-name:horizontalFlip}.ui.horizontal.flip.transition.out{-webkit-animation-name:horizontalFlipOut;-moz-animation-name:horizontalFlipOut;animation-name:horizontalFlipOut}.ui.vertical.flip.transition.in,.ui.vertical.flip.transition.out{-webkit-animation-name:verticalFlip;-moz-animation-name:verticalFlip;animation-name:verticalFlip}.ui.vertical.flip.transition.out{-webkit-animation-name:verticalFlipOut;-moz-animation-name:verticalFlipOut;animation-name:verticalFlipOut}.ui.fade.transition.in{-webkit-animation-name:fade;-moz-animation-name:fade;animation-name:fade}.ui.fade.transition.out{-webkit-animation-name:fadeOut;-moz-animation-name:fadeOut;animation-name:fadeOut}.ui.fade.up.transition.in{-webkit-animation-name:fadeUp;-moz-animation-name:fadeUp;animation-name:fadeUp}.ui.fade.up.transition.out{-webkit-animation-name:fadeUpOut;-moz-animation-name:fadeUpOut;animation-name:fadeUpOut}.ui.fade.down.transition.in{-webkit-animation-name:fadeDown;-moz-animation-name:fadeDown;animation-name:fadeDown}.ui.fade.down.transition.out{-webkit-animation-name:fadeDownOut;-moz-animation-name:fadeDownOut;animation-name:fadeDownOut}.ui.scale.transition.in{-webkit-animation-name:scale;-moz-animation-name:scale;animation-name:scale}.ui.scale.transition.out{-webkit-animation-name:scaleOut;-moz-animation-name:scaleOut;animation-name:scaleOut}.ui.slide.down.transition.in{-webkit-animation-name:slide;-moz-animation-name:slide;animation-name:slide;-moz-transform-origin:50% 0;transform-origin:50% 0;-ms-transform-origin:50% 0;-webkit-transform-origin:50% 0}.ui.slide.down.transition.out{-webkit-animation-name:slideOut;-moz-animation-name:slideOut;animation-name:slideOut;-webkit-transform-origin:50% 0;-moz-transform-origin:50% 0;-ms-transform-origin:50% 0;transform-origin:50% 0}.ui.slide.up.transition.in{-webkit-animation-name:slide;-moz-animation-name:slide;animation-name:slide;-webkit-transform-origin:50% 100%;-moz-transform-origin:50% 100%;-ms-transform-origin:50% 100%;transform-origin:50% 100%}.ui.slide.up.transition.out{-webkit-animation-name:slideOut;-moz-animation-name:slideOut;animation-name:slideOut;-webkit-transform-origin:50% 100%;-moz-transform-origin:50% 100%;-ms-transform-origin:50% 100%;transform-origin:50% 100%}@-webkit-keyframes slide{0%{opacity:0;-webkit-transform:scaleY(0);transform:scaleY(0)}100%{opacity:1;-webkit-transform:scaleY(1);transform:scaleY(1)}}@-moz-keyframes slide{0%{opacity:0;-moz-transform:scaleY(0);transform:scaleY(0)}100%{opacity:1;-moz-transform:scaleY(1);transform:scaleY(1)}}@keyframes slide{0%{opacity:0;-webkit-transform:scaleY(0);-moz-transform:scaleY(0);-ms-transform:scaleY(0);transform:scaleY(0)}100%{opacity:1;-webkit-transform:scaleY(1);-moz-transform:scaleY(1);-ms-transform:scaleY(1);transform:scaleY(1)}}@-webkit-keyframes slideOut{0%{opacity:1;-webkit-transform:scaleY(1);transform:scaleY(1)}100%{opacity:0;-webkit-transform:scaleY(0);transform:scaleY(0)}}@-moz-keyframes slideOut{0%{opacity:1;-moz-transform:scaleY(1);transform:scaleY(1)}100%{opacity:0;-moz-transform:scaleY(0);transform:scaleY(0)}}@keyframes slideOut{0%{opacity:1;-webkit-transform:scaleY(1);-moz-transform:scaleY(1);-ms-transform:scaleY(1);transform:scaleY(1)}100%{opacity:0;-webkit-transform:scaleY(0);-moz-transform:scaleY(0);-ms-transform:scaleY(0);transform:scaleY(0)}}@-webkit-keyframes flash{0%,50%,100%{opacity:1}25%,75%{opacity:0}}@-moz-keyframes flash{0%,50%,100%{opacity:1}25%,75%{opacity:0}}@keyframes flash{0%,50%,100%{opacity:1}25%,75%{opacity:0}}@-webkit-keyframes shake{0%,100%{-webkit-transform:translateX(0);transform:translateX(0)}10%,30%,50%,70%,90%{-webkit-transform:translateX(-10px);transform:translateX(-10px)}20%,40%,60%,80%{-webkit-transform:translateX(10px);transform:translateX(10px)}}@-moz-keyframes shake{0%,100%{-moz-transform:translateX(0);transform:translateX(0)}10%,30%,50%,70%,90%{-moz-transform:translateX(-10px);transform:translateX(-10px)}20%,40%,60%,80%{-moz-transform:translateX(10px);transform:translateX(10px)}}@keyframes shake{0%,100%{-webkit-transform:translateX(0);-moz-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0)}10%,30%,50%,70%,90%{-webkit-transform:translateX(-10px);-moz-transform:translateX(-10px);-ms-transform:translateX(-10px);transform:translateX(-10px)}20%,40%,60%,80%{-webkit-transform:translateX(10px);-moz-transform:translateX(10px);-ms-transform:translateX(10px);transform:translateX(10px)}}@-webkit-keyframes bounce{0%,20%,50%,80%,100%{-webkit-transform:translateY(0);transform:translateY(0)}40%{-webkit-transform:translateY(-30px);transform:translateY(-30px)}60%{-webkit-transform:translateY(-15px);transform:translateY(-15px)}}@-moz-keyframes bounce{0%,20%,50%,80%,100%{-moz-transform:translateY(0);transform:translateY(0)}40%{-moz-transform:translateY(-30px);transform:translateY(-30px)}60%{-moz-transform:translateY(-15px);transform:translateY(-15px)}}@keyframes bounce{0%,20%,50%,80%,100%{-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}40%{-webkit-transform:translateY(-30px);-moz-transform:translateY(-30px);-ms-transform:translateY(-30px);transform:translateY(-30px)}60%{-webkit-transform:translateY(-15px);-moz-transform:translateY(-15px);-ms-transform:translateY(-15px);transform:translateY(-15px)}}@-webkit-keyframes tada{0%{-webkit-transform:scale(1);transform:scale(1)}10%,20%{-webkit-transform:scale(0.9) rotate(-3deg);transform:scale(0.9) rotate(-3deg)}30%,50%,70%,90%{-webkit-transform:scale(1.1) rotate(3deg);transform:scale(1.1) rotate(3deg)}40%,60%,80%{-webkit-transform:scale(1.1) rotate(-3deg);transform:scale(1.1) rotate(-3deg)}100%{-webkit-transform:scale(1) rotate(0);transform:scale(1) rotate(0)}}@-moz-keyframes tada{0%{-moz-transform:scale(1);transform:scale(1)}10%,20%{-moz-transform:scale(0.9) rotate(-3deg);transform:scale(0.9) rotate(-3deg)}30%,50%,70%,90%{-moz-transform:scale(1.1) rotate(3deg);transform:scale(1.1) rotate(3deg)}40%,60%,80%{-moz-transform:scale(1.1) rotate(-3deg);transform:scale(1.1) rotate(-3deg)}100%{-moz-transform:scale(1) rotate(0);transform:scale(1) rotate(0)}}@keyframes tada{0%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}10%,20%{-webkit-transform:scale(0.9) rotate(-3deg);-moz-transform:scale(0.9) rotate(-3deg);-ms-transform:scale(0.9) rotate(-3deg);transform:scale(0.9) rotate(-3deg)}30%,50%,70%,90%{-webkit-transform:scale(1.1) rotate(3deg);-moz-transform:scale(1.1) rotate(3deg);-ms-transform:scale(1.1) rotate(3deg);transform:scale(1.1) rotate(3deg)}40%,60%,80%{-webkit-transform:scale(1.1) rotate(-3deg);-moz-transform:scale(1.1) rotate(-3deg);-ms-transform:scale(1.1) rotate(-3deg);transform:scale(1.1) rotate(-3deg)}100%{-webkit-transform:scale(1) rotate(0);-moz-transform:scale(1) rotate(0);-ms-transform:scale(1) rotate(0);transform:scale(1) rotate(0)}}@-webkit-keyframes pulse{0%{-webkit-transform:scale(1);transform:scale(1);opacity:1}50%{-webkit-transform:scale(0.9);transform:scale(0.9);opacity:.7}100%{-webkit-transform:scale(1);transform:scale(1);opacity:1}}@-moz-keyframes pulse{0%{-moz-transform:scale(1);transform:scale(1);opacity:1}50%{-moz-transform:scale(0.9);transform:scale(0.9);opacity:.7}100%{-moz-transform:scale(1);transform:scale(1);opacity:1}}@keyframes pulse{0%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);transform:scale(1);opacity:1}50%{-webkit-transform:scale(0.9);-moz-transform:scale(0.9);-ms-transform:scale(0.9);transform:scale(0.9);opacity:.7}100%{-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);transform:scale(1);opacity:1}}@-webkit-keyframes horizontalFlip{0%{-webkit-transform:rotateY(-90deg);transform:rotateY(-90deg);opacity:0}100%{-webkit-transform:rotateY(0deg);transform:rotateY(0deg);opacity:1}}@-moz-keyframes horizontalFlip{0%{-moz-transform:rotateY(-90deg);transform:rotateY(-90deg);opacity:0}100%{-moz-transform:rotateY(0deg);transform:rotateY(0deg);opacity:1}}@keyframes horizontalFlip{0%{-webkit-transform:rotateY(-90deg);-moz-transform:rotateY(-90deg);-ms-transform:rotateY(-90deg);transform:rotateY(-90deg);opacity:0}100%{-webkit-transform:rotateY(0deg);-moz-transform:rotateY(0deg);-ms-transform:rotateY(0deg);transform:rotateY(0deg);opacity:1}}@-webkit-keyframes horizontalFlipOut{0%{-webkit-transform:rotateY(0deg);transform:rotateY(0deg);opacity:1}100%{-webkit-transform:rotateY(90deg);transform:rotateY(90deg);opacity:0}}@-moz-keyframes horizontalFlipOut{0%{-moz-transform:rotateY(0deg);transform:rotateY(0deg);opacity:1}100%{-moz-transform:rotateY(90deg);transform:rotateY(90deg);opacity:0}}@keyframes horizontalFlipOut{0%{-webkit-transform:rotateY(0deg);-moz-transform:rotateY(0deg);-ms-transform:rotateY(0deg);transform:rotateY(0deg);opacity:1}100%{-webkit-transform:rotateY(90deg);-moz-transform:rotateY(90deg);-ms-transform:rotateY(90deg);transform:rotateY(90deg);opacity:0}}@-webkit-keyframes verticalFlip{0%{-webkit-transform:rotateX(-90deg);transform:rotateX(-90deg);opacity:0}100%{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@-moz-keyframes verticalFlip{0%{-moz-transform:rotateX(-90deg);transform:rotateX(-90deg);opacity:0}100%{-moz-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@keyframes verticalFlip{0%{-webkit-transform:rotateX(-90deg);-moz-transform:rotateX(-90deg);-ms-transform:rotateX(-90deg);transform:rotateX(-90deg);opacity:0}100%{-webkit-transform:rotateX(0deg);-moz-transform:rotateX(0deg);-ms-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}}@-webkit-keyframes verticalFlipOut{0%{-webkit-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}100%{-webkit-transform:rotateX(-90deg);transform:rotateX(-90deg);opacity:0}}@-moz-keyframes verticalFlipOut{0%{-moz-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}100%{-moz-transform:rotateX(-90deg);transform:rotateX(-90deg);opacity:0}}@keyframes verticalFlipOut{0%{-webkit-transform:rotateX(0deg);-moz-transform:rotateX(0deg);-ms-transform:rotateX(0deg);transform:rotateX(0deg);opacity:1}100%{-webkit-transform:rotateX(-90deg);-moz-transform:rotateX(-90deg);-ms-transform:rotateX(-90deg);transform:rotateX(-90deg);opacity:0}}@-webkit-keyframes fade{0%{opacity:0}100%{opacity:1}}@-moz-keyframes fade{0%{opacity:0}100%{opacity:1}}@keyframes fade{0%{opacity:0}100%{opacity:1}}@-webkit-keyframes fadeOut{0%{opacity:1}100%{opacity:0}}@-moz-keyframes fadeOut{0%{opacity:1}100%{opacity:0}}@keyframes fadeOut{0%{opacity:1}100%{opacity:0}}@-webkit-keyframes fadeUp{0%{opacity:0;-webkit-transform:translateY(20px);transform:translateY(20px)}100%{opacity:1;-webkit-transform:translateY(0);transform:translateY(0)}}@-moz-keyframes fadeUp{0%{opacity:0;-moz-transform:translateY(20px);transform:translateY(20px)}100%{opacity:1;-moz-transform:translateY(0);transform:translateY(0)}}@keyframes fadeUp{0%{opacity:0;-webkit-transform:translateY(20px);-moz-transform:translateY(20px);-ms-transform:translateY(20px);transform:translateY(20px)}100%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}@-webkit-keyframes fadeUpOut{0%{opacity:1;-webkit-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-webkit-transform:translateY(20px);transform:translateY(20px)}}@-moz-keyframes fadeUpOut{0%{opacity:1;-moz-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-moz-transform:translateY(20px);transform:translateY(20px)}}@keyframes fadeUpOut{0%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-webkit-transform:translateY(20px);-moz-transform:translateY(20px);-ms-transform:translateY(20px);transform:translateY(20px)}}@-webkit-keyframes fadeDown{0%{opacity:0;-webkit-transform:translateY(-20px);transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0);transform:translateY(0)}}@-moz-keyframes fadeDown{0%{opacity:0;-moz-transform:translateY(-20px);transform:translateY(-20px)}100%{opacity:1;-moz-transform:translateY(0);transform:translateY(0)}}@keyframes fadeDown{0%{opacity:0;-webkit-transform:translateY(-20px);-moz-transform:translateY(-20px);-ms-transform:translateY(-20px);transform:translateY(-20px)}100%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}}@-webkit-keyframes fadeDownOut{0%{opacity:1;-webkit-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-webkit-transform:translateY(-20px);transform:translateY(-20px)}}@-moz-keyframes fadeDownOut{0%{opacity:1;-moz-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-moz-transform:translateY(-20px);transform:translateY(-20px)}}@keyframes fadeDownOut{0%{opacity:1;-webkit-transform:translateY(0);-moz-transform:translateY(0);-ms-transform:translateY(0);transform:translateY(0)}100%{opacity:0;-webkit-transform:translateY(-20px);-moz-transform:translateY(-20px);-ms-transform:translateY(-20px);transform:translateY(-20px)}}@-webkit-keyframes scale{0%{opacity:0;-webkit-transform:scale(0.7);transform:scale(0.7)}100%{opacity:1;-webkit-transform:scale(1);transform:scale(1)}}@-moz-keyframes scale{0%{opacity:0;-moz-transform:scale(0.7);transform:scale(0.7)}100%{opacity:1;-moz-transform:scale(1);transform:scale(1)}}@keyframes scale{0%{opacity:0;-webkit-transform:scale(0.7);-moz-transform:scale(0.7);-ms-transform:scale(0.7);transform:scale(0.7)}100%{opacity:1;-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}}@-webkit-keyframes scaleOut{0%{opacity:1;-webkit-transform:scale(1);transform:scale(1)}100%{opacity:0;-webkit-transform:scale(0.7);transform:scale(0.7)}}@-moz-keyframes scaleOut{0%{opacity:1;-moz-transform:scale(1);transform:scale(1)}100%{opacity:0;-moz-transform:scale(0.7);transform:scale(0.7)}}@keyframes scaleOut{0%{opacity:1;-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}100%{opacity:0;-webkit-transform:scale(0.7);-moz-transform:scale(0.7);-ms-transform:scale(0.7);transform:scale(0.7)}}</style>
     
     <style>/*
 * # Semantic UI
@@ -1160,6 +1227,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -1223,16 +1300,16 @@ input:required:valid:after {
           <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
           <div class="divider"> / </div>
           <a class="section" on-click="{{goRoot}}">{{title}}</a>
-          <template if="{{selection}}">
+          <template if="{{selectedItem}}">
             <div class="divider"> / </div>
-            <div class="active section">{{selection.type | capitalize}}</div>
+            <div class="active section">{{selectedType | capitalize}}</div>
             <div class="divider"> / </div>
-            <div class="active section">{{selection.item.name}}</div>
+            <div class="active section">{{selectedItem.name}}</div>
           </template>
         </div>
        </div>
 
-        <template if="{{selection == null}}">
+        <template if="{{selectedItem == null}}">
           <div class="ui raised segment">
             <h3 class="ui blue header">{{title}}</h3>
             <div class="ui grid">
@@ -1244,15 +1321,25 @@ input:required:valid:after {
           </div>
         </template>
 
-        <template if="{{selection}}">
-          <div class="ui huge header">{{selection.item.name}}</div>
+        <template if="{{selectedItem}}">
+          <div class="ui huge header">{{selectedItem.name}}</div>
 
+          <template if="{{selectedItem != null &amp;&amp; selectedType != 'schemas'}}">
+            <i class="sitemap icon link" on-click="{{showDiagram}}"></i>
+            <div class="ui modal" style="width: auto;">
+              <i class="close icon"></i>
+              <div class="content">
+                <img src="{{currentItemDiagram}}">
+              </div>
+            </div>
+          </template>
+          
           <!-- SCHEMA -->
-          <template if="{{selection.type == 'schemas'}}">
+          <template if="{{selectedType == 'schemas'}}">
 
-            <template if="{{selection.item.prefix.isNotEmpty}}">
+            <template if="{{selectedItem.prefix.isNotEmpty}}">
               <div class="ui label">
-                PREFIX: {{selection.item.prefix}}
+                PREFIX: {{selectedItem.prefix}}
               </div>
             </template>
 
@@ -1266,7 +1353,7 @@ input:required:valid:after {
                 </tr>
               </thead>
               <tbody>
-                <tr template="" repeat="{{field in selection.item.fields | sort('name')}}">
+                <tr template="" repeat="{{field in selectedItem.fields | sort('name')}}">
                   <td>{{field.name}}</td>
                   <td>{{field.type}}</td>
                 </tr>
@@ -1276,12 +1363,11 @@ input:required:valid:after {
          </template>
 
           <!-- FACET -->
-          <template if="{{selection.type == 'facets'}}">
-            <i class="sitemap icon diagram link"></i>
+          <template if="{{selectedType == 'facets'}}">
 
-            <template if="{{selection.item.schemas.isNotEmpty}}">
+            <template if="{{selectedItem.schemas.isNotEmpty}}">
             <div class="ui medium header">Related schemas</div>
-            <template repeat="{{schema in selection.item.schemas}}">
+            <template repeat="{{schema in selectedItem.schemas}}">
               <a class="link" on-click="{{select}}" data-id="schemas-{{schema}}">{{schema}}</a>
             </template>
             </template>
@@ -1289,33 +1375,32 @@ input:required:valid:after {
          </template>
 
           <!-- DOCTYPE -->
-          <template if="{{selection.type == 'types'}}">
+          <template if="{{selectedType == 'types'}}">
 
-            <template if="{{selection.item.parent}}">
-              <i class="sitemap icon diagram link"></i>
+            <template if="{{selectedItem.parent}}">
               <div class="ui label">
-                EXTENDS: <a style="color:#00adff;" on-click="{{select}}" data-id="types-{{selection.item.parent}}">{{selection.item.parent}}</a>
+                EXTENDS: <a style="color:#00adff;" on-click="{{select}}" data-id="types-{{selectedItem.parent}}">{{selectedItem.parent}}</a>
               </div>
             </template>
 
             <!-- Schemas -->
-            <template if="{{selection.item.schemas.isNotEmpty}}">
+            <template if="{{selectedItem.schemas.isNotEmpty}}">
             <div class="ui medium header">Schemas</div>
-            <template repeat="{{schema in selection.item.schemas}}">
+            <template repeat="{{schema in selectedItem.schemas}}">
               <a class="link" on-click="{{select}}" data-id="schemas-{{schema}}">{{schema}}</a>
             </template>
             </template>
 
             <!-- Facets -->
-            <template if="{{selection.item.facets.isNotEmpty}}">
+            <template if="{{selectedItem.facets.isNotEmpty}}">
             <div class="ui medium header">Facets</div>
-            <template repeat="{{facet in selection.item.facets}}">
+            <template repeat="{{facet in selectedItem.facets}}">
               <a class="link" on-click="{{select}}" data-id="facets-{{facet}}">{{facet}}</a>
             </template>
             </template>
 
          </template>
-
+          
         </template>
       </div>
     </div>
@@ -1648,6 +1733,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -1833,6 +1928,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -1852,16 +1957,17 @@ input:required:valid:after {
     <div class="ui form">
         <div class="two fields">
           <div class="field"><label>Nuxeo-Transaction-Timeout</label></div>
-          <div class="field"><input type="text" value="{{connection.requestOptions['Nuxeo-Transaction-Timeout']}}"></div>
+          <div class="field"><input type="text" value="{{timeout | inSeconds}}"></div>
         </div>
         <div class="two fields">
             <div class="field"><label>X-NXDocumentProperties</label></div>
-            <div class="field"><input type="text" value="{{connection.requestOptions['X-NXDocumentProperties']}}"></div>
+            <div class="field"><input type="text" value="{{schemas | asCSV}}"></div>
         </div>
         <div class="two fields">
             <div class="field"><label>X-NXRepository</label></div>
-            <div class="field"><input type="text" value="{{connection.requestOptions['X-NXRepository']}}"></div>
+            <div class="field"><input type="text" value="{{repository}}"></div>
         </div>
+        <!-- 
         <div class="two fields">
             <div class="field"><label>X-NXContext-Category</label></div>
             <div class="field"><input type="text" value="{{connection.requestOptions['X-NXContext-Category']}}"></div>
@@ -1870,6 +1976,7 @@ input:required:valid:after {
             <div class="field"><label>Content-Type</label></div>
             <div class="field"><input type="text" value="{{connection.requestOptions['Content-Type']}}"></div>
         </div>
+         -->
     </div>
   </template>
   
@@ -2111,6 +2218,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -2135,12 +2252,12 @@ input:required:valid:after {
           </div>
           <div class="ui modal">
             <i class="close icon"></i>
-            <div class="header">
+            <div class="small header">
               Pick {{type}}:
             </div>
             <div class="content">
-              <div class="ui segment">
-
+              <!-- TODO(nfgs): Do not hardcode max-height -->
+              <div class="ui segment" style="max-height:300px;overflow:auto;width:100%">
               <!-- TODO(nfgs): Do not hardcode connectionId -->
               <nx-tree root="/default-domain" key="{{(datatype == 'document' || datatype == 'documents') ? 'uid' : datatype}}" multipleselection="{{type == 'documents'}}" selected="{{value}}" connectionid="connection"></nx-tree>
               </div>
@@ -2349,6 +2466,20 @@ input:required:valid:after {
 * Released: 04/04/2014
 */
 
+.ui.message{position:relative;min-height:18px;margin:1em 0;height:auto;background-color:#EFEFEF;padding:1em;line-height:1.33;color:rgba(0,0,0,.6);-webkit-transition:opacity .1s ease,color .1s ease,background .1s ease,-webkit-box-shadow .1s ease;-moz-transition:opacity .1s ease,color .1s ease,background .1s ease,box-shadow .1s ease;transition:opacity .1s ease,color .1s ease,background .1s ease,box-shadow .1s ease;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;border-radius:.325em}.ui.message:first-child{margin-top:0}.ui.message:last-child{margin-bottom:0}.ui.message .header{margin:0;font-size:1.33em;font-weight:700}.ui.message p{opacity:.85;margin:1em 0}.ui.message p:first-child{margin-top:0}.ui.message p:last-child{margin-bottom:0}.ui.message .header+p{margin-top:.3em}.ui.message>:first-child{margin-top:0}.ui.message>:last-child{margin-bottom:0}.ui.message ul.list{opacity:.85;list-style-position:inside;margin:.2em 0;padding:0}.ui.message ul.list li{position:relative;list-style-type:none;margin:0 0 .3em 1em;padding:0}.ui.message ul.list li:before{position:absolute;content:'\2022';top:-.05em;left:-.8em;height:100%;vertical-align:baseline;opacity:.5}.ui.message ul.list li:first-child{margin-top:0}.ui.message>.close.icon{cursor:pointer;position:absolute;top:1em;right:.5em;opacity:.7;-webkit-transition:opacity .1s linear;-moz-transition:opacity .1s linear;transition:opacity .1s linear}.ui.message>.close.icon:hover{opacity:1}.ui.message.visible,.ui.header.visible{display:block!important}.ui.message.hidden,.ui.header.hidden{display:none}.ui.compact.message{display:inline-block}.ui.attached.message{margin-left:-1px;margin-right:-1px;margin-bottom:-1px;border-radius:.325em .325em 0 0;-webkit-box-shadow:0 0 0 1px rgba(0,0,0,.1) inset;box-shadow:0 0 0 1px rgba(0,0,0,.1) inset}.ui.attached+.ui.attached.message:not(.top):not(.bottom){margin-top:-1px;border-radius:0}.ui.bottom.attached.message{margin-top:-1px;border-radius:0 0 .325em .325em}.ui.bottom.attached.message:not(:last-child){margin-bottom:1em}.ui.attached.icon.message{display:block;width:auto}.ui.icon.message{display:table;width:100%}.ui.icon.message>.icon:not(.close){display:table-cell;vertical-align:middle;font-size:3.8em;opacity:.5}.ui.icon.message>.icon+.content{padding-left:1em}.ui.icon.message>.content{display:table-cell;vertical-align:middle}.ui.inverted.message{background-color:rgba(255,255,255,.05);color:rgba(255,255,255,.95)}.ui.floating.message{-webkit-box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.05) inset;box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 0 0 1px rgba(0,0,0,.05) inset}.ui.black.message{background-color:#333;color:rgba(255,255,255,.95)}.ui.blue.message,.ui.info.message{background-color:#E6F4F9;color:#4D8796}.ui.green.message{background-color:#DEFCD5;color:#52A954}.ui.yellow.message,.ui.warning.message{background-color:#F6F3D5;color:#96904D}.ui.red.message{background-color:#F1D7D7;color:#A95252}.ui.success.message,.ui.positive.message{background-color:#DEFCD5;color:#52A954}.ui.error.message,.ui.negative.message{background-color:#F1D7D7;color:#A95252}.ui.small.message{font-size:.875em}.ui.message{font-size:1em}.ui.large.message{font-size:1.125em}.ui.huge.message{font-size:1.5em}.ui.massive.message{font-size:2em}</style>
+    <style>/*
+* # Semantic UI
+* Version: 0.15.4
+* http://github.com/jlukic/semantic-ui
+*
+*
+* Copyright 2014 Contributors
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+* Released: 04/04/2014
+*/
+
 .ui.table{width:100%;border-collapse:collapse}.ui.table th,.ui.table tr,.ui.table td{border-collapse:collapse;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;-webkit-transition:all .1s ease-out;-moz-transition:all .1s ease-out;transition:all .1s ease-out}.ui.table thead{border-bottom:1px solid rgba(0,0,0,.03)}.ui.table tfoot th{background-color:rgba(0,0,0,.03)}.ui.table th{cursor:auto;background-color:rgba(0,0,0,.05);text-align:left;color:rgba(0,0,0,.8);padding:.5em .7em;vertical-align:middle}.ui.table thead th:first-child{border-radius:5px 0 0}.ui.table thead th:last-child{border-radius:0 5px 0 0}.ui.table tfoot th:first-child{border-radius:0 0 0 5px}.ui.table tfoot th:last-child{border-radius:0 0 5px}.ui.table tfoot th:only-child{border-radius:0 0 5px 5px}.ui.table td{padding:.4em .7em;vertical-align:middle}.ui.table tfoot{border-top:1px solid rgba(0,0,0,.03)}.ui.table tfoot th{font-weight:400;font-style:italic}.ui.table tbody tr:nth-child(2n){background-color:rgba(0,0,50,.02)}.ui.table>.icon{vertical-align:baseline}.ui.table>.icon:only-child{margin:0}.ui.table.segment:after{display:none}.ui.table.segment.stacked:after{display:block}@media only screen and (max-width:768px){.ui.table{display:block;padding:0}.ui.table thead,.ui.table tfoot{display:none}.ui.table tbody{display:block}.ui.table tr{display:block}.ui.table tr>td{width:100%!important;display:block;border:0!important;padding:.25em .75em;-webkit-box-shadow:0 1px 0 0 rgba(0,0,0,.05)!important;box-shadow:0 1px 0 0 rgba(0,0,0,.05)!important}.ui.table td:first-child{font-weight:700;padding-top:1em}.ui.table td:last-child{-webkit-box-shadow:0 -1px 0 0 rgba(0,0,0,.1) inset!important;box-shadow:0 -1px 0 0 rgba(0,0,0,.1) inset!important;padding-bottom:1em}.ui.table tr>td.warning,.ui.table tr>td.error,.ui.table tr>td.active,.ui.table tr>td.positive,.ui.table tr>td.negative{background-color:transparent!important}}.ui.sortable.table th.disabled:hover{cursor:auto;text-align:left;font-weight:700;color:#333;color:rgba(0,0,0,.8)}.ui.sortable.table thead th:hover{background-color:rgba(0,0,0,.13);color:rgba(0,0,0,.8)}.ui.inverted.sortable.table thead th:hover{background-color:rgba(255,255,255,.13);color:#fff}.ui.table tr.positive,.ui.table td.positive{-webkit-box-shadow:2px 0 0 #119000 inset;box-shadow:2px 0 0 #119000 inset}.ui.table tr.positive td,.ui.table td.positive{background-color:#F2F8F0!important;color:#119000!important}.ui.celled.table tr.positive:hover td,.ui.celled.table tr:hover td.positive,.ui.table tr.positive:hover td,.ui.table td:hover.positive,.ui.table th:hover.positive{background-color:#ECF5E9!important;color:#119000!important}.ui.table tr.negative,.ui.table td.negative{-webkit-box-shadow:2px 0 0 #CD2929 inset;box-shadow:2px 0 0 #CD2929 inset}.ui.table tr.negative td,.ui.table td.negative{background-color:#F9F4F4;color:#CD2929!important}.ui.celled.table tr.negative:hover td,.ui.celled.table tr:hover td.negative,.ui.table tr.negative:hover td,.ui.table td:hover.negative,.ui.table th:hover.negative{background-color:#F2E8E8;color:#CD2929}.ui.table tr.error,.ui.table td.error{-webkit-box-shadow:2px 0 0 #CD2929 inset;box-shadow:2px 0 0 #CD2929 inset}.ui.table tr.error td,.ui.table td.error,.ui.table th.error{background-color:#F9F4F4;color:#CD2929}.ui.celled.table tr.error:hover td,.ui.celled.table tr:hover td.error,.ui.table tr.error:hover td,.ui.table td:hover.error,.ui.table th:hover.error{background-color:#F2E8E8;color:#CD2929}.ui.table tr.warning,.ui.table td.warning{-webkit-box-shadow:2px 0 0 #7D6C00 inset;box-shadow:2px 0 0 #7D6C00 inset}.ui.table tr.warning td,.ui.table td.warning,.ui.table th.warning{background-color:#FBF6E9;color:#7D6C00}.ui.celled.table tr.warning:hover td,.ui.celled.table tr:hover td.warning,.ui.table tr.warning:hover td,.ui.table td:hover.warning,.ui.table th:hover.warning{background-color:#F3EDDC;color:#7D6C00}.ui.table tr.active,.ui.table td.active{-webkit-box-shadow:2px 0 0 rgba(50,50,50,.9) inset;box-shadow:2px 0 0 rgba(50,50,50,.9) inset}.ui.table tr.active td,.ui.table tr td.active{background-color:#E0E0E0;color:rgba(50,50,50,.9)}.ui.table tr.disabled td,.ui.table tr td.disabled,.ui.table tr.disabled:hover td,.ui.table tr:hover td.disabled{color:rgba(150,150,150,.3)}.ui.two.column.table td{width:50%}.ui.three.column.table td{width:33.3333%}.ui.four.column.table td{width:25%}.ui.five.column.table td{width:20%}.ui.six.column.table td{width:16.66667%}.ui.seven.column.table td{width:14.2857%}.ui.eight.column.table td{width:12.5%}.ui.nine.column.table td{width:11.1111%}.ui.ten.column.table td{width:10%}.ui.eleven.column.table td{width:9.0909%}.ui.twelve.column.table td{width:8.3333%}.ui.thirteen.column.table td{width:7.6923%}.ui.fourteen.column.table td{width:7.1428%}.ui.fifteen.column.table td{width:6.6666%}.ui.sixteen.column.table td{width:6.25%}.ui.table th.one.wide,.ui.table td.one.wide{width:6.25%}.ui.table th.two.wide,.ui.table td.two.wide{width:12.5%}.ui.table th.three.wide,.ui.table td.three.wide{width:18.75%}.ui.table th.four.wide,.ui.table td.four.wide{width:25%}.ui.table th.five.wide,.ui.table td.five.wide{width:31.25%}.ui.table th.six.wide,.ui.table td.six.wide{width:37.5%}.ui.table th.seven.wide,.ui.table td.seven.wide{width:43.75%}.ui.table th.eight.wide,.ui.table td.eight.wide{width:50%}.ui.table th.nine.wide,.ui.table td.nine.wide{width:56.25%}.ui.table th.ten.wide,.ui.table td.ten.wide{width:62.5%}.ui.table th.eleven.wide,.ui.table td.eleven.wide{width:68.75%}.ui.table th.twelve.wide,.ui.table td.twelve.wide{width:75%}.ui.table th.thirteen.wide,.ui.table td.thirteen.wide{width:81.25%}.ui.table th.fourteen.wide,.ui.table td.fourteen.wide{width:87.5%}.ui.table th.fifteen.wide,.ui.table td.fifteen.wide{width:93.75%}.ui.table th.sixteen.wide,.ui.table td.sixteen.wide{width:100%}.ui.celled.table{color:rgba(0,0,0,.8)}.ui.celled.table tbody tr,.ui.celled.table tfoot tr{border:0}.ui.celled.table th,.ui.celled.table td{border:1px solid rgba(0,0,0,.1)}.ui.celled.table.segment th:first-child,.ui.celled.table.segment td:first-child{border-left:0}.ui.celled.table.segment th:last-child,.ui.celled.table.segment td:last-child{border-right:0}.ui.sortable.table thead th{cursor:pointer;white-space:nowrap}.ui.sortable.table thead th.sorted,.ui.sortable.table thead th.sorted:hover{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.ui.sortable.table thead th:after{display:inline-block;content:'';width:1em;opacity:.8;margin:0 0 0 .5em;font-family:Icons;font-style:normal;font-weight:400;text-decoration:inherit}.ui.sortable.table thead th.ascending:after{content:'\25b4'}.ui.sortable.table thead th.descending:after{content:'\25be'}.ui.inverted.table td{color:rgba(255,255,255,.9)}.ui.inverted.table th{background-color:rgba(0,0,0,.15);color:rgba(255,255,255,.9)}.ui.inverted.table tbody tr:nth-child(2n){background-color:rgba(255,255,255,.06)}.ui.definition.table td:first-child{font-weight:700}.ui.collapsing.table{width:auto}.ui.basic.table th{background-color:transparent;padding:.5em}.ui.basic.table tbody tr{border-bottom:1px solid rgba(0,0,0,.03)}.ui.basic.table td{padding:.8em .5em}.ui.basic.table tbody tr:nth-child(2n){background-color:transparent!important}.ui.padded.table th,.ui.padded.table td{padding:.8em 1em}.ui.compact.table th{padding:.3em .5em}.ui.compact.table td{padding:.2em .5em}.ui.small.table{font-size:.875em}.ui.table{font-size:1em}.ui.large.table{font-size:1.1em}</style>
     
     <style>/*
@@ -2486,6 +2617,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -2614,6 +2755,12 @@ input:required:valid:after {
             </div>
           </div>
           
+          <template repeat="{{error in errors}}">
+            <div class="ui bottom attached error message">
+              <i class="icon warning"></i>{{error}}
+            </div>
+          </template>
+            
           <br>
           
           <!-- Output -->
@@ -2883,6 +3030,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -3297,6 +3454,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -3566,6 +3733,16 @@ a {
   max-width: none;
 }
 
+.ui.modal>.close {
+  top: 0;
+  right: 0;
+  color: black;
+}
+
+.ui.modal>.content {
+  background-color: white;
+}
+  
 input:required:invalid, input:focus:invalid {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
   background-position: right top;
@@ -3614,4 +3791,4 @@ input:required:valid:after {
     <nx-sandbox-app connectionid="connection"></nx-sandbox-app>
   
 
-<script type="application/dart" src="index.html_bootstrap.dart"></script><script src="packages/browser/dart.js"></script></body></html>
+<script src="index.html_bootstrap.dart.js"></script></body></html>
