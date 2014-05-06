@@ -28,6 +28,12 @@ abstract class SemanticUI extends Object implements Element {
     jQuery(selectorsOrEl).callMethod('sidebar', arguments);
   }
 
+  modal(selectorsOrEl) {
+    var jqEl = jQuery(".ui.modal");
+    jqEl.callMethod('modal', [new js.JsObject.jsify({"detachable": false})]);
+    jqEl.callMethod('modal', ['show']);
+  }
+
   // Some helper methods
   jQuery(selectorsOrEl) {
     var el = (selectorsOrEl is String) ? shadowRoot.querySelector(selectorsOrEl) : selectorsOrEl;

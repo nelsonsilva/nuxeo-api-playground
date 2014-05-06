@@ -21,7 +21,7 @@
             <i class="circle left icon" on-click="{{goHome}}"></i>
             {{title}}
           </a>
-          <div class="item">
+          <div class="item" style="overflow:auto">
             <!-- Endpoints -->
             <nx-tree root="/default-domain" connectionId="{{connectionId}}" selected="{{documentId}}"></nx-tree>
           </div>
@@ -37,6 +37,10 @@
             <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
             <div class="divider"> / </div>
              <a class="active section" on-click="{{goRoot}}">{{title}}</a>
+             <template if="{{document}}">
+              <div class="divider"> / </div>
+              <div class="active section">{{document.title}}</div>
+             </template>
           </div>
        </div>
         

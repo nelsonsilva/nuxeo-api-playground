@@ -144,12 +144,12 @@ class NXOperation extends NXElement with SemanticUI {
     });
 
     // Call the op
-    opRequest = NX.op(_op.id);
+    opRequest = NX.op(_op.id)
+    .input(method.input)
+    .params(opParams);
 
-    opRequest(input: method.input, params: opParams)
-    .then((res) {
-      opResponse = opRequest.response;
-    })
+    opRequest.execute()
+    .then((res) { opResponse = res; })
     .catchError((e) {
       var message = (e is nuxeo.ClientException)? e.message : e.toString();
       errors.add(message);

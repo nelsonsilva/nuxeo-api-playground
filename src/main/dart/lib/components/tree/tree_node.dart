@@ -31,6 +31,7 @@ class TreeNode extends NXElement with SemanticUI {
   }
 
   enteredView() {
+    super.enteredView();
     accordion(".ui.accordion");
   }
 
@@ -93,7 +94,7 @@ class TreeNode extends NXElement with SemanticUI {
   void toggleSelection(MouseEvent event, detail, target) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    selected = shadowRoot.querySelector(".label").classes.toggle("selected");
+    shadowRoot.querySelector(".label").classes.toggle("selected");
     dispatchEvent(new CustomEvent(SELECTED_EVENT, detail: doc));
   }
 

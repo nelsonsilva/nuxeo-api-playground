@@ -21,15 +21,7 @@ class NXRequestMonitor extends NXElement {
   }
 
   changeTab(event) {
-    shadowRoot.querySelectorAll(".ui.menu .item").forEach((Element e) {
-      if (e == event.target) {
-        e.classes.add("active");
-      } else {
-        e.classes.remove("active");
-      }
-    });
-    currentTab = event.target.dataset["tab"];
-    async((_) { _highlight(); });
+    _doChangeTab(event.target.dataset["tab"]);
   }
 
   @observable
@@ -51,20 +43,19 @@ class NXRequestMonitor extends NXElement {
       shadowRoot.querySelectorAll(".ui.menu .item").forEach((e) {
         e.onClick.listen(changeTab);
       });
-      _highlight();
     });
   }
 
   responseChanged() {
-    if (response.headers["content-type"] == nuxeo.CTYPE_ENTITY ||
+    if (response == null) {
+      body = null;
+    } else if (response.headers["content-type"] == nuxeo.CTYPE_ENTITY ||
            response.headers["content-type"] == nuxeo.CTYPE_JSON) {
       var json = JSON.decode(response.body);
 
       body = new JsonEncoder.withIndent(" " * 2).convert(json);
 
-      currentTab = "response";
-
-      async((_) { _highlight(); });
+      _doChangeTab("response");
 
     } else {
       // TODO(nfgs) - Handle Blob
@@ -78,4 +69,17 @@ class NXRequestMonitor extends NXElement {
       js.context['hljs'].callMethod('highlightBlock', [el]);
     });
   }
+
+  _doChangeTab(tab) {
+    currentTab = tab;
+    shadowRoot.querySelectorAll(".ui.menu .item").forEach((Element e) {
+      if (e.dataset["tab"] == tab) {
+        e.classes.add("active");
+      } else {
+        e.classes.remove("active");
+      }
+    });
+    async((_) { _highlight(); });
+  }
+
 }

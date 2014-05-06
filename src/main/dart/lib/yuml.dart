@@ -30,6 +30,7 @@ class DiagramGenerator {
 
   String generateForDoctype(String name) => URL + _umlForDoctype(name).join(",");
   String generateForFacet(String name) => URL + _umlForFacet(name).join(",");
+  String generateForSchema(String name) => URL + _umlForSchema(name).join(",");
 
   List _umlForDoctype(String name) {
     var doctype = doctypes[name];

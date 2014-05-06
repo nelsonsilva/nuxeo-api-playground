@@ -11,13 +11,6 @@ import 'nx_connection.dart';
 import '../yuml.dart' as yuml;
 import 'semantic.dart';
 
-class Selection extends Observable {
-  @observable var type;
-  @observable var id;
-  @observable var item;
-  Selection({this.type, this.id});
-}
-
 @CustomTag(NXStructuresBrowser.TAG)
 class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
@@ -41,7 +34,9 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
   List<nuxeo.Facet> get facets => items["facets"];
   List<nuxeo.Doctype> get doctypes => items["types"];
 
-  @observable Selection selection = null;
+  @observable String selectedType;
+  @observable String selectedId;
+  @observable var selectedItem;
 
   factory NXStructuresBrowser() => new Element.tag(TAG);
 
@@ -51,17 +46,12 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
   }
 
   enteredView() {
+    super.enteredView();
     // Setup the accordion
     accordion(".ui.accordion");
   }
 
-  get _currentItemDiagram {
-    if (selection.item is nuxeo.Doctype) {
-      return _diagram.generateForDoctype(selection.item.name);
-    } else if (selection.item is nuxeo.Facet) {
-      return _diagram.generateForFacet(selection.item.name);
-    }
-  }
+  @observable String currentItemDiagram;
 
   @override
   onConnect() {
@@ -69,7 +59,7 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
     Future.wait([
 
     // Schemas
-    NX.schemas().then((response) {
+    NX.config.schemas().then((response) {
       schemas
         ..clear()
         ..addAll(
@@ -78,7 +68,7 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
     }),
 
     // Facets
-    NX.facets().then((response) {
+    NX.config.facets().then((response) {
       facets
       ..clear()
       ..addAll(
@@ -87,7 +77,7 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
     }),
 
     // Doctypes
-    NX.types().then((response) {
+    NX.config.types().then((response) {
       doctypes.clear();
 
       JSON.decode(response.body)["doctypes"].forEach((k, v) {
@@ -99,8 +89,9 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
     })])
 
     .then((_) {
+
       // Check for a selected item
-      selectionChanged();
+      _updateSelection();
       // Setup the diagram generator
       _diagram = new yuml.DiagramGenerator(schemas: schemas, facets: facets, doctypes: doctypes);
     })
@@ -113,18 +104,26 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
   }
 
-  void selectionChanged() {
-    if (selection != null && items[selection.type].isNotEmpty) {
-      selection.item = items[selection.type].where((d) => d.name == selection.id).first;
-
-      // Update the UI
-      if (selection.item != null) {
-        async((_) {
-          popup('.diagram', on: "click", position: "bottom right", html: "<img src='$_currentItemDiagram'>");
-        });
-      }
+  void _updateSelection() {
+    if (selectedId != null && items[selectedType].isNotEmpty) {
+      selectedItem = items[selectedType].where((d) => d.name == selectedId).first;
     }
+  }
 
+  void showDiagram() {
+    if (selectedItem != null) {
+      // Update the UI
+      if (selectedItem is nuxeo.Doctype) {
+        currentItemDiagram = _diagram.generateForDoctype(selectedItem.name);
+      } else if (selectedItem is nuxeo.Facet) {
+        currentItemDiagram = _diagram.generateForFacet(selectedItem.name);
+      } else if (selectedItem is nuxeo.Schema) {
+        currentItemDiagram = _diagram.generateForSchema(selectedItem.name);
+      }
+      async((_) {
+        modal('.ui.modal');
+      });
+    }
   }
 
   @override
@@ -133,13 +132,22 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
          name: 'view',
          path: '/:type/:id',
          enter: (e) {
-           selection = new Selection(type: e.parameters['type'], id: e.parameters['id']);
+           selectedItem = null;
+           selectedType = e.parameters['type'];
+           selectedId =  e.parameters['id'];
+           _updateSelection();
          },
          leave: (e) {
            jQuery('.diagram').callMethod('popup', ["destroy"]);
          }
      );
    }
+
+  goRoot() {
+    selectedType = selectedId = selectedItem = null;
+    super.goRoot();
+  }
+
 
   select(event, detail, target) {
     // <type>-<id>

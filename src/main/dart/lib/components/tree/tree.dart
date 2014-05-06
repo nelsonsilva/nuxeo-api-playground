@@ -1,8 +1,6 @@
 library nx_tree;
 
-// This should reduce the size of the JS
-// TODO: @MirrorsUsed(symbols: 'uid,path')
-import 'dart:mirrors';
+// TODO: import 'dart:mirrors';
 import 'tree_node.dart';
 import '../semantic.dart';
 import '../ui_module.dart';
@@ -14,7 +12,7 @@ class Tree extends NXElement with SemanticUI {
   @published String root;
   @published bool multipleSelection = false;
   /// The document field to use as key
-  @published String key = "uid"; // uid, path, etc...
+  @published String key = "uid"; // uid or path
 
   List _selection = toObservable([]);
 
@@ -37,7 +35,10 @@ class Tree extends NXElement with SemanticUI {
 
   bool get valid => true;
 
+  bool get alwaysPrepare => true;
+
   enteredView() {
+    super.enteredView();
     accordion(".ui.accordion");
   }
 
@@ -62,7 +63,7 @@ class Tree extends NXElement with SemanticUI {
 
     // Get the document key
     var doc = detail;
-    var docId = reflect(doc).getField(new Symbol(key)).reflectee;
+    var docId = (key == "uid") ? doc.uid : doc.path;
 
     // New selection
     if (!_selection.contains(docId)) {

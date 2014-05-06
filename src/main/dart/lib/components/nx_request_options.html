@@ -9,16 +9,17 @@
     <div class="ui form">
         <div class="two fields">
           <div class="field"><label>Nuxeo-Transaction-Timeout</label></div>
-          <div class="field"><input type="text" value="{{connection.requestOptions['Nuxeo-Transaction-Timeout']}}"></div>
+          <div class="field"><input type="text" value="{{timeout | inSeconds}}"></div>
         </div>
         <div class="two fields">
             <div class="field"><label>X-NXDocumentProperties</label></div>
-            <div class="field"><input type="text" value="{{connection.requestOptions['X-NXDocumentProperties']}}"></div>
+            <div class="field"><input type="text" value="{{schemas | asCSV}}"></div>
         </div>
         <div class="two fields">
             <div class="field"><label>X-NXRepository</label></div>
-            <div class="field"><input type="text" value="{{connection.requestOptions['X-NXRepository']}}"></div>
+            <div class="field"><input type="text" value="{{repository}}"></div>
         </div>
+        <!-- 
         <div class="two fields">
             <div class="field"><label>X-NXContext-Category</label></div>
             <div class="field"><input type="text" value="{{connection.requestOptions['X-NXContext-Category']}}"></div>
@@ -27,6 +28,7 @@
             <div class="field"><label>Content-Type</label></div>
             <div class="field"><input type="text" value="{{connection.requestOptions['Content-Type']}}"></div>
         </div>
+         -->
     </div>
   </template>
   <script type="application/dart;component=1" src="nx_request_options.dart"></script>

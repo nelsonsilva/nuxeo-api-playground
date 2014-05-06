@@ -2,8 +2,9 @@ library filters;
 
 import 'dart:async';
 import 'dart:math' show max;
-// TODO: @MirrorsUsed(symbols: 'name,label')
-import 'dart:mirrors';
+// TODO(nfgs)
+// @MirrorsUsed(symbols: const["name","label"], override: '*')
+// import 'dart:mirrors';
 import 'package:polymer_expressions/filter.dart';
 
 class Capitalize extends Transformer<String, String> {
@@ -46,12 +47,18 @@ abstract class SearchFilter extends Object {
 
   filter(term) => (items) => term.isEmpty ? items : items.where((i) => labelFor(i).toLowerCase().contains(term.toLowerCase())).toList();
 
+  // Only "name" or "label" for now
   sort(fieldName) => (items) {
+    if (fieldName != "name" && fieldName != "label") throw new UnimplementedError("sort only support 'name' or 'label' for now!");
     var lst = new List.from(items);
     var field = new Symbol(fieldName);
     lst.sort((a, b) {
-      var fa = reflect(a).getField(field).reflectee,
-          fb = reflect(b).getField(field).reflectee;
+      var fa, fb;
+      // TODO(nfgs) Use reflection
+      //var fa = reflect(a).getField(field).reflectee,
+      //    fb = reflect(b).getField(field).reflectee;
+      if (fieldName == "name") { fa = a.name; fb = b.name; }
+      if (fieldName == "label") { fa = a.label; fb = b.label; }
       return fa.compareTo(fb);
     });
     return lst;

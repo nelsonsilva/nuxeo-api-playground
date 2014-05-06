@@ -17,6 +17,7 @@
     <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/grid.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/menu.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/collections/message.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/table.min.css" no-shim>
     
     <link rel="stylesheet"  href="../semantic/modules/accordion.min.css" no-shim>
@@ -141,6 +142,12 @@
             </div>
           </div>
           
+          <template repeat="{{error in errors}}">
+            <div class="ui bottom attached error message">
+              <i class="icon warning"></i>{{error}}
+            </div>
+          </template>
+            
           <br/>
           
           <!-- Output -->

@@ -19,16 +19,7 @@ class NXConnection extends PolymerElement with SemanticUI {
   @observable String password = "Administrator";
   @observable String avatar = "https://avatars0.githubusercontent.com/u/6028";
 
-  @observable var nuxeoUrl = "http://localhost:8080/nuxeo";
-
-  /// Global request options
-  Map requestOptions = toObservable({
-      "Nuxeo-Transaction-Timeout": "35",
-      "X-NXDocumentProperties": "",
-      "X-NXRepository": "default",
-      "X-NXContext-Category": "",
-      "Content-Type": ""
-  });
+  @observable var nuxeoUrl = "http://demo.nuxeo.com/nuxeo"; // "http://localhost:8080/nuxeo";
 
   // Tracing
   @observable bool canManageTraces = false;
@@ -53,7 +44,7 @@ class NXConnection extends PolymerElement with SemanticUI {
       return new Future.value(NX);
     }
 
-    NX = new nuxeo.Client(url: nuxeoUrl, username: username, password: password);
+    NX = new nuxeo.Client(url: nuxeoUrl, username: username, password: password, schemas: ["*"]);
 
     return NX.login()
     .then((login) {
@@ -100,7 +91,7 @@ class NXConnection extends PolymerElement with SemanticUI {
   }
 
   /// Toggle traces
-  Future<bool> toggleTraces(flag) => NX.op("Traces.ToggleRecording")(params: {"enableTrace": flag});
+  Future<bool> toggleTraces(flag) => NX.op("Traces.ToggleRecording").params({"enableTrace": flag})();
 
   Future<String> getTrace(op) =>
     NX.httpClient.get(Uri.parse("$nuxeoUrl/site/automation/doc/traces?opId=$op")).send()

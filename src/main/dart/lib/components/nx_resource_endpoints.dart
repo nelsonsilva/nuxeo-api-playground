@@ -73,10 +73,10 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
      RESOURCE_ENDPOINTS.map((resourceKey) {
       var request = NX.newRequest("/doc/$resourceKey.json");
 
-      // TODO(nfgs) - Come up with a better way to skip response wrapping
-      return request.fetch()
-      .then((_) {
-        var json = JSON.decode(request.response.body);
+      // Execute the method (does not handle the response)
+      return request.method("GET").execute()
+      .then((response) {
+        var json = JSON.decode(response.body);
         var listing = new swagger.Listing.fromJSON(json);
         // Just use the first resource declaration for now
         var resource = listing.resources.first;
@@ -132,8 +132,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     }
 
     // Clear request and response
-    response = null;
-    request = null;
+    _reset();
 
     // Setup the options
     async((_) => accordion("#options"));
@@ -151,31 +150,41 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     evt.preventDefault();
 
     // Clear request and response
-    response = null;
-    request = null;
+    _reset();
+
+    var valid = shadowRoot.querySelectorAll("nx-widget").every((_) => _.valid);
+
+    if (!valid) {
+      errors.add("Invalid form values!");
+      return;
+    }
 
     String path = endpoint.path;
 
     // replace parameters
     params.where((p) => p.isPathParam).forEach((param) {
-      path = path.replaceAll("{${param.name}}", param.value);
+      path = path.replaceAll("{${param.name}}", (param.value == null)? "" : param.value);
     });
 
-    var method = (uri) => NX.httpClient.method(operation.method, uri);
     var body;
 
     request = NX.newRequest("$path");
 
-    // Call the op
-    request(method, body)
-    .then((res) {
-       response = request.response;
-     })
+    // Call the op using 'execute' which does not handle the response
+    request.method(operation.method).execute(body)
+    .then((res) { response = res; })
      .catchError((e) {
-       var message = (e is nuxeo.ClientException)? e.message : e.toString();
+       var message = (e is Exception)? e.message : e.toString();
        errors.add(message);
      });
   }
 
   get capitalize => new Capitalize();
+
+  /// Clear request, response and errors
+  _reset() {
+    response = null;
+    request = null;
+    errors.clear();
+  }
 }

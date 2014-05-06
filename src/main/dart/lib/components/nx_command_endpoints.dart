@@ -51,7 +51,7 @@ class NXCommandEndpoints extends NXModule with SearchFilter, SemanticUI {
 
   @override
   onConnect() {
-
+    operations.clear();
     NX.registry // Get the op registry
     .then((nuxeo.OperationRegistry registry) {        // Get the ops
       registry.ops.forEach((name, nuxeo.Operation op) {

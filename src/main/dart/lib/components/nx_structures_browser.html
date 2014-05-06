@@ -14,6 +14,9 @@
     <link rel="stylesheet"  href="../semantic/collections/table.min.css" no-shim>
     
     <link rel="stylesheet"  href="../semantic/modules/accordion.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/modules/dimmer.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/modules/modal.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/modules/transition.min.css" no-shim>
     
     <link rel="stylesheet"  href="../semantic/views/list.min.css" no-shim>
     
@@ -66,16 +69,16 @@
           <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
           <div class="divider"> / </div>
           <a class="section" on-click="{{goRoot}}">{{title}}</a>
-          <template if="{{selection}}">
+          <template if="{{selectedItem}}">
             <div class="divider"> / </div>
-            <div class="active section">{{selection.type | capitalize}}</div>
+            <div class="active section">{{selectedType | capitalize}}</div>
             <div class="divider"> / </div>
-            <div class="active section">{{selection.item.name}}</div>
+            <div class="active section">{{selectedItem.name}}</div>
           </template>
         </div>
        </div>
 
-        <template if="{{selection == null}}">
+        <template if="{{selectedItem == null}}">
           <div class="ui raised segment">
             <h3 class="ui blue header">{{title}}</h3>
             <div class="ui grid">
@@ -87,15 +90,25 @@
           </div>
         </template>
 
-        <template if="{{selection}}">
-          <div class="ui huge header">{{selection.item.name}}</div>
+        <template if="{{selectedItem}}">
+          <div class="ui huge header">{{selectedItem.name}}</div>
 
+          <template if="{{selectedItem != null && selectedType != 'schemas'}}">
+            <i class="sitemap icon link" on-click="{{showDiagram}}"></i>
+            <div class="ui modal" style="width: auto;">
+              <i class="close icon"></i>
+              <div class="content">
+                <img src='{{currentItemDiagram}}'>
+              </div>
+            </div>
+          </template>
+          
           <!-- SCHEMA -->
-          <template if="{{selection.type == 'schemas'}}">
+          <template if="{{selectedType == 'schemas'}}">
 
-            <template if="{{selection.item.prefix.isNotEmpty}}">
+            <template if="{{selectedItem.prefix.isNotEmpty}}">
               <div class="ui label">
-                PREFIX: {{selection.item.prefix}}
+                PREFIX: {{selectedItem.prefix}}
               </div>
             </template>
 
@@ -109,7 +122,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr template repeat="{{field in selection.item.fields | sort('name')}}">
+                <tr template repeat="{{field in selectedItem.fields | sort('name')}}">
                   <td>{{field.name}}</td>
                   <td>{{field.type}}</td>
                 </tr>
@@ -119,12 +132,11 @@
          </template>
 
           <!-- FACET -->
-          <template if="{{selection.type == 'facets'}}">
-            <i class="sitemap icon diagram link"></i>
+          <template if="{{selectedType == 'facets'}}">
 
-            <template if="{{selection.item.schemas.isNotEmpty}}">
+            <template if="{{selectedItem.schemas.isNotEmpty}}">
             <div class="ui medium header">Related schemas</div>
-            <template repeat="{{schema in selection.item.schemas}}">
+            <template repeat="{{schema in selectedItem.schemas}}">
               <a class="link" on-click="{{select}}" data-id="schemas-{{schema}}">{{schema}}</a>
             </template>
             </template>
@@ -132,33 +144,32 @@
          </template>
 
           <!-- DOCTYPE -->
-          <template if="{{selection.type == 'types'}}">
+          <template if="{{selectedType == 'types'}}">
 
-            <template if="{{selection.item.parent}}">
-              <i class="sitemap icon diagram link"></i>
+            <template if="{{selectedItem.parent}}">
               <div class="ui label">
-                EXTENDS: <a style="color:#00adff;" on-click="{{select}}" data-id="types-{{selection.item.parent}}">{{selection.item.parent}}</a>
+                EXTENDS: <a style="color:#00adff;" on-click="{{select}}" data-id="types-{{selectedItem.parent}}">{{selectedItem.parent}}</a>
               </div>
             </template>
 
             <!-- Schemas -->
-            <template if="{{selection.item.schemas.isNotEmpty}}">
+            <template if="{{selectedItem.schemas.isNotEmpty}}">
             <div class="ui medium header">Schemas</div>
-            <template repeat="{{schema in selection.item.schemas}}">
+            <template repeat="{{schema in selectedItem.schemas}}">
               <a class="link" on-click="{{select}}" data-id="schemas-{{schema}}">{{schema}}</a>
             </template>
             </template>
 
             <!-- Facets -->
-            <template if="{{selection.item.facets.isNotEmpty}}">
+            <template if="{{selectedItem.facets.isNotEmpty}}">
             <div class="ui medium header">Facets</div>
-            <template repeat="{{facet in selection.item.facets}}">
+            <template repeat="{{facet in selectedItem.facets}}">
               <a class="link" on-click="{{select}}" data-id="facets-{{facet}}">{{facet}}</a>
             </template>
             </template>
 
          </template>
-
+          
         </template>
       </div>
     </div>
