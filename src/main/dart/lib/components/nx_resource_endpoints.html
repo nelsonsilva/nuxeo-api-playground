@@ -114,9 +114,10 @@
                   <td>{{param.name}}</td>
                   <td>
                     <div class="field">
+                      <!-- NOTE: We use the type to specify the field of the document we want to use -->
                       <nx-widget
-                      type="{{(param.name == 'docPath' || param.name == 'docId') ? 'document' : 'text'}}"
-                      datatype="{{(param.name == 'docPath') ? 'path' : (param.name == 'docId') ? 'uid' : param.dataType}}"
+                      datatype="{{(param.name == 'docPath' || param.name == 'docId') ? 'document' : 'string'}}"
+                      type="{{(param.name == 'docPath') ? 'path' : (param.name == 'docId') ? 'uid' : param.dataType}}"
                       required="{{param.required}}"
                       value="{{param.value}}">
                       </nx-widget>
