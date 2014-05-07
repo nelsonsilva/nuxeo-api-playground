@@ -61,7 +61,7 @@
           </template>
           <!-- Text input -->
           <!-- datatype == 'string' || 'integer' || ... -->
-          <template if="{{datatype != 'boolean'}}">
+          <template if="{{datatype != 'boolean' && datatype != 'document' && datatype != 'documents'}}">
             <input id="widget" type="text" value="{{value}}" required?="{{required}}"/>
           </template>
         </template>
