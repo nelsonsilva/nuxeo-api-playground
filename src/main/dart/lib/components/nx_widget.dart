@@ -19,6 +19,8 @@ class NXWidget extends PolymerElement {
 
   @published String label = "";
 
+  @published List options;
+
   String get widgetTemplate {
     return "nx_text_widget";
   }

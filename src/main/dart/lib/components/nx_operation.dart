@@ -36,6 +36,8 @@ class NxOperationParamValue implements Comparable<NxOperationParamValue> {
 
   bool get isValid => !required || (required && value != null);
 
+  List get options => _param.values;
+
   int compareTo(NxOperationParamValue other) => _param.order - other._param.order;
 }
 

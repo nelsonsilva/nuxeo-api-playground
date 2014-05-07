@@ -75,14 +75,15 @@
         </tr></thead>
         <tbody>
           <tr template repeat="{{param in params}}">
-            <td>{{param.name}} ({{param.widget}} / {{param.dataType}})</td>
+            <td>{{param.name}}</td>
             <td>
               <div class="field">
                 <nx-widget
                 type="{{param.widget}}"
                 datatype="{{param.dataType}}"
                 required="{{param.required}}"
-                value="{{param.value}}">
+                value="{{param.value}}"
+                options="{{param.options}}">
                 </nx-widget>
               </div>
             </td>
