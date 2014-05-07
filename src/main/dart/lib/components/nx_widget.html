@@ -58,7 +58,8 @@
             </div>
           </template>
           <!-- Text input -->
-          <template if="{{datatype == 'string'}}">
+          <!-- datatype == 'string' || 'integer' || ... -->
+          <template if="{{datatype != 'boolean'}}">
             <input id="widget" type="text" value="{{value}}" required?="{{required}}"/>
           </template>
         </template>
