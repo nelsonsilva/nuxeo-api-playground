@@ -31,7 +31,7 @@ class NXSandboxApp extends PolymerElement {
 
   connectionIdChanged() {
     // Setup the connectionId for all the modules
-    modules.values.forEach((m) { m.setAttribute("connectionId", connectionId); });
+    modules.values.forEach((NXModule m) { m.connectionId = connectionId; });
   }
 
   NXSandboxApp.created() : super.created() {
