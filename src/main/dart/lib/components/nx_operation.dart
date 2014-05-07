@@ -54,7 +54,6 @@ class NXOperation extends NXElement with SemanticUI {
   @observable String description;
   final List<NxOperationParamValue> params = toObservable([]);
 
-  @observable String selectedInputType;
   final List<NxOperationMethod> methods = toObservable([]);
   @observable NxOperationMethod method;
 
@@ -115,14 +114,9 @@ class NXOperation extends NXElement with SemanticUI {
       // Setup the parameters
       methods.clear();
       methods.addAll(_op.methods.map((m) => new NxOperationMethod(m)));
-      selectedInputType = methods.first.inputType;
+      method = methods.first;
 
     });
-  }
-
-  void selectedInputTypeChanged() {
-    var m = methods.where((m) => m.inputType == selectedInputType).first;
-    method = notifyPropertyChange(#method, method, m);
   }
 
   void callOp(evt) {
