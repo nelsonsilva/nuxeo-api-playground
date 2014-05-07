@@ -73,4 +73,6 @@ class Parameter {
       ..required = json["required"] == "true";
 
   bool get isPathParam => type == "path";
+  bool get isBodyParam => type == "body";
+  bool get isHeaderParam => type == "header";
 }

@@ -96,7 +96,7 @@
         </template>  
         
         <template if="{{endpoint}}">
-          <div class="ui huge header">{{operation.method}} {{endpoint.path}}</div> 
+          <div class="ui huge header">{{operation.method}} /api/v1{{endpoint.path}}</div> 
           <div class="ui description segment">{{operation.summary}}</div>
           <div class="ui medium blue header">Parameters</div>
           <div class="ui form">   
@@ -117,7 +117,7 @@
                       <!-- NOTE: We use the type to specify the field of the document we want to use -->
                       <nx-widget
                       datatype="{{(param.name == 'docPath' || param.name == 'docId') ? 'document' : 'string'}}"
-                      type="{{(param.name == 'docPath') ? 'path' : (param.name == 'docId') ? 'uid' : param.dataType}}"
+                      type="{{param.widget}}"
                       required="{{param.required}}"
                       value="{{param.value}}">
                       </nx-widget>

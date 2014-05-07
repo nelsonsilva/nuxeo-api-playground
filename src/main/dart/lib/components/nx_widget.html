@@ -3,6 +3,8 @@
 
   <template>
 
+      <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
+      
       <link rel="stylesheet"  href="../semantic/elements/button.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/elements/header.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/elements/icon.min.css" no-shim>
@@ -16,7 +18,7 @@
       <link rel="stylesheet"  href="../semantic/modules/transition.min.css" no-shim>
       
       <link rel="stylesheet"  href="../css/style.css" no-shim>
-        <div class="ui input">
+      <div class="ui form">
         <!-- Document(s) -->
         <!-- Note: type is normally 'text' but we also use it to specify the field of the document we want (uid, path, ...) -->
         <template if="{{datatype == 'document' || datatype == 'documents'}}">
@@ -68,6 +70,10 @@
           <select class="ui dropdown selection" value="{{value}}">
             <option template repeat="{{option in options}}">{{option}}</option>
           </select>
+        </template>
+        
+        <template if="{{type == 'textarea'}}">
+          <textarea class="ui textarea" id="widget" value="{{value}}"></textarea>
         </template>
         
         <!-- Blob -->

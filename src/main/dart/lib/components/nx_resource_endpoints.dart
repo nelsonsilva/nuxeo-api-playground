@@ -22,12 +22,28 @@ class NxParameterValue extends Observable {
   String get name => _param.name;
   String get dataType => _param.dataType;
   String get description => _param.description;
+  String get type => _param.type;
 
   bool get isPathParam => _param.isPathParam;
+  bool get isHeaderParam => _param.isHeaderParam;
+  bool get isBodyParam => _param.isBodyParam;
 
   bool get required => _param.required;
 
   bool get isValid => !required || (required && value != null);
+
+  String get widget {
+
+    // We use the type to specify the field of the document we want to use
+    if (name == 'docPath') return 'path';
+    if (name == 'docId') return 'uid';
+
+    if (isBodyParam) return 'textarea';
+
+    if (dataType == 'string') return 'text';
+
+    return dataType;
+  }
 }
 
 @CustomTag(NXResourceEndpoints.TAG)
@@ -127,8 +143,9 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     // Setup the parameters
     params.clear();
 
+    // Add all except header params
     if (operation != null) {
-      params.addAll(operation.parameters.where((p) => p.isPathParam).map((p) => new NxParameterValue(p)));
+      params.addAll(operation.parameters.where((p) => !p.isHeaderParam).map((p) => new NxParameterValue(p)));
     }
 
     // Clear request and response
@@ -166,7 +183,9 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
       path = path.replaceAll("{${param.name}}", (param.value == null)? "" : param.value);
     });
 
-    var body;
+    var bodyParam = params.where((p) => p.isBodyParam);
+
+    var body = (bodyParam.isEmpty) ? null : bodyParam.first.value;
 
     request = NX.newRequest("$path");
 
