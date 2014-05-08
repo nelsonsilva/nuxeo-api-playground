@@ -9,7 +9,9 @@ import 'package:polymer/polymer.dart';
 @CustomTag("nx-tree")
 class Tree extends NXElement with SemanticUI {
 
-  @published String root;
+  @published String root; // This can be either a path or a uid
+  @observable String rootKey; // The root doc's key value
+
   @published bool multipleSelection = false;
   /// The document field to use as key
   @published String key = "uid"; // uid or path
@@ -44,14 +46,21 @@ class Tree extends NXElement with SemanticUI {
 
   @override
   onConnect() {
-    _expandRoot();
+    rootChanged();
   }
 
   rootChanged() {
     if (isConnected) {
-      _expandRoot();
+      _updateRootKey().then((_) {
+        async((_) { _expandRoot(); });
+      });
     }
   }
+
+  /// Fetch the root's key value
+  _updateRootKey() => NX.doc(root).fetch().then((doc) {
+    rootKey = _keyFor(doc);
+  });
 
   _expandRoot() {
     (shadowRoot.querySelector("nx-tree-node") as TreeNode).expand();
@@ -63,7 +72,7 @@ class Tree extends NXElement with SemanticUI {
 
     // Get the document key
     var doc = detail;
-    var docId = (key == "uid") ? doc.uid : doc.path;
+    var docId = _keyFor(doc);
 
     // New selection
     if (!_selection.contains(docId)) {
@@ -87,4 +96,6 @@ class Tree extends NXElement with SemanticUI {
       _clearSelections(n.shadowRoot);
     });
   }
+
+  _keyFor(doc) => (key == "uid") ? doc.uid : doc.path;
 }
