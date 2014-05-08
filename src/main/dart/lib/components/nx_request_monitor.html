@@ -1,6 +1,8 @@
 <polymer-element name="nx-request-monitor">
 <template>
 
+  <link rel="stylesheet"  href="../semantic/elements/icon.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/elements/label.min.css" no-shim>
   <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
 
   <link rel="stylesheet"  href="../semantic/collections/breadcrumb.min.css" no-shim>
@@ -17,17 +19,20 @@
   </div>
   <div class="ui bottom attached segment">
     <template if="{{currentTab == 'response'}}">
-      <pre><code>{{body}}</code></pre>
+      <div class="ui ribbon label">{{contentType}} <a href="{{downloadUrl}}" title="Download"><i class="download disk icon"></i></a></div>
+      <template if="{{contentType.startsWith('application/json') || contentType == 'text/plain'}}">
+        <pre><code>{{body}}</code></pre>
+      </template>
     </template>
     <template if="{{currentTab == 'headers'}}">
-      <strong>Request Headers</strong>
+      <div class="ui ribbon label">Request Headers</div>
       <code class="json">
       <template repeat="{{key in request.headers.keys}}">
         <p>"{{key}}": "{{request.headers[key]}}"</p>
       </template>
       </code>
       
-      <strong>Response Headers</strong>
+      <div class="ui ribbon label">Response Headers</div>
       <code class="json">
       <template repeat="{{key in response.headers.keys}}">
         <p>"{{key}}": "{{response.headers[key]}}"</p>

@@ -3,6 +3,7 @@ library nx_request_monitor;
 import 'dart:convert';
 import 'dart:js' as js;
 import 'dart:html';
+import 'dart:typed_data';
 import 'ui_module.dart';
 import 'package:polymer/polymer.dart';
 import 'package:nuxeo_automation/client.dart' as nuxeo;
@@ -14,6 +15,8 @@ class NXRequestMonitor extends NXElement {
   @published var response;
 
   @observable var body;
+  @observable String contentType;
+  @observable String downloadUrl;
 
   @observable String currentTab = "response";
 
@@ -49,21 +52,35 @@ class NXRequestMonitor extends NXElement {
   responseChanged() {
     if (response == null) {
       body = null;
+      contentType = null;
       currentTab = null; // Clear the polymer generated content
-    } else if (response.headers["content-type"] == nuxeo.CTYPE_ENTITY ||
-           response.headers["content-type"] == nuxeo.CTYPE_JSON) {
+      return;
+    }
+
+    contentType = response.headers["content-type"];
+    if (contentType == nuxeo.CTYPE_ENTITY || contentType == nuxeo.CTYPE_JSON) {
       var json = JSON.decode(response.body);
       body = new JsonEncoder.withIndent(" " * 2).convert(json);
-    } else if (response.headers["content-type"] == "text/plain") {
+    } else if (contentType == "text/plain") {
       body = response.body;
-    } else {
-      // TODO(nfgs) - Handle Blob
-      // http.Blob(content: body, mimetype: response.headers["content-type"]);
+    } else { //  Handle Blob
+      body = new Uint8List.fromList(UTF8.encode(response.body));
     }
 
     if (body != null) {
       _doChangeTab("response");
     }
+  }
+
+  @ObserveProperty("body contentType")
+  updateDownloadUrl() {
+    if (body == null || contentType == null) {
+      downloadUrl = null;
+      return;
+    }
+
+    var blob = new Blob([body], contentType);
+    downloadUrl = Url.createObjectUrlFromBlob(blob);
   }
 
   _highlight() {
