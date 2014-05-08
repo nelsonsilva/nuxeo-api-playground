@@ -3,6 +3,7 @@
     <link rel="stylesheet"  href="../semantic/elements/button.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/icon.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/image.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/elements/label.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
   
     <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
@@ -47,13 +48,18 @@
                 </div>
               </div>
             </div>
-
-            <template repeat="{{alert in alerts}}">
-              <div class="ui bottom attached {{alert.style}} message">
-                <i class="icon warning"></i>{{alert.message}}
+                        
+            <template if="{{alerts.isNotEmpty}}">
+              <div class="ui bottom attached warning message">
+                 <div class="ui top right attached small label" style="font-size:.6rem;">
+                  make sure you activated the <a href="http://doc.nuxeo.com/x/vIvZ" target="_blank">CORS config</a> on your Nuxeo server
+                </div>
+                <template repeat="{{alert in alerts}}">
+                  <i class="icon warning"></i>{{alert.message}}<br/>
+                </template>
               </div>
             </template>
-
+            
           </template>
           
           <!-- Connected -->
