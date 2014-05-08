@@ -55,7 +55,7 @@
           <!-- Checkbox -->
           <template if="{{datatype == 'boolean'}}"> 
             <div class="ui checkbox">
-              <input id="widget" type="checkbox"/>
+              <input id="widget" type="checkbox" checked="{{value}}" required?="{{required}}"/>
               <label for="widget"></label>
             </div>
           </template>

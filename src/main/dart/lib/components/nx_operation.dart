@@ -135,7 +135,9 @@ class NXOperation extends NXElement with SemanticUI {
 
     // Setup the parameters
     var opParams = {};
-    params.forEach((param) {
+    params
+    .where((p) => p.value != null) // only those that are not null)
+    .forEach((param) {
       opParams[param.name] = param.value;
     });
 
