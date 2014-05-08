@@ -49,6 +49,7 @@ class NXRequestMonitor extends NXElement {
   responseChanged() {
     if (response == null) {
       body = null;
+      currentTab = null; // Clear the polymer generated content
     } else if (response.headers["content-type"] == nuxeo.CTYPE_ENTITY ||
            response.headers["content-type"] == nuxeo.CTYPE_JSON) {
       var json = JSON.decode(response.body);
@@ -70,7 +71,7 @@ class NXRequestMonitor extends NXElement {
     });
   }
 
-  _doChangeTab(tab) {
+  _doChangeTab([tab]) {
     currentTab = tab;
     shadowRoot.querySelectorAll(".ui.menu .item").forEach((Element e) {
       if (e.dataset["tab"] == tab) {

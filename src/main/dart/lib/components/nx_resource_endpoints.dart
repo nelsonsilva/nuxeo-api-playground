@@ -58,8 +58,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
   final Map<String, swagger.Resource> endpoints = toObservable({});
 
-  @observable String endpointKey;
-  @observable String method;
+  @observable String currentPath;
 
   @observable swagger.Resource endpoint;
   @observable swagger.Operation operation;
@@ -101,8 +100,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     }))
     // After everything is loaded
     .then((_) {
-      endpointKeyChanged();
-      methodChanged();
+      currentPathChanged();
       // let's setup the accordion
       async((_) => accordion("#endpoints"));
     });
@@ -115,29 +113,25 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
      path: '/:endpoint/:method',
      defaultRoute: true,
      enter: (e) {
-       endpointKey = e.parameters["endpoint"];
-       method = e.parameters["method"];
-       endpointKeyChanged(); // force triggering endpointKeyChanged
+       var endpoint = e.parameters['endpoint'],
+           method = e.parameters['method'];
+       currentPath = (endpoint != null && method != null)? "$endpoint/$method" : null;
      });
- }
-
-  endpointKeyChanged() {
-    if (endpointKey == null) {
-      endpoint = null;
-    } else {
-      endpoint = endpoints[endpointKey];
-    }
-    methodChanged();// force triggering methodChanged
   }
 
-  methodChanged() {
-    if (endpoint == null || method == null) {
+  currentPathChanged() {
+    if (currentPath == null) {
       operation = null;
     } else {
-      operation = endpoint.operations.where((o) => o.method == method).first;
+      var parts = currentPath.split("/"),
+          endpointKey = parts[0],
+          method = parts[1];
+      endpoint = endpoints[endpointKey];
+      operation = (endpoint == null)? null : endpoint.operations.where((o) => o.method == method).first;
     }
-    operationChanged(); // force triggering operationChanged
   }
+
+  get endpointKey => endpoints.keys.firstWhere((k) => endpoints[k] == endpoint);
 
   operationChanged() {
     // Setup the parameters
