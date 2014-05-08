@@ -14,8 +14,6 @@
     <link rel="stylesheet"  href="../semantic/collections/table.min.css" no-shim>
     
     <link rel="stylesheet"  href="../semantic/modules/accordion.min.css" no-shim>
-    <link rel="stylesheet"  href="../semantic/modules/dimmer.min.css" no-shim>
-    <link rel="stylesheet"  href="../semantic/modules/modal.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/modules/transition.min.css" no-shim>
     
     <link rel="stylesheet"  href="../semantic/views/list.min.css" no-shim>
@@ -92,17 +90,11 @@
 
         <template if="{{selectedItem}}">
           <div class="ui huge header">{{selectedItem.name}}</div>
-
+          
           <template if="{{selectedItem != null && selectedType != 'schemas'}}">
             <i class="sitemap icon link" on-click="{{showDiagram}}"></i>
-            <div class="ui modal" style="width: auto;">
-              <i class="close icon"></i>
-              <div class="content">
-                <img src='{{currentItemDiagram}}'>
-              </div>
-            </div>
           </template>
-          
+
           <!-- SCHEMA -->
           <template if="{{selectedType == 'schemas'}}">
 

@@ -90,10 +90,11 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
     .then((_) {
 
-      // Check for a selected item
-      _updateSelection();
       // Setup the diagram generator
       _diagram = new yuml.DiagramGenerator(schemas: schemas, facets: facets, doctypes: doctypes);
+
+      // Check for a selected item
+      _updateSelection();
     })
     .catchError((e) {
       connection.alerts.add(
@@ -108,10 +109,12 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
     if (selectedId != null && items[selectedType].isNotEmpty) {
       selectedItem = items[selectedType].where((d) => d.name == selectedId).first;
     }
+    _updateDiagram();
   }
 
-  void showDiagram() {
-    if (selectedItem != null) {
+  void _updateDiagram() {
+    currentItemDiagram = null;
+    if (_diagram != null && selectedItem != null) {
       // Update the UI
       if (selectedItem is nuxeo.Doctype) {
         currentItemDiagram = _diagram.generateForDoctype(selectedItem.name);
@@ -120,10 +123,12 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
       } else if (selectedItem is nuxeo.Schema) {
         currentItemDiagram = _diagram.generateForSchema(selectedItem.name);
       }
-      async((_) {
-        modal('.ui.modal');
-      });
     }
+  }
+
+  showDiagram() {
+    var options = "top=0,left=0,width=${window.screen.width},height=${window.screen.height}";
+    window.open(currentItemDiagram, selectedItem.name);
   }
 
   @override
