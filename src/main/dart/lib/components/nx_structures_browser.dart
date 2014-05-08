@@ -148,6 +148,10 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
      );
    }
 
+  searchFilterChanged() {
+    async((_) { accordion(".ui.accordion"); });
+  }
+
   goRoot() {
     selectedType = selectedId = selectedItem = null;
     super.goRoot();

@@ -39,7 +39,11 @@
         <div class="ui fluid blue accordion" style="overflow:hidden">
 
           <template repeat="{{type in items.keys}}">
-            <div class="title">{{type | capitalize}}</div>
+            <template if="{{(items[type] | filter(searchFilter)).isNotEmpty}}">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              {{type | capitalize}}
+            </div>
             <div class="content" style="padding:0">
               <div class="ui small animated list">
                 <template repeat="{{item in items[type] | filter(searchFilter) | sort('name')}}">
@@ -51,8 +55,8 @@
                 </template>
               </div>
             </div>
+            </template>
           </template>
-
         </div>
       </div>
     </ui-sidebar>

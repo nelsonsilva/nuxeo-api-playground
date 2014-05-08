@@ -46,7 +46,10 @@
         <div id="endpoints" class="ui fluid blue accordion" style="overflow:hidden">
 
           <template repeat="{{key in endpoints.keys}}">
-            <div class="title">{{key | capitalize}}</div>
+            <div class="title">
+              <i class="dropdown icon"></i>
+              {{key | capitalize}}
+            </div>
             <div class="content" style="padding:0">
               <div class="ui small animated list">
                 <template repeat="{{operation in endpoints[key].operations}}">
