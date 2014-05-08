@@ -186,9 +186,12 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     // Call the op using 'execute' which does not handle the response
     request.method(operation.method).execute(body)
     .then((res) { response = res; })
-     .catchError((e) {
-       var message = (e is Exception)? e.message : e.toString();
-       errors.add(message);
+    .catchError((e) {
+      if (e is nuxeo.ClientException) {
+        // Store the response
+        response = e.response;
+        errors.add(e.message);
+      }
      });
   }
 

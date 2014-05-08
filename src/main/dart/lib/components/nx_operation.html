@@ -12,6 +12,7 @@
   <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
 
   <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
+  <link rel="stylesheet"  href="../semantic/collections/message.min.css" no-shim>
   <link rel="stylesheet"  href="../semantic/collections/table.min.css" no-shim>
   
   <link rel="stylesheet"  href="../semantic/modules/accordion.min.css" no-shim>
@@ -106,15 +107,19 @@
       <nx-request-options connectionId="{{connectionId}}"></nx-request-options>
     </div>
   </div>
-          
+
+  <template if="{{errors.isNotEmpty}}">
+    <div class="ui bottom attached error message">
+      <template repeat="{{error in errors}}">
+        <p><i class="icon warning"></i>{{error}}</p>
+      </template>
+    </div>
+  </template>
+
   <br/>
   
   <!-- Output -->
   <nx-request-monitor request="{{opRequest}}" response="{{opResponse}}"></nx-request-monitor>
-
-  <template repeat="{{error in errors}}">
-    <div class="alert alert-error">{{error}}</div>
-  </template>
 
 </template>
 <script type="application/dart;component=1" src="nx_operation.dart"></script>

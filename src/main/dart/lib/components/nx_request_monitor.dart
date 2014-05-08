@@ -53,16 +53,17 @@ class NXRequestMonitor extends NXElement {
     } else if (response.headers["content-type"] == nuxeo.CTYPE_ENTITY ||
            response.headers["content-type"] == nuxeo.CTYPE_JSON) {
       var json = JSON.decode(response.body);
-
       body = new JsonEncoder.withIndent(" " * 2).convert(json);
-
-      _doChangeTab("response");
-
+    } else if (response.headers["content-type"] == "text/plain") {
+      body = response.body;
     } else {
       // TODO(nfgs) - Handle Blob
       // http.Blob(content: body, mimetype: response.headers["content-type"]);
     }
 
+    if (body != null) {
+      _doChangeTab("response");
+    }
   }
 
   _highlight() {

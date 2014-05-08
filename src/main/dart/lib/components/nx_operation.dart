@@ -1,5 +1,6 @@
 library nx_operation;
 
+import 'dart:convert' show JSON;
 import 'ui_module.dart';
 import 'package:polymer/polymer.dart';
 import 'package:nuxeo_automation/client.dart' as nuxeo;
@@ -149,8 +150,23 @@ class NXOperation extends NXElement with SemanticUI {
     opRequest.execute()
     .then((res) { opResponse = res; })
     .catchError((e) {
-      var message = (e is nuxeo.ClientException)? e.message : e.toString();
-      errors.add(message);
+      if (e is nuxeo.ClientException) {
+
+        // Store the response
+        opResponse = e.response;
+
+        var message = e.message;
+        // Check if this is JSON and we can extract just the message
+        try {
+          var json = JSON.decode(e.response.body);
+          if (json["message"] != null) {
+            message = json["message"];
+          }
+        } on FormatException catch(e) {
+
+        }
+        errors.add(message);
+      }
     });
   }
 

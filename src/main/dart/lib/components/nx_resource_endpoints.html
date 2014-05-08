@@ -143,9 +143,11 @@
             </div>
           </div>
           
-          <template repeat="{{error in errors}}">
+           <template if="{{errors.isNotEmpty}}">
             <div class="ui bottom attached error message">
-              <i class="icon warning"></i>{{error}}
+              <template repeat="{{error in errors}}">
+                <p><i class="icon warning"></i>{{error}}</p>
+              </template>
             </div>
           </template>
             
