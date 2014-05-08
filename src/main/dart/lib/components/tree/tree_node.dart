@@ -32,6 +32,7 @@ class TreeNode extends NXElement with SemanticUI {
 
   enteredView() {
     super.enteredView();
+    shadowRoot.querySelector(".icon").classes.add("expand");
     accordion(".ui.accordion");
   }
 
@@ -48,7 +49,7 @@ class TreeNode extends NXElement with SemanticUI {
     return icon;
   }
 
-  @observable get isFolderish => true; //(doc != null) && doc.facets.contains("Folderish");
+  @observable bool isFolderish = true;
 
   @override
   onConnect() {
@@ -65,7 +66,7 @@ class TreeNode extends NXElement with SemanticUI {
 
   docChanged(oldValue, newValue) {
     notifyPropertyChange(#icon, null, this.icon);
-    notifyPropertyChange(#isFolderish, null, this.isFolderish);
+    isFolderish = (doc != null) && doc.facets.contains("Folderish");
   }
 
   void expand() {
@@ -78,9 +79,16 @@ class TreeNode extends NXElement with SemanticUI {
   }
 
   void toggle(event, detail, target) {
-    if (target.classes.contains("active")) {
+    var classes = shadowRoot.querySelector(".icon").classes;
+
+    // Currently expanded - the according will collapse
+    if (target.classes.contains("collapse")) {
+      classes..remove("collapse")..add("expand");
       return;
     }
+
+    // Currently collapsed - expand and add the collapse icon
+    classes..remove("expand")..add("collapse");
     expand();
   }
 
