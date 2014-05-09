@@ -109,6 +109,8 @@ class TreeNode extends NXElement with SemanticUI {
   _fetchDoc() {
     NX.doc(docId).fetch().then((doc) {
       this.doc = doc;
+      // TODO(nfgs) - remove this hack - the goal is to have a nice title for the root document
+      if (doc.path == '/') doc.title = '/';
     });
   }
 
