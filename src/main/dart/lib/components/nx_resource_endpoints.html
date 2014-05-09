@@ -52,12 +52,16 @@
             </div>
             <div class="content" style="padding:0">
               <div class="ui small animated list">
-                <template repeat="{{operation in endpoints[key].operations}}">
+                <template repeat="{{resource in endpoints[key] | enumerate}}">
+                <template repeat="{{operation in resource.value.operations}}">
                     <div class="item">
                       <div class="content">
-                        <div on-click="{{select}}" data-target="{{key}}/{{operation.method}}">{{operation.method}}</div>
+                        <div on-click="{{select}}" data-target="{{key}}/{{resource.index}}/{{operation.method}}">
+                          <span class="ui left corner {{methodColors[operation.method]}} label">{{operation.method}}</span> {{resource.value.path}}
+                        </div>
                       </div>
                     </div>
+                </template>
                 </template>
               </div>
             </div>

@@ -40,7 +40,7 @@ class NxParameterValue extends Observable {
 
     if (isBodyParam) return 'textarea';
 
-    if (dataType == 'string') return 'text';
+    if (dataType == 'string' || dataType == 'long') return 'text';
 
     return dataType;
   }
@@ -56,7 +56,11 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
          description = "Discover the list of endpoints and see which adapters are available for each of them.",
          action = "Discover";
 
-  final Map<String, swagger.Resource> endpoints = toObservable({});
+  final Map<String, List<swagger.Resource>> endpoints = toObservable({});
+
+  final Map<String, String> methodColors = {
+    "GET": "blue", "POST": "teal", "PUT": "green", "DELETE": "red"
+  };
 
   @observable String currentPath;
 
@@ -93,9 +97,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
       .then((response) {
         var json = JSON.decode(response.body);
         var listing = new swagger.Listing.fromJSON(json);
-        // Just use the first resource declaration for now
-        var resource = listing.resources.first;
-        endpoints[resourceKey] = resource;
+        endpoints[resourceKey] = listing.resources;
       });
     }))
     // After everything is loaded
@@ -110,12 +112,13 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
   void setupRoutes(Route route) {
    route.addRoute(
      name: 'rest',
-     path: '/:endpoint/:method',
+     path: '/:endpoint/:idx/:method',
      defaultRoute: true,
      enter: (e) {
        var endpoint = e.parameters['endpoint'],
+           idx = e.parameters['idx'],
            method = e.parameters['method'];
-       currentPath = (endpoint != null && method != null)? "$endpoint/$method" : null;
+       currentPath = (endpoint != null && idx != null && method != null)? "$endpoint/$idx/$method" : null;
      });
   }
 
@@ -125,13 +128,15 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     } else {
       var parts = currentPath.split("/"),
           endpointKey = parts[0],
-          method = parts[1];
-      endpoint = endpoints[endpointKey];
+          idx = int.parse(parts[1]),
+          method = parts[2];
+
+      endpoint = endpoints[endpointKey][idx];
       operation = (endpoint == null)? null : endpoint.operations.where((o) => o.method == method).first;
     }
   }
 
-  get endpointKey => endpoints.keys.firstWhere((k) => endpoints[k] == endpoint);
+  get endpointKey => endpoints.keys.firstWhere((k) => endpoints[k].contains(endpoint));
 
   operationChanged() {
     // Setup the parameters
@@ -151,7 +156,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
   select(event, detail, target) {
     var parts = target.dataset["target"].split("/");
-    router.go("$path.rest", {"endpoint": parts[0], "method": parts[1]});
+    router.go("$path.rest", {"endpoint": parts[0], "idx": parts[1], "method": parts[2]});
   }
 
   runRequest(evt) {
