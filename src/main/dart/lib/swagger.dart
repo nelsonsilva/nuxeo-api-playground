@@ -75,4 +75,5 @@ class Parameter {
   bool get isPathParam => type == "path";
   bool get isBodyParam => type == "body";
   bool get isHeaderParam => type == "header";
+  bool get isQueryParam => type == "query";
 }

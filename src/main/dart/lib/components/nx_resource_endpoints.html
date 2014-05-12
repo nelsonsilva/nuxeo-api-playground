@@ -106,14 +106,15 @@
           <div class="ui huge header">{{operation.method}} /api/v1{{endpoint.path}}</div> 
           <div class="ui description segment">{{operation.summary}}</div>
           <div class="ui medium blue header">Parameters</div>
-          <div class="ui form">   
-    
+          <div class="ui form">
+
             <table class="ui large blue basic table">
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Value</th>
                   <th>Description</th>
+                  <th>Type</th>
                 </tr>
               </thead>
               <tbody>
@@ -130,10 +131,11 @@
                       </nx-widget>
                     </div>
                   </td>
-                  <td>{{param.description}}
+                  <td>{{param.description}}</td>
+                  <td>{{param.dataType}}<span class="ui small label" style="float:right">{{param.type}}</span></td>
                 </tr>
               </tbody>
-            </table>
+           </table>
         
           </div>
           

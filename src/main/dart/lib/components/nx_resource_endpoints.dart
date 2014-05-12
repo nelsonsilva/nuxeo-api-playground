@@ -27,6 +27,7 @@ class NxParameterValue extends Observable {
   bool get isPathParam => _param.isPathParam;
   bool get isHeaderParam => _param.isHeaderParam;
   bool get isBodyParam => _param.isBodyParam;
+  bool get isQueryParam => _param.isQueryParam;
 
   bool get required => _param.required;
 
@@ -182,11 +183,17 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
       path = path.replaceAll("{${param.name}}", (param.value == null)? "" : param.value);
     });
 
+    // Query parameters
+    var queryParams = params.
+    where((p) => p.isQueryParam && p.value != null)
+    .map((param) => "${param.name}=${param.value}")
+    .join("&");
+
     var bodyParam = params.where((p) => p.isBodyParam);
 
     var body = (bodyParam.isEmpty) ? null : bodyParam.first.value;
 
-    request = NX.newRequest("$path");
+    request = NX.newRequest("$path?$queryParams");
 
     // Call the op using 'execute' which does not handle the response
     request.method(operation.method).execute(body)
