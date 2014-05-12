@@ -316,7 +316,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -607,7 +607,7 @@ input:required:valid:after {
 
 body{-webkit-transition:margin .3s ease,-webkit-transform .3s ease;-moz-transition:margin .3s ease,-moz-transform .3s ease;transition:margin .3s ease,transform .3s ease}.ui.sidebar{position:fixed;margin:0!important;height:100%!important;border-radius:0!important;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;-ms-overflow-y:auto;overflow-y:auto;top:0;left:0;z-index:999;-webkit-transition:margin-left .3s ease,margin-top .3s ease;-moz-transition:margin-left .3s ease,margin-top .3s ease;transition:margin-left .3s ease,margin-top .3s ease}body.pushed.scrolling.ui.dimmable{position:static}.ui.right.very.thin.sidebar,.ui.right.thin.sidebar,.ui.right.sidebar,.ui.right.wide.sidebar,.ui.right.very.wide.sidebar{left:100%;margin:0!important}.ui.top.sidebar{width:100%!important}.ui.bottom.sidebar{width:100%!important;top:100%;margin:0!important}.ui.active.sidebar{margin-left:0!important}.ui.active.top.sidebar,.ui.active.bottom.sidebar{margin-top:0!important}.ui.styled.sidebar{padding:1em 1.5em;background-color:#FFF;-webkit-box-shadow:1px 0 0 rgba(0,0,0,.1);box-shadow:1px 0 0 rgba(0,0,0,.1)}.ui.styled.very.thin.sidebar{padding:.5em}.ui.styled.thin.sidebar{padding:1em}.ui.floating.sidebar{-webkit-box-shadow:2px 0 2px rgba(0,0,0,.2);box-shadow:2px 0 2px rgba(0,0,0,.2)}.ui.right.floating.sidebar{-webkit-box-shadow:-2px 0 2px rgba(0,0,0,.2);box-shadow:-2px 0 2px rgba(0,0,0,.2)}.ui.top.floating.sidebar{-webkit-box-shadow:0 4px 4px rgba(0,0,0,.2);box-shadow:0 4px 4px rgba(0,0,0,.2)}.ui.bottom.floating.sidebar{-webkit-box-shadow:0 -4px 4px rgba(0,0,0,.2);box-shadow:0 -4px 4px rgba(0,0,0,.2)}.ui.very.thin.sidebar{width:60px!important;margin-left:-60px!important}.ui.active.very.thin.sidebar{margin-left:0!important}.ui.active.right.very.thin.sidebar{margin-left:-60px!important}.ui.thin.sidebar{width:200px!important;margin-left:-200px!important}.ui.active.thin.sidebar{margin-left:0!important}.ui.active.right.thin.sidebar{margin-left:-200px!important}.ui.sidebar{width:275px!important;margin-left:-275px!important}.ui.active.sidebar{margin-left:0!important}.ui.active.right.sidebar{margin-left:-275px!important}.ui.wide.sidebar{width:350px!important;margin-left:-350px!important}.ui.active.wide.sidebar{margin-left:0!important}.ui.active.right.wide.sidebar{margin-left:-350px!important}.ui.very.wide.sidebar{width:475px!important;margin-left:-475px!important}.ui.active.very.wide.sidebar{margin-left:0!important}.ui.active.right.very.wide.sidebar{margin-left:-475px!important}.ui.top.sidebar{margin:-40px 0 0 0!important}.ui.top.sidebar,.ui.bottom.sidebar{height:40px!important}.ui.active.bottom.sidebar{margin-top:-40px!important}</style>
     <!-- Sidebar -->
-    <div class="ui large vertical sidebar">
+    <div class="ui wide vertical sidebar">
         <content></content>
     </div>
     <!-- Button -->
@@ -801,7 +801,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -866,13 +866,13 @@ input:required:valid:after {
     <ui-sidebar>
       <div class="ui fluid vertical menu">
           <!-- Navigation -->
-          <a class="ui red inverted header item">
-            <i class="circle left icon" on-click="{{goHome}}"></i>
+          <a class="ui red inverted header item" on-click="{{goHome}}">
+            <i class="circle left icon"></i>
             {{title}}
           </a>
           <div class="item" style="overflow:auto">
             <!-- Endpoints -->
-            <nx-tree root="/default-domain" connectionid="{{connectionId}}" selected="{{documentId}}"></nx-tree>
+            <nx-tree root="/" connectionid="{{connectionId}}" selected="{{documentId}}"></nx-tree>
           </div>
       </div>
     </ui-sidebar>
@@ -1191,7 +1191,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -1256,8 +1256,8 @@ input:required:valid:after {
     <ui-sidebar>
       <div class="ui large vertical menu">
         <!-- Navigation -->
-        <a class="ui red inverted header item">
-          <i class="circle left icon" on-click="{{goHome}}"></i>
+        <a class="ui red inverted header item" on-click="{{goHome}}">
+          <i class="circle left icon"></i>
           {{title}}
         </a>
         <!-- Search -->
@@ -1723,7 +1723,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -1921,7 +1921,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -2240,7 +2240,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -2312,13 +2312,13 @@ input:required:valid:after {
           <div class="ui modal">
             <i class="close icon"></i>
             <div class="small header">
-              Pick {{type}}:
+              Pick {{datatype}}:
             </div>
             <div class="content">
               <!-- TODO(nfgs): Do not hardcode max-height -->
               <div class="ui segment" style="max-height:300px;overflow:auto;width:100%">
               <!-- TODO(nfgs): Do not hardcode connectionId -->
-              <nx-tree root="/default-domain" key="{{(type == 'text') ? 'uid' : type}}" multipleselection="{{datatype == 'documents'}}" selected="{{value}}" connectionid="connection"></nx-tree>
+              <nx-tree root="/" key="{{(type == 'text') ? 'uid' : type}}" multipleselection="{{datatype == 'documents'}}" selected="{{value}}" connectionid="connection"></nx-tree>
               </div>
             </div>
             <div class="actions">
@@ -2651,7 +2651,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -2717,8 +2717,8 @@ input:required:valid:after {
     <ui-sidebar>
       <div class="ui fluid vertical menu">
         <!-- Navigation -->
-        <a class="ui red inverted header item">
-          <i class="circle left icon" on-click="{{goHome}}"></i>
+        <a class="ui red inverted header item" on-click="{{goHome}}">
+          <i class="circle left icon"></i>
           {{title}}
         </a>
         <!-- TODO(nfgs): Search -->
@@ -2739,12 +2739,16 @@ input:required:valid:after {
             </div>
             <div class="content" style="padding:0">
               <div class="ui small animated list">
-                <template repeat="{{operation in endpoints[key].operations}}">
+                <template repeat="{{resource in endpoints[key] | enumerate}}">
+                <template repeat="{{operation in resource.value.operations}}">
                     <div class="item">
                       <div class="content">
-                        <div on-click="{{select}}" data-target="{{key}}/{{operation.method}}">{{operation.method}}</div>
+                        <div on-click="{{select}}" data-target="{{key}}/{{resource.index}}/{{operation.method}}">
+                          <span class="ui left corner {{methodColors[operation.method]}} label">{{operation.method}}</span> {{resource.value.path}}
+                        </div>
                       </div>
                     </div>
+                </template>
                 </template>
               </div>
             </div>
@@ -2789,14 +2793,15 @@ input:required:valid:after {
           <div class="ui huge header">{{operation.method}} /api/v1{{endpoint.path}}</div> 
           <div class="ui description segment">{{operation.summary}}</div>
           <div class="ui medium blue header">Parameters</div>
-          <div class="ui form">   
-    
+          <div class="ui form">
+
             <table class="ui large blue basic table">
               <thead>
                 <tr>
                   <th>Name</th>
                   <th>Value</th>
                   <th>Description</th>
+                  <th>Type</th>
                 </tr>
               </thead>
               <tbody>
@@ -2809,10 +2814,11 @@ input:required:valid:after {
                       </nx-widget>
                     </div>
                   </td>
-                  <td>{{param.description}}
-                </td></tr>
+                  <td>{{param.description}}</td>
+                  <td>{{param.dataType}}<span class="ui small label" style="float:right">{{param.type}}</span></td>
+                </tr>
               </tbody>
-            </table>
+           </table>
         
           </div>
           
@@ -3084,7 +3090,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -3147,7 +3153,7 @@ input:required:valid:after {
 }</style>
 
   <div class="ui huge header">POST /api/automation/{{name}}</div>
-  <div class="ui blue label">{{label}}</div>
+  <div class="ui white label">{{label}}</div>
   <div class="ui description segment">
     <p>{{description}}</p>
   </div>
@@ -3512,7 +3518,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
@@ -3577,8 +3583,8 @@ input:required:valid:after {
     <ui-sidebar>
       <div class="ui fluid vertical menu">
       <!-- Navigation -->
-      <a class="ui red inverted header item">
-        <i class="circle left icon" on-click="{{goHome}}"></i>
+      <a class="ui red inverted header item" on-click="{{goHome}}">
+        <i class="circle left icon"></i>
         {{title}}
       </a>
       <!-- Search -->
@@ -3792,7 +3798,7 @@ a {
   color: white;
 }
 
-.ui.blue.label {
+.ui.white.label {
   background-color: white !important;
   color: #203f7d !important;
   border-color: gray !important;
