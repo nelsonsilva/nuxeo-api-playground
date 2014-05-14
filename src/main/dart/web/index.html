@@ -61,6 +61,19 @@
           text-decoration: inherit;
           text-transform: none;
         }
+        /* Add enough space for the header */
+        /* Note: Don't forget to update the sidebar */
+        body {
+          margin-top: 50px;
+        }
+        #header {
+          background:white url('images/nuxeo_logo.png') no-repeat 10px 10px;
+          position:absolute;
+          left:0px;
+          top:0px;
+          height:50px;
+          width:100%;
+        }
     </style>
     <link rel="import" href="packages/polymer/polymer.html">
     <link rel="import" href="packages/nuxeo_dart_automation_sandbox/app.html">
@@ -70,6 +83,7 @@
     <script src="javascript/highlight-8.0.pack.js"></script>
   </head>
   <body>
+    <div id="header"></div>
     <!-- Connection Area -->
     <nx-connection id="connection"></nx-connection>
     <!-- App -->
