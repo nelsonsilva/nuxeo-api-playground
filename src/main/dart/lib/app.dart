@@ -1,5 +1,6 @@
 library app;
 
+import 'dart:html';
 import 'package:route_hierarchical/client.dart';
 import 'package:logging/logging.dart';
 import 'package:logging_handlers/logging_handlers_shared.dart';
@@ -9,11 +10,13 @@ import 'components/nx_structures_browser.dart';
 import 'components/nx_resource_endpoints.dart';
 import 'components/nx_command_endpoints.dart';
 import 'components/ui_module.dart';
+import 'components/nx_connection.dart';
 
 @CustomTag("nx-sandbox-app")
 class NXSandboxApp extends PolymerElement {
 
   @published String connectionId;
+  @observable NXConnection connection;
 
   Map<String, NXModule> modules = {
     "browser": new NXRepositoryBrowser(),
@@ -30,6 +33,7 @@ class NXSandboxApp extends PolymerElement {
   var router;
 
   connectionIdChanged() {
+    connection = document.querySelector("#$connectionId");
     // Setup the connectionId for all the modules
     modules.values.forEach((NXModule m) { m.connectionId = connectionId; });
   }
