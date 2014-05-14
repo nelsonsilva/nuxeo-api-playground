@@ -1,5 +1,6 @@
 library nx_tree_node;
 
+import 'dart:async';
 import 'dart:html';
 import '../semantic.dart';
 import '../ui_module.dart';
@@ -69,27 +70,38 @@ class TreeNode extends NXElement with SemanticUI {
     isFolderish = (doc != null) && doc.facets.contains("Folderish");
   }
 
-  void expand() {
+  Future _fetchChildren() {
     if (children.isNotEmpty) {
-      return;
+      return new Future.value(children);
     }
-    NX.doc(docId).children().fetch().then((docs) {
-      children..clear()..addAll(docs);
+    return NX.doc(docId).children().fetch().then((docs) =>
+      children..clear()..addAll(docs)
+    );
+  }
+
+  void expand() {
+    _fetchChildren().then((_) {
+      // Toggle the accordion
+      shadowRoot.querySelector(".ui.accordion .title").classes.add("active");
+      shadowRoot.querySelector(".ui.accordion .content").classes.add("active");
+      // Toggle the icon
+      shadowRoot.querySelector(".icon").classes..remove("expand")..add("collapse");
     });
   }
 
   void toggle(event, detail, target) {
-    var classes = shadowRoot.querySelector(".icon").classes;
+    _fetchChildren().then((_) {
+      var classes = shadowRoot.querySelector(".icon").classes;
 
-    // Currently expanded - the according will collapse
-    if (target.classes.contains("collapse")) {
-      classes..remove("collapse")..add("expand");
-      return;
-    }
+      // Currently expanded - the according will collapse
+      if (target.classes.contains("collapse")) {
+        classes..remove("collapse")..add("expand");
+        return;
+      }
 
-    // Currently collapsed - expand and add the collapse icon
-    classes..remove("expand")..add("collapse");
-    expand();
+      // Currently collapsed - expand and add the collapse icon
+      classes..remove("expand")..add("collapse");
+    });
   }
 
   set selected(bool flag) {
