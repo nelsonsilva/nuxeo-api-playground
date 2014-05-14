@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 
     
     
@@ -65,6 +66,19 @@
           font-variant: normal;
           text-decoration: inherit;
           text-transform: none;
+        }
+        /* Add enough space for the header */
+        /* Note: Don't forget to update the sidebar */
+        body {
+          margin-top: 50px;
+        }
+        #header {
+          background:white url('images/nuxeo_logo.png') no-repeat 10px 10px;
+          position:absolute;
+          left:0px;
+          top:0px;
+          height:50px;
+          width:100%;
         }
     </style>
 
@@ -606,6 +620,12 @@ input:required:valid:after {
 */
 
 body{-webkit-transition:margin .3s ease,-webkit-transform .3s ease;-moz-transition:margin .3s ease,-moz-transform .3s ease;transition:margin .3s ease,transform .3s ease}.ui.sidebar{position:fixed;margin:0!important;height:100%!important;border-radius:0!important;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;-ms-overflow-y:auto;overflow-y:auto;top:0;left:0;z-index:999;-webkit-transition:margin-left .3s ease,margin-top .3s ease;-moz-transition:margin-left .3s ease,margin-top .3s ease;transition:margin-left .3s ease,margin-top .3s ease}body.pushed.scrolling.ui.dimmable{position:static}.ui.right.very.thin.sidebar,.ui.right.thin.sidebar,.ui.right.sidebar,.ui.right.wide.sidebar,.ui.right.very.wide.sidebar{left:100%;margin:0!important}.ui.top.sidebar{width:100%!important}.ui.bottom.sidebar{width:100%!important;top:100%;margin:0!important}.ui.active.sidebar{margin-left:0!important}.ui.active.top.sidebar,.ui.active.bottom.sidebar{margin-top:0!important}.ui.styled.sidebar{padding:1em 1.5em;background-color:#FFF;-webkit-box-shadow:1px 0 0 rgba(0,0,0,.1);box-shadow:1px 0 0 rgba(0,0,0,.1)}.ui.styled.very.thin.sidebar{padding:.5em}.ui.styled.thin.sidebar{padding:1em}.ui.floating.sidebar{-webkit-box-shadow:2px 0 2px rgba(0,0,0,.2);box-shadow:2px 0 2px rgba(0,0,0,.2)}.ui.right.floating.sidebar{-webkit-box-shadow:-2px 0 2px rgba(0,0,0,.2);box-shadow:-2px 0 2px rgba(0,0,0,.2)}.ui.top.floating.sidebar{-webkit-box-shadow:0 4px 4px rgba(0,0,0,.2);box-shadow:0 4px 4px rgba(0,0,0,.2)}.ui.bottom.floating.sidebar{-webkit-box-shadow:0 -4px 4px rgba(0,0,0,.2);box-shadow:0 -4px 4px rgba(0,0,0,.2)}.ui.very.thin.sidebar{width:60px!important;margin-left:-60px!important}.ui.active.very.thin.sidebar{margin-left:0!important}.ui.active.right.very.thin.sidebar{margin-left:-60px!important}.ui.thin.sidebar{width:200px!important;margin-left:-200px!important}.ui.active.thin.sidebar{margin-left:0!important}.ui.active.right.thin.sidebar{margin-left:-200px!important}.ui.sidebar{width:275px!important;margin-left:-275px!important}.ui.active.sidebar{margin-left:0!important}.ui.active.right.sidebar{margin-left:-275px!important}.ui.wide.sidebar{width:350px!important;margin-left:-350px!important}.ui.active.wide.sidebar{margin-left:0!important}.ui.active.right.wide.sidebar{margin-left:-350px!important}.ui.very.wide.sidebar{width:475px!important;margin-left:-475px!important}.ui.active.very.wide.sidebar{margin-left:0!important}.ui.active.right.very.wide.sidebar{margin-left:-475px!important}.ui.top.sidebar{margin:-40px 0 0 0!important}.ui.top.sidebar,.ui.bottom.sidebar{height:40px!important}.ui.active.bottom.sidebar{margin-top:-40px!important}</style>
+    <style>
+      /* Add enough space for the header */
+      .ui.sidebar {
+        margin-top: 50px !important;
+      }
+    </style>
     <!-- Sidebar -->
     <div class="ui wide vertical sidebar">
         <content></content>
@@ -1254,7 +1274,7 @@ input:required:valid:after {
 }</style>
     <!-- Sidebar -->
     <ui-sidebar>
-      <div class="ui large vertical menu">
+      <div class="ui fluid vertical menu">
         <!-- Navigation -->
         <a class="ui red inverted header item" on-click="{{goHome}}">
           <i class="circle left icon"></i>
@@ -1792,7 +1812,13 @@ input:required:valid:after {
   </div>
   <div class="ui bottom attached segment">
     <template if="{{currentTab == 'response'}}">
+      <!-- Status code and text -->
+      <template if="{{response.status != 0}}">
+        <div class="ui top right attached label"><div class="detail">{{response.status}}</div> {{response.statusText}}</div>
+      </template>  
+      <!-- Content Type -->
       <div class="ui ribbon label">{{contentType}} <a href="{{downloadUrl}}" title="Download"><i class="download disk icon"></i></a></div>
+      <!-- Body -->
       <template if="{{contentType.startsWith('application/json') || contentType == 'text/plain'}}">
         <pre><code>{{body}}</code></pre>
       </template>
@@ -2947,6 +2973,20 @@ input:required:valid:after {
 * Released: 04/04/2014
 */
 
+.ui.loader{display:none;position:absolute;top:50%;left:50%;margin:0;z-index:1000;-webkit-transform:translateX(-50%) translateY(-50%);-moz-transform:translateX(-50%) translateY(-50%);-ms-transform:translateX(-50%) translateY(-50%);transform:translateX(-50%) translateY(-50%)}.ui.dimmer .loader{display:block}.ui.text.loader{width:auto!important;height:auto!important;text-align:center;font-style:normal}.ui.mini.text.loader{min-width:16px;padding-top:2em;font-size:.875em}.ui.small.text.loader{min-width:24px;padding-top:2.5em;font-size:.875em}.ui.text.loader{min-width:32px;font-size:1em;padding-top:3em}.ui.large.text.loader{min-width:64px;padding-top:5em;font-size:1.2em}.ui.loader.active,.ui.loader.visible{display:block}.ui.loader.disabled,.ui.loader.hidden{display:none}.ui.dimmer .ui.text.loader,.ui.inverted.text.loader{color:rgba(255,255,255,.8)}.ui.inverted.dimmer .ui.text.loader{color:rgba(0,0,0,.8)}.ui.dimmer .mini.ui.loader,.ui.inverted .mini.ui.loader{background-image:url(packages/nuxeo_dart_automation_sandbox/semantic/images/loader-mini-inverted.gif)}.ui.dimmer .small.ui.loader,.ui.inverted .small.ui.loader{background-image:url(packages/nuxeo_dart_automation_sandbox/semantic/images/loader-small-inverted.gif)}.ui.dimmer .ui.loader,.ui.inverted.loader{background-image:url(packages/nuxeo_dart_automation_sandbox/semantic/images/loader-medium-inverted.gif)}.ui.dimmer .large.ui.loader,.ui.inverted .large.ui.loader{background-image:url(packages/nuxeo_dart_automation_sandbox/semantic/images/loader-large-inverted.gif)}.ui.inverted.dimmer .ui.mini.loader,.ui.mini.loader{width:16px;height:16px;background-image:url(packages/nuxeo_dart_automation_sandbox/semantic/images/loader-mini.gif)}.ui.inverted.dimmer .ui.small.loader,.ui.small.loader{width:24px;height:24px;background-image:url(packages/nuxeo_dart_automation_sandbox/semantic/images/loader-small.gif)}.ui.inverted.dimmer .ui.loader,.ui.loader{width:32px;height:32px;background:url(packages/nuxeo_dart_automation_sandbox/semantic/images/loader-medium.gif) no-repeat;background-position:48% 0}.ui.inverted.dimmer .ui.loader.large,.ui.loader.large{width:64px;height:64px;background-image:url(packages/nuxeo_dart_automation_sandbox/semantic/images/loader-large.gif)}.ui.inline.loader{position:static;vertical-align:middle;margin:0;-webkit-transform:none;-moz-transform:none;-ms-transform:none;transform:none}.ui.inline.loader.active,.ui.inline.loader.visible{display:inline-block}</style>
+  <style>/*
+* # Semantic UI
+* Version: 0.15.4
+* http://github.com/jlukic/semantic-ui
+*
+*
+* Copyright 2014 Contributors
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+* Released: 04/04/2014
+*/
+
 .ui.segment{position:relative;background-color:#FFF;-webkit-box-shadow:0 0 0 1px rgba(0,0,0,.1);box-shadow:0 0 0 1px rgba(0,0,0,.1);margin:1em 0;padding:1em;border-radius:5px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box}.ui.segment:first-child{margin-top:0}.ui.segment:last-child{margin-bottom:0}.ui.segment:after{content:'';display:block;height:0;clear:both;visibility:hidden}.ui.vertical.segment{margin:0;padding-left:0;padding-right:0;background-color:transparent;border-radius:0;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.1);box-shadow:0 1px 0 rgba(0,0,0,.1)}.ui.vertical.segment:first-child{padding-top:0}.ui.horizontal.segment{margin:0;padding-top:0;padding-bottom:0;background-color:transparent;border-radius:0;-webkit-box-shadow:1px 0 0 rgba(0,0,0,.1);box-shadow:1px 0 0 rgba(0,0,0,.1)}.ui.horizontal.segment:first-child{padding-left:0}.ui.pointing.menu~.ui.attached.segment{top:1px}.ui.page.grid.segment .ui.grid .ui.segment.column{padding-top:2rem;padding-bottom:2rem}.ui.grid.segment,.ui.grid .ui.segment.row,.ui.grid .ui.segment.column{border-radius:0;-webkit-box-shadow:none;box-shadow:none;border:0}.ui.segment>:first-child{margin-top:0}.ui.segment>:last-child{margin-bottom:0}.ui.piled.segment{margin:2em 0;-webkit-box-shadow:0 0 1px 1px rgba(0,0,0,.15);-ms-box-shadow:0 0 1px 1px rgba(0,0,0,.15);-o-box-shadow:0 0 1px 1px rgba(0,0,0,.15);box-shadow:0 0 1px 1px rgba(0,0,0,.15)}.ui.piled.segment:first-child{margin-top:0}.ui.piled.segment:last-child{margin-bottom:0}.ui.piled.segment:after,.ui.piled.segment:before{background-color:#FFF;visibility:visible;content:"";display:block;height:100%;left:-1px;position:absolute;width:100%;-webkit-box-shadow:0 0 1px 1px rgba(0,0,0,.1);box-shadow:0 0 1px 1px rgba(0,0,0,.1)}.ui.piled.segment:after{-webkit-transform:rotate(1.2deg);-moz-transform:rotate(1.2deg);-ms-transform:rotate(1.2deg);transform:rotate(1.2deg);top:0;z-index:-1}.ui.piled.segment:before{-webkit-transform:rotate(-1.2deg);-moz-transform:rotate(-1.2deg);-ms-transform:rotate(-1.2deg);transform:rotate(-1.2deg);top:0;z-index:-2}.ui.stacked.segment{padding-bottom:1.7em}.ui.stacked.segment:after,.ui.stacked.segment:before{content:'';position:absolute;bottom:-3px;left:0;border-top:1px solid rgba(0,0,0,.1);background-color:rgba(0,0,0,.02);width:100%;height:5px;visibility:visible}.ui.stacked.segment:before{bottom:0}.ui.stacked.inverted.segment:after,.ui.stacked.inverted.segment:before{background-color:rgba(255,255,255,.1);border-top:1px solid rgba(255,255,255,.35)}.ui.circular.segment{display:table-cell;padding:2em;text-align:center;vertical-align:middle;border-radius:500em}.ui.raised.segment{-webkit-box-shadow:0 1px 2px 1px rgba(0,0,0,.1);box-shadow:0 1px 2px 1px rgba(0,0,0,.1)}.ui.disabled.segment{opacity:.8;color:#DDD}.ui.basic.segment{position:relative;background-color:transparent;-webkit-box-shadow:none;box-shadow:none;border-radius:0}.ui.basic.segment:first-child{padding-top:0}.ui.basic.segment:last-child{padding-bottom:0}.ui.fitted.segment{padding:0}.ui.blue.segment{border-top:.2em solid #6ECFF5}.ui.green.segment{border-top:.2em solid #A1CF64}.ui.red.segment{border-top:.2em solid #D95C5C}.ui.orange.segment{border-top:.2em solid #F05940}.ui.purple.segment{border-top:.2em solid #564F8A}.ui.teal.segment{border-top:.2em solid #00B5AD}.ui.inverted.black.segment{background-color:#5C6166!important;color:#FFF!important}.ui.inverted.blue.segment{background-color:#6ECFF5!important;color:#FFF!important}.ui.inverted.green.segment{background-color:#A1CF64!important;color:#FFF!important}.ui.inverted.red.segment{background-color:#D95C5C!important;color:#FFF!important}.ui.inverted.orange.segment{background-color:#F05940!important;color:#FFF!important}.ui.inverted.purple.segment{background-color:#564F8A!important;color:#FFF!important}.ui.inverted.teal.segment{background-color:#00B5AD!important;color:#FFF!important}.ui.left.aligned.segment{text-align:left}.ui.right.aligned.segment{text-align:right}.ui.center.aligned.segment{text-align:center}.ui.justified.segment{text-align:justify;-webkit-hyphens:auto;-moz-hyphens:auto;-ms-hyphens:auto;hyphens:auto}.ui.floated.segment,.ui.left.floated.segment{float:left}.ui.right.floated.segment{float:right}.ui.inverted.segment{border:0;-webkit-box-shadow:none;box-shadow:none}.ui.inverted.segment .segment{color:rgba(0,0,0,.7)}.ui.inverted.segment .inverted.segment{color:#FFF}.ui.inverted.segment,.ui.primary.inverted.segment{background-color:#222;color:#FFF}.ui.primary.segment{background-color:#FFF;color:#555}.ui.secondary.segment{background-color:#FAF9FA;color:#777}.ui.tertiary.segment{background-color:#EBEBEB;color:#B0B0B0}.ui.secondary.inverted.segment{background-color:#555;background-image:-webkit-gradient(linear,0 0,0 100%,from(rgba(255,255,255,.3)),to(rgba(255,255,255,.3)));background-image:-webkit-linear-gradient(rgba(255,255,255,.3) 0,rgba(255,255,255,.3) 100%);background-image:-moz-linear-gradient(rgba(255,255,255,.3) 0,rgba(255,255,255,.3) 100%);background-image:-webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,.3)),to(rgba(255,255,255,.3)));background-image:linear-gradient(rgba(255,255,255,.3) 0,rgba(255,255,255,.3) 100%);color:#FAFAFA}.ui.tertiary.inverted.segment{background-color:#555;background-image:-webkit-gradient(linear,0 0,0 100%,from(rgba(255,255,255,.6)),to(rgba(255,255,255,.6)));background-image:-webkit-linear-gradient(rgba(255,255,255,.6) 0,rgba(255,255,255,.6) 100%);background-image:-moz-linear-gradient(rgba(255,255,255,.6) 0,rgba(255,255,255,.6) 100%);background-image:-webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,.6)),to(rgba(255,255,255,.6)));background-image:linear-gradient(rgba(255,255,255,.6) 0,rgba(255,255,255,.6) 100%);color:#EEE}.ui.segment.attached{top:-1px;bottom:-1px;border-radius:0;margin:0;-webkit-box-shadow:0 0 0 1px #DDD;box-shadow:0 0 0 1px #DDD}.ui.top.attached.segment{top:0;bottom:-1px;margin-top:1em;margin-bottom:0;border-radius:5px 5px 0 0}.ui.segment.top.attached:first-child{margin-top:0}.ui.segment.bottom.attached{top:-1px;bottom:0;margin-top:0;margin-bottom:1em;border-radius:0 0 5px 5px}.ui.segment.bottom.attached:last-child{margin-bottom:0}</style>
 
   <style>/*
@@ -3006,6 +3046,20 @@ input:required:valid:after {
 */
 
 .ui.accordion,.ui.accordion .accordion{width:600px;max-width:100%;font-size:1rem;border-radius:.3125em;background-color:#FFF;-webkit-box-shadow:0 0 0 1px rgba(0,0,0,.1);box-shadow:0 0 0 1px rgba(0,0,0,.1)}.ui.accordion .title,.ui.accordion .accordion .title{cursor:pointer;margin:0;padding:.75em 1em;color:rgba(0,0,0,.6);border-top:1px solid rgba(0,0,0,.05);-webkit-transition:background-color .2s ease-out;-moz-transition:background-color .2s ease-out;transition:background-color .2s ease-out}.ui.accordion .title:first-child,.ui.accordion .accordion .title:first-child{border-top:0}.ui.accordion .content,.ui.accordion .accordion .content{display:none;margin:0;padding:1.3em 1em}.ui.accordion .title .dropdown.icon,.ui.accordion .accordion .title .dropdown.icon{display:inline-block;float:none;margin:0 .5em 0 0;-webkit-transition:-webkit-transform .2s ease,opacity .2s ease;-moz-transition:-moz-transform .2s ease,opacity .2s ease;transition:transform .2s ease,opacity .2s ease;-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg)}.ui.accordion .title .dropdown.icon:before,.ui.accordion .accordion .title .dropdown.icon:before{content:'\f0da'}.ui.basic.accordion.menu{background-color:#FFF;-webkit-box-shadow:0 0 0 1px rgba(0,0,0,.1);box-shadow:0 0 0 1px rgba(0,0,0,.1)}.ui.basic.accordion.menu .title,.ui.basic.accordion.menu .content{padding:0}.ui.basic.accordion{background-color:transparent;-webkit-box-shadow:none;box-shadow:none}.ui.basic.accordion .title,.ui.basic.accordion .accordion .title{background-color:transparent;border-top:0;padding-left:0;padding-right:0}.ui.basic.accordion .content,.ui.basic.accordion .accordion .content{padding:.5em 0}.ui.basic.accordion .active.title,.ui.basic.accordion .accordion .active.title{background-color:transparent}.ui.accordion .title:hover,.ui.accordion .active.title,.ui.accordion .accordion .title:hover,.ui.accordion .accordion .active.title{color:rgba(0,0,0,.8)}.ui.accordion .active.title,.ui.accordion .accordion .active.title{background-color:rgba(0,0,0,.1);color:rgba(0,0,0,.8)}.ui.accordion .active.title .dropdown.icon,.ui.accordion .accordion .active.title .dropdown.icon{-webkit-transform:rotate(90deg);-moz-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}.ui.accordion .active.content,.ui.accordion .accordion .active.content{display:block}.ui.fluid.accordion,.ui.fluid.accordion .accordion{width:100%}</style>
+  <style>/*
+* # Semantic UI
+* Version: 0.15.4
+* http://github.com/jlukic/semantic-ui
+*
+*
+* Copyright 2014 Contributors
+* Released under the MIT license
+* http://opensource.org/licenses/MIT
+*
+* Released: 04/04/2014
+*/
+
+.ui.dimmable{position:relative}.ui.dimmer{display:none;position:absolute;top:0!important;left:0!important;width:0;height:0;text-align:center;vertical-align:middle;background-color:rgba(0,0,0,.85);opacity:0;line-height:1;-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:.5s;-moz-animation-duration:.5s;animation-duration:.5s;-webkit-transition:background-color .5s linear;-moz-transition:background-color .5s linear;transition:background-color .5s linear;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;z-index:1000}.ui.dimmer>.content{width:100%;height:100%;display:table;-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text}.ui.dimmer>.content>div{display:table-cell;vertical-align:middle;color:#FFF}.ui.segment>.ui.dimmer{border-radius:5px}.ui.horizontal.segment>.ui.dimmer,.ui.vertical.segment>.ui.dimmer{border-radius:5px}.ui.dimmed.dimmable:not(body){overflow:hidden}.ui.dimmed.dimmable>.ui.animating.dimmer,.ui.dimmed.dimmable>.ui.visible.dimmer,.ui.active.dimmer{display:block;width:100%;height:100%;opacity:1}.ui.disabled.dimmer{width:0!important;height:0!important}.ui.page.dimmer{position:fixed;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-perspective:2000px;-moz-perspective:2000px;-ms-perspective:2000px;perspective:2000px;-webkit-transform-origin:center center;-moz-transform-origin:center center;-ms-transform-origin:center center;transform-origin:center center}.ui.scrolling.dimmable>.dimmer,.ui.scrolling.page.dimmer{position:absolute}.ui.dimmer>.top.aligned.content>*{vertical-align:top}.ui.dimmer>.bottom.aligned.content>*{vertical-align:bottom}.ui.inverted.dimmer{background-color:rgba(255,255,255,.85)}.ui.inverted.dimmer>.content>*{color:rgba(0,0,0,.8)}.ui.simple.dimmer{display:block;overflow:hidden;opacity:1;z-index:-100;background-color:rgba(0,0,0,0)}.ui.dimmed.dimmable>.ui.simple.dimmer{overflow:visible;opacity:1;width:100%;height:100%;background-color:rgba(0,0,0,.85);z-index:1}.ui.simple.inverted.dimmer{background-color:rgba(255,255,255,0)}.ui.dimmed.dimmable>.ui.simple.inverted.dimmer{background-color:rgba(255,255,255,.85)}</style>
   <style>/*
 * # Semantic UI
 * Version: 0.15.4
@@ -3221,9 +3275,12 @@ input:required:valid:after {
   <!-- Run with options -->
   <div id="options" class="ui fluid accordion">                        
     <div class="title" style="text-align: right;">
-      <i class="settings icon"></i>
-      <!-- Submit button -->
-      <div class="ui red submit button" on-click="{{callOp}}">Run</div>
+        <div class="ui visible inline loader" style="background-position:0 0"></div>
+        <i class="settings icon"></i>
+        <!-- Submit button -->
+        <div class="ui red submit button" on-click="{{callOp}}">
+        Run
+        </div>
     </div>
     
     <div class="content">
@@ -3870,7 +3927,12 @@ input:required:valid:after {
               <div class="four wide column"><img class="ui medium image" src="{{modules[key].icon}}"></div>
               <div class="twelve wide column">
                 <p class="description">{{modules[key].description}}</p>
-                <div class="ui right floated red button" on-click="{{navigate}}" data-target="{{key}}">{{modules[key].action}}</div>
+                <template if="{{connection.isConnected}}">
+                  <div class="ui right floated red button" on-click="{{navigate}}" data-target="{{key}}">{{modules[key].action}}</div>
+                </template>
+                <template if="{{!connection.isConnected}}">
+                  <div class="ui right floated disabled button">{{modules[key].action}}</div>
+                </template>                
               </div>
             </div>
           </div>
@@ -3886,6 +3948,7 @@ input:required:valid:after {
 
 </polymer-element>
 <script src="javascript/jquery-2.0.3.min.js"></script><script src="javascript/semantic-0.15.4.min.js"></script><script src="javascript/highlight-8.0.pack.js"></script>
+    <div id="header"></div>
     <!-- Connection Area -->
     <nx-connection id="connection"></nx-connection>
     <!-- App -->
