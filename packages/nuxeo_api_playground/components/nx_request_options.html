@@ -1,0 +1,35 @@
+<polymer-element name="nx-request-options">
+  <template>
+    <link rel="stylesheet"  href="../semantic/elements/input.min.css" no-shim>
+
+    <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
+
+    <link rel="stylesheet"  href="../css/style.css" no-shim>
+
+    <div class="ui form">
+        <div class="two fields">
+          <div class="field"><label>Nuxeo-Transaction-Timeout</label></div>
+          <div class="field"><input type="text" value="{{timeout | inSeconds}}"></div>
+        </div>
+        <div class="two fields">
+            <div class="field"><label>X-NXDocumentProperties</label></div>
+            <div class="field"><input type="text" value="{{schemas | asCSV}}"></div>
+        </div>
+        <div class="two fields">
+            <div class="field"><label>X-NXRepository</label></div>
+            <div class="field"><input type="text" value="{{repository}}"></div>
+        </div>
+        <!-- 
+        <div class="two fields">
+            <div class="field"><label>X-NXContext-Category</label></div>
+            <div class="field"><input type="text" value="{{connection.requestOptions['X-NXContext-Category']}}"></div>
+        </div>
+        <div class="two fields">
+            <div class="field"><label>Content-Type</label></div>
+            <div class="field"><input type="text" value="{{connection.requestOptions['Content-Type']}}"></div>
+        </div>
+         -->
+    </div>
+  </template>
+  <script type="application/dart;component=1" src="nx_request_options.dart"></script>
+</polymer-element>
