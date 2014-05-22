@@ -4,7 +4,7 @@ import 'dart:js' as js;
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'ui_filters.dart';
-import 'package:nuxeo_automation/http.dart' as http;
+import 'package:nuxeo_client/http.dart' as http;
 
 @CustomTag("nx-widget")
 class NXWidget extends PolymerElement {

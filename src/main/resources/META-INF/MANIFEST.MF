@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-Vendor: Nuxeo
 Nuxeo-RequiredBy: org.nuxeo.ecm.war
 Bundle-Version: 1.0
-Bundle-Name: Dart Automation Sandbox
+Bundle-Name: Nuxeo API Playground
 Bundle-ManifestVersion: 2
-Bundle-SymbolicName: org.nuxeo.dart.automation.sandbox;singleton:=true
+Bundle-SymbolicName: org.nuxeo.api.playground;singleton:=true
 Nuxeo-Component: OSGI-INF/authentication-contrib.xml
 
 

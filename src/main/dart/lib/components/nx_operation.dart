@@ -3,7 +3,7 @@ library nx_operation;
 import 'dart:convert' show JSON;
 import 'ui_module.dart';
 import 'package:polymer/polymer.dart';
-import 'package:nuxeo_automation/client.dart' as nuxeo;
+import 'package:nuxeo_client/client.dart' as nuxeo;
 import 'semantic.dart';
 
 class NxOperationMethod extends Observable {

@@ -5,7 +5,7 @@ import 'dart:html';
 import '../semantic.dart';
 import '../ui_module.dart';
 import 'package:polymer/polymer.dart';
-import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
+import 'package:nuxeo_client/browser_client.dart' as nuxeo;
 
 const GET_CHILDREN = "Document.GetChildren";
 const FETCH_DOCUMENT = "Document.Fetch";

@@ -1,7 +1,7 @@
 library nx_connection;
 
 import 'dart:async';
-import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
+import 'package:nuxeo_client/browser_client.dart' as nuxeo;
 import 'package:polymer/polymer.dart';
 import 'semantic.dart';
 

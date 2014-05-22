@@ -1,7 +1,7 @@
 library nx_repository_browser;
 
 import 'dart:html';
-import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
+import 'package:nuxeo_client/browser_client.dart' as nuxeo;
 import 'package:polymer/polymer.dart';
 import 'ui_module.dart';
 import 'semantic.dart';

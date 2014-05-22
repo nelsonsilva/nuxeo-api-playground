@@ -2,7 +2,7 @@ library nx_command_endpoints;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
-import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
+import 'package:nuxeo_client/browser_client.dart' as nuxeo;
 import 'package:polymer_expressions/filter.dart' show Transformer;
 import 'nx_connection.dart';
 import 'ui_filters.dart';

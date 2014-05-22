@@ -2,7 +2,7 @@ library module;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
-import 'package:nuxeo_automation/browser_client.dart' as nuxeo;
+import 'package:nuxeo_client/browser_client.dart' as nuxeo;
 import 'package:route_hierarchical/client.dart';
 export 'package:route_hierarchical/client.dart';
 import 'nx_connection.dart';

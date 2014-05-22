@@ -6,7 +6,7 @@ import 'dart:html';
 import 'dart:typed_data';
 import 'ui_module.dart';
 import 'package:polymer/polymer.dart';
-import 'package:nuxeo_automation/client.dart' as nuxeo;
+import 'package:nuxeo_client/client.dart' as nuxeo;
 
 @CustomTag("nx-request-monitor")
 class NXRequestMonitor extends NXElement {
