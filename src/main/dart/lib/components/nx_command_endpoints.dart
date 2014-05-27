@@ -15,7 +15,7 @@ class NXCommandEndpoints extends NXModule with SearchFilter, SemanticUI {
   static const String TAG = "nx-command-endpoints";
 
   String title = "Command Endpoints",
-         icon = "images/command_endpoints.png",
+         icon = "command_endpoints.png",
          description = "Discover the Nuxeo service that exposes common actions. Assemble them to create complex business rules and logic, without writing any Java code.",
          action = "Discover";
 

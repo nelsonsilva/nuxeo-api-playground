@@ -17,7 +17,7 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
   static const String TAG = "nx-structures-browser";
 
   String title = "Data Structures",
-         icon = "images/data_structure.png",
+         icon = "data_structure.png",
          description = "Browse all the available definitions of types, schemas and properties held by a document.",
          action = "Browse";
 

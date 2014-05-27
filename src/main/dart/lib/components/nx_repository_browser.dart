@@ -12,7 +12,7 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
   static const String TAG = "nx-repository-browser";
 
   String title = "Repository",
-         icon = "images/repository.png",
+         icon = "repository.png",
          description = "Browse your repository and discover the properties of your documents.",
          action = "Explore";
 

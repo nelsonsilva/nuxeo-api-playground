@@ -1,4 +1,4 @@
-name: nuxeo_api_playground
+name: 'nuxeo_api_playground'
 description: Nuxeo API Playground
 environment:
   sdk: '>=1.0.0 <2.0.0'
@@ -9,6 +9,10 @@ dependencies:
     git: https://github.com/nelsonsilva/nuxeo-dart-client.git
   polymer: '>=0.10.0-pre.10 <0.11.0'
   route_hierarchical: '>=0.4.19 <1.0.0'
+dev_dependencies:
+  unittest: '>=0.10.0 <1.0.0'
 transformers:
 - polymer:
-    entry_points: web/index.html
+    entry_points:
+    - web/index.html
+    - test/test.html

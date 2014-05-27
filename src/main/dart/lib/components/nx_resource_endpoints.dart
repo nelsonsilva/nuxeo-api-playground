@@ -53,7 +53,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
   static const String TAG = "nx-resource-endpoints";
 
   String title = "Resource endpoints",
-         icon = "images/resources_endpoints.png",
+         icon = "resources_endpoints.png",
          description = "Discover the list of endpoints and see which adapters are available for each of them.",
          action = "Discover";
 
