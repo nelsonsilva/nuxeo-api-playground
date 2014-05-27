@@ -10,6 +10,7 @@ class NXRequestOptions extends NXElement {
   Duration _timeout;
   List<String> _schemas;
   String _repository;
+  String _restContributors;
 
   NXRequestOptions.created() : super.created() {
   }
@@ -18,6 +19,7 @@ class NXRequestOptions extends NXElement {
     timeout = NX.timeout;
     schemas = NX.schemas;
     repository = NX.repositoryName;
+    restContributors = NX.headers["X-NXContext-Category"];
   }
 
   //TODO(nfgs): Consider using a path observer
@@ -38,6 +40,12 @@ class NXRequestOptions extends NXElement {
   @observable set repository(r) {
     NX.repositoryName = r;
     _repository = notifyPropertyChange(#repository, _repository, NX.repositoryName);
+  }
+
+  @observable get restContributors => _restContributors;
+  @observable set restContributors(c) {
+    NX.headers["X-NXContext-Category"] = c;
+    _restContributors = notifyPropertyChange(#restContributors, _restContributors, NX.headers["X-NXContext-Category"]);
   }
 
   // Filters
