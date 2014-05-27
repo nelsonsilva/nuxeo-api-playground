@@ -18,9 +18,10 @@ NXSandboxApp app;
 /// Navigate to a module
 go(module) =>  app.router.go(module, {});
 
-@initMethod
 void main() {
   useHtmlEnhancedConfiguration();
+
+  initPolymer();
 
   Polymer.onReady.then((e) {
 

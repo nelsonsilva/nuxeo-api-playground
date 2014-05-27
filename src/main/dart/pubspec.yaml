@@ -7,7 +7,7 @@ dependencies:
   js: any
   nuxeo_client:
     git: https://github.com/nelsonsilva/nuxeo-dart-client.git
-  polymer: '>=0.10.0-pre.10 <0.11.0'
+  polymer: '>=0.10.0-pre.13 <0.11.0'
   route_hierarchical: '>=0.4.19 <1.0.0'
 dev_dependencies:
   unittest: '>=0.10.0 <1.0.0'
