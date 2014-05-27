@@ -893,6 +893,7 @@ nuxeo_api_playground/module.Polymer.ready method
 nuxeo_api_playground/module.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/module.Polymer.register method
 nuxeo_api_playground/module.Polymer.registerObserver method
+nuxeo_api_playground/module.Polymer.registerSync method
 nuxeo_api_playground/module.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/module.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/module.Polymer.serializeValue method
@@ -921,6 +922,7 @@ nuxeo_api_playground/module.Route.newHandle method
 nuxeo_api_playground/module.Route.onEnter getter
 nuxeo_api_playground/module.Route.onLeave getter
 nuxeo_api_playground/module.Route.onPreEnter getter
+nuxeo_api_playground/module.Route.onPreLeave getter
 nuxeo_api_playground/module.Route.onRoute getter
 nuxeo_api_playground/module.Route.parameters getter
 nuxeo_api_playground/module.Route.parent getter
@@ -946,6 +948,7 @@ nuxeo_api_playground/module.RouteHandle.newHandle method
 nuxeo_api_playground/module.RouteHandle.onEnter getter
 nuxeo_api_playground/module.RouteHandle.onLeave getter
 nuxeo_api_playground/module.RouteHandle.onPreEnter getter
+nuxeo_api_playground/module.RouteHandle.onPreLeave getter
 nuxeo_api_playground/module.RouteHandle.onRoute getter
 nuxeo_api_playground/module.RouteHandle.parameters getter
 nuxeo_api_playground/module.RouteHandle.parent getter
@@ -961,18 +964,22 @@ nuxeo_api_playground/module.RouteImpl.newHandle method
 nuxeo_api_playground/module.RouteImpl.onEnter getter
 nuxeo_api_playground/module.RouteImpl.onLeave getter
 nuxeo_api_playground/module.RouteImpl.onPreEnter getter
+nuxeo_api_playground/module.RouteImpl.onPreLeave getter
 nuxeo_api_playground/module.RouteImpl.onRoute getter
 nuxeo_api_playground/module.RouteImpl.parameters getter
 nuxeo_api_playground/module.RouteImpl.parent property
 nuxeo_api_playground/module.RouteImpl.path property
 nuxeo_api_playground/module.RouteLeaveEvent class
 nuxeo_api_playground/module.RouteLeaveEvent.RouteLeaveEvent- constructor
-nuxeo_api_playground/module.RouteLeaveEvent.allowLeave method
 nuxeo_api_playground/module.RouteLeaveEventHandler typedef
 nuxeo_api_playground/module.RoutePreEnterEvent class
 nuxeo_api_playground/module.RoutePreEnterEvent.RoutePreEnterEvent- constructor
 nuxeo_api_playground/module.RoutePreEnterEvent.allowEnter method
 nuxeo_api_playground/module.RoutePreEnterEventHandler typedef
+nuxeo_api_playground/module.RoutePreLeaveEvent class
+nuxeo_api_playground/module.RoutePreLeaveEvent.RoutePreLeaveEvent- constructor
+nuxeo_api_playground/module.RoutePreLeaveEvent.allowLeave method
+nuxeo_api_playground/module.RoutePreLeaveEventHandler typedef
 nuxeo_api_playground/module.RouteStartEvent class
 nuxeo_api_playground/module.RouteStartEvent.completed property
 nuxeo_api_playground/module.RouteStartEvent.uri property
@@ -1462,6 +1469,7 @@ nuxeo_api_playground/nx_command_endpoints.Polymer.ready method
 nuxeo_api_playground/nx_command_endpoints.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_command_endpoints.Polymer.register method
 nuxeo_api_playground/nx_command_endpoints.Polymer.registerObserver method
+nuxeo_api_playground/nx_command_endpoints.Polymer.registerSync method
 nuxeo_api_playground/nx_command_endpoints.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_command_endpoints.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_command_endpoints.Polymer.serializeValue method
@@ -1787,6 +1795,7 @@ nuxeo_api_playground/nx_connection.Polymer.ready method
 nuxeo_api_playground/nx_connection.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_connection.Polymer.register method
 nuxeo_api_playground/nx_connection.Polymer.registerObserver method
+nuxeo_api_playground/nx_connection.Polymer.registerSync method
 nuxeo_api_playground/nx_connection.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_connection.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_connection.Polymer.serializeValue method
@@ -2120,6 +2129,7 @@ nuxeo_api_playground/nx_operation.Polymer.ready method
 nuxeo_api_playground/nx_operation.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_operation.Polymer.register method
 nuxeo_api_playground/nx_operation.Polymer.registerObserver method
+nuxeo_api_playground/nx_operation.Polymer.registerSync method
 nuxeo_api_playground/nx_operation.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_operation.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_operation.Polymer.serializeValue method
@@ -2441,6 +2451,7 @@ nuxeo_api_playground/nx_repository_browser.Polymer.ready method
 nuxeo_api_playground/nx_repository_browser.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_repository_browser.Polymer.register method
 nuxeo_api_playground/nx_repository_browser.Polymer.registerObserver method
+nuxeo_api_playground/nx_repository_browser.Polymer.registerSync method
 nuxeo_api_playground/nx_repository_browser.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_repository_browser.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_repository_browser.Polymer.serializeValue method
@@ -2755,6 +2766,7 @@ nuxeo_api_playground/nx_request_monitor.Polymer.ready method
 nuxeo_api_playground/nx_request_monitor.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_request_monitor.Polymer.register method
 nuxeo_api_playground/nx_request_monitor.Polymer.registerObserver method
+nuxeo_api_playground/nx_request_monitor.Polymer.registerSync method
 nuxeo_api_playground/nx_request_monitor.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_request_monitor.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_request_monitor.Polymer.serializeValue method
@@ -3067,6 +3079,7 @@ nuxeo_api_playground/nx_request_options.Polymer.ready method
 nuxeo_api_playground/nx_request_options.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_request_options.Polymer.register method
 nuxeo_api_playground/nx_request_options.Polymer.registerObserver method
+nuxeo_api_playground/nx_request_options.Polymer.registerSync method
 nuxeo_api_playground/nx_request_options.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_request_options.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_request_options.Polymer.serializeValue method
@@ -3413,6 +3426,7 @@ nuxeo_api_playground/nx_resource_endpoints.Polymer.ready method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.register method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.registerObserver method
+nuxeo_api_playground/nx_resource_endpoints.Polymer.registerSync method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_resource_endpoints.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.serializeValue method
@@ -3754,6 +3768,7 @@ nuxeo_api_playground/nx_structures_browser.Polymer.ready method
 nuxeo_api_playground/nx_structures_browser.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_structures_browser.Polymer.register method
 nuxeo_api_playground/nx_structures_browser.Polymer.registerObserver method
+nuxeo_api_playground/nx_structures_browser.Polymer.registerSync method
 nuxeo_api_playground/nx_structures_browser.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_structures_browser.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_structures_browser.Polymer.serializeValue method
@@ -4067,6 +4082,7 @@ nuxeo_api_playground/nx_widget.Polymer.ready method
 nuxeo_api_playground/nx_widget.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/nx_widget.Polymer.register method
 nuxeo_api_playground/nx_widget.Polymer.registerObserver method
+nuxeo_api_playground/nx_widget.Polymer.registerSync method
 nuxeo_api_playground/nx_widget.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/nx_widget.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/nx_widget.Polymer.serializeValue method
@@ -4598,6 +4614,7 @@ nuxeo_api_playground/ui_sidebar.Polymer.ready method
 nuxeo_api_playground/ui_sidebar.Polymer.reflectPropertyToAttribute method
 nuxeo_api_playground/ui_sidebar.Polymer.register method
 nuxeo_api_playground/ui_sidebar.Polymer.registerObserver method
+nuxeo_api_playground/ui_sidebar.Polymer.registerSync method
 nuxeo_api_playground/ui_sidebar.Polymer.resetStyleInheritance getter
 nuxeo_api_playground/ui_sidebar.Polymer.scopeHasElementStyle method
 nuxeo_api_playground/ui_sidebar.Polymer.serializeValue method

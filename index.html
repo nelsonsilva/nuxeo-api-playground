@@ -100,14 +100,9 @@ You can replace platform.js and polymer.html with different versions if desired.
 
 <!-- Teach dart2js about Shadow DOM polyfill objects. -->
 
-
-<!-- Bootstrap the user application in a new isolate. -->
-
-<!-- TODO(sigmund): replace boot.js by boot.dart (dartbug.com/18007)
-<script type="application/dart">export "package:polymer/boot.dart";</script>
- -->
 <script src="packages/polymer/src/js/use_native_dartium_shadowdom.js"></script><script src="packages/web_components/platform.js"></script>
 <!-- <link rel="import" href="../polymer-dev/polymer.html"> -->
+
 <script src="packages/polymer/src/js/polymer/polymer.js"></script><polymer-element name="polymer-body" extends="body">
 
   <script>
@@ -460,7 +455,7 @@ input:required:valid:after {
       </div>
     </div>
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_connection.dart"></script>
 </polymer-element>
 
 
@@ -568,13 +563,13 @@ input:required:valid:after {
     </div>
     
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/tree/tree_node.dart"></script>
 </polymer-element>
 <polymer-element name="nx-tree">
   <template>
     <nx-tree-node docid="{{rootKey}}" connectionid="{{connectionId}}" on-nodeselected="{{nodeSelected}}"></nx-tree-node>
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/tree/tree.dart"></script>
 </polymer-element>
 <polymer-element name="ui-sidebar">
   <template>
@@ -635,7 +630,7 @@ body{-webkit-transition:margin .3s ease,-webkit-transform .3s ease;-moz-transiti
         <i class="icon list layout"></i>
     </div>
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/ui_sidebar.dart"></script>
 </polymer-element><polymer-element name="nx-repository-browser">
   <template>
     <style>/*
@@ -917,7 +912,7 @@ input:required:valid:after {
           <div class="ui raised segment">
             <h3 class="ui blue header">{{title}}</h3>
             <div class="ui grid">
-              <div class="four wide column"><img class="ui medium image" src="{{icon}}"></div>
+              <div class="four wide column"><img class="ui medium image" src="packages/nuxeo_api_playground/images/{{icon}}"></div>
               <div class="twelve wide column">
                 <p class="description">{{description}}</p>
               </div>
@@ -950,7 +945,7 @@ input:required:valid:after {
     </div>
     
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_repository_browser.dart"></script>
 
 </polymer-element>
 
@@ -1337,7 +1332,7 @@ input:required:valid:after {
           <div class="ui raised segment">
             <h3 class="ui blue header">{{title}}</h3>
             <div class="ui grid">
-              <div class="four wide column"><img class="ui medium image" src="{{icon}}"></div>
+              <div class="four wide column"><img class="ui medium image" src="packages/nuxeo_api_playground/images/{{icon}}"></div>
               <div class="twelve wide column">
                 <p class="description">{{description}}</p>
               </div>
@@ -1424,7 +1419,7 @@ input:required:valid:after {
     </div>
     
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_structures_browser.dart"></script>
 
 </polymer-element>
 
@@ -1844,7 +1839,7 @@ input:required:valid:after {
   </div>
   </template>
 </template>
-
+<script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_request_monitor.dart"></script>
 </polymer-element>
 <polymer-element name="nx-request-options">
   <template>
@@ -2034,7 +2029,7 @@ input:required:valid:after {
          -->
     </div>
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_request_options.dart"></script>
 </polymer-element>
 <polymer-element name="nx-widget">
 
@@ -2390,7 +2385,7 @@ input:required:valid:after {
         </template>
       </div>
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_widget.dart"></script>
 </polymer-element><polymer-element name="nx-resource-endpoints">
 
   <template>
@@ -2807,7 +2802,7 @@ input:required:valid:after {
           <div class="ui raised segment">
             <h3 class="ui blue header">{{title}}</h3>
             <div class="ui grid">
-              <div class="four wide column"><img class="ui medium image" src="{{icon}}"></div>
+              <div class="four wide column"><img class="ui medium image" src="packages/nuxeo_api_playground/images/{{icon}}"></div>
               <div class="twelve wide column">
                 <p class="description">{{description}}</p>
               </div>
@@ -2879,7 +2874,7 @@ input:required:valid:after {
     </div>
     
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_resource_endpoints.dart"></script>
 
 </polymer-element>
 
@@ -3271,7 +3266,7 @@ input:required:valid:after {
   <nx-request-monitor request="{{opRequest}}" response="{{opResponse}}"></nx-request-monitor>
 
 </template>
-
+<script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_operation.dart"></script>
 </polymer-element>
 <polymer-element name="nx-command-endpoints">
   <template>
@@ -3664,7 +3659,7 @@ input:required:valid:after {
           <div class="ui raised segment">
             <h3 class="ui blue header">{{title}}</h3>
             <div class="ui grid">
-              <div class="four wide column"><img class="ui medium image" src="{{icon}}"></div>
+              <div class="four wide column"><img class="ui medium image" src="packages/nuxeo_api_playground/images/{{icon}}"></div>
               <div class="twelve wide column">
                 <p class="description">{{description}}</p>
               </div>
@@ -3680,7 +3675,7 @@ input:required:valid:after {
     </div>
     
   </template>
-  
+  <script type="application/dart;component=1" src="packages/nuxeo_api_playground/components/nx_command_endpoints.dart"></script>
 
 </polymer-element>
 <polymer-element name="nx-sandbox-app">
@@ -3893,7 +3888,7 @@ input:required:valid:after {
           <div class="ui raised segment">
             <h3 class="ui blue header">{{modules[key].title}}</h3>
             <div class="ui grid">
-              <div class="four wide column"><img class="ui medium image" src="{{modules[key].icon}}"></div>
+              <div class="four wide column"><img class="ui medium image" src="packages/nuxeo_api_playground/images/{{modules[key].icon}}"></div>
               <div class="twelve wide column">
                 <p class="description">{{modules[key].description}}</p>
                 <template if="{{connection.isConnected}}">
@@ -3914,9 +3909,9 @@ input:required:valid:after {
   <div id="module"></div>
 
 </template>
-
+<script type="application/dart;component=1" src="packages/nuxeo_api_playground/app.dart"></script>
 </polymer-element>
-<script src="javascript/jquery-2.0.3.min.js"></script><script src="javascript/semantic-0.15.4.min.js"></script><script src="javascript/highlight-8.0.pack.js"></script>
+<script src="packages/nuxeo_api_playground/javascript/jquery-2.0.3.min.js"></script><script src="packages/nuxeo_api_playground/javascript/semantic-0.15.4.min.js"></script><script src="packages/nuxeo_api_playground/javascript/highlight-8.0.pack.js"></script>
     <div id="header"></div>
     <!-- Connection Area -->
     <nx-connection id="connection"></nx-connection>
@@ -3924,4 +3919,4 @@ input:required:valid:after {
     <nx-sandbox-app connectionid="connection"></nx-sandbox-app>
   
 
-<script src="index.html_bootstrap.dart.js"></script></body></html>
+</body></html>
