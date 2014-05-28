@@ -11647,7 +11647,7 @@ this.X4=z.Mn},
 $isEH:true},
 rC:{
 "^":"Tp:80;a",
-$2:function(a,b){J.Jg(this.a.kq).B3(a,b)},
+$2:function(a,b){if(b!=null)J.Jg(this.a.kq).B3(a,b)},
 $isEH:true},
 z3:{
 "^":"Tp:53;",
@@ -12283,7 +12283,7 @@ sz3:function(a,b){J.nj(a.NV).smI(b)
 a.ia=this.ct(a,C.vc,a.ia,J.nj(a.NV).gmI())},
 gSu:function(a){return a.EI},
 sSu:function(a,b){J.qQ(J.Jg(J.nj(a.NV)),"X-NXContext-Category",b)
-a.ia=this.ct(a,C.W7,a.EI,J.UQ(J.Jg(J.nj(a.NV)),"X-NXContext-Category"))},
+a.EI=this.ct(a,C.W7,a.EI,J.UQ(J.Jg(J.nj(a.NV)),"X-NXContext-Category"))},
 static:{nQ:function(a){var z,y,x,w
 z=$.Nd()
 y=P.Py(null,null,null,P.qU,W.I0)
