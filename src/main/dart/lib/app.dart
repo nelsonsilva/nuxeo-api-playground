@@ -9,6 +9,7 @@ import 'components/nx_repository_browser.dart';
 import 'components/nx_structures_browser.dart';
 import 'components/nx_resource_endpoints.dart';
 import 'components/nx_command_endpoints.dart';
+import 'components/nx_batch_upload.dart';
 import 'components/ui_module.dart';
 import 'components/nx_connection.dart';
 
@@ -22,7 +23,8 @@ class NXSandboxApp extends PolymerElement {
     "browser": new NXRepositoryBrowser(),
     "data": new NXStructuresBrowser(),
     "resources": new NXResourceEndpoints(),
-    "commands": new NXCommandEndpoints()
+    "commands": new NXCommandEndpoints(),
+    "uploads": new NXBatchUpload()
   };
 
   @observable NXModule module = null;

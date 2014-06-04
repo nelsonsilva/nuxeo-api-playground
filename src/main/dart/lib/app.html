@@ -3,6 +3,7 @@
 <link rel="import" href="components/nx_structures_browser.html">
 <link rel="import" href="components/nx_resource_endpoints.html">
 <link rel="import" href="components/nx_command_endpoints.html">
+<link rel="import" href="components/nx_batch_upload.html">
 <polymer-element name="nx-sandbox-app">
 <template>
   <link rel="stylesheet"  href="semantic/collections/grid.min.css" no-shim>
@@ -27,7 +28,7 @@
                 </template>
                 <template if="{{!connection.isConnected}}">
                   <div class="ui right floated disabled button">{{modules[key].action}}</div>
-                </template>                
+                </template>
               </div>
             </div>
           </div>
@@ -35,7 +36,7 @@
       </template>
     </div>
   </template>
-  
+
   <!-- Module -->
   <div id="module"></div>
 
