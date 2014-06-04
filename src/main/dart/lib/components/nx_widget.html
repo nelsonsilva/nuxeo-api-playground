@@ -1,4 +1,5 @@
 <link rel="import" href="tree/nx_tree.html">
+<link rel="import" href="nx_xpath.html">
 <polymer-element name="nx-widget">
 
   <template>
@@ -82,6 +83,12 @@
           <div hidden?="{{value == null}}">
             <div>Size: {{value.length | asFileSize}}.</div>
           </div>
+        </template>
+        
+        <!-- XPath -->
+        <template if="{{type == 'xpath'}}">
+          <!-- TODO(nfgs): Do not hardcode connectionId -->
+          <nx-xpath connectionId="connection"></nx-xpath>
         </template>
       </div>
   </template>

@@ -43,10 +43,18 @@ abstract class SearchFilter extends Object {
   //@observable
   String searchFilter = '';
 
+  int minSearchTermLength = 0;
+  
   String labelFor(item) => item.toString();
 
-  filter(term) => (items) => term.isEmpty ? items : items.where((i) => labelFor(i).toLowerCase().contains(term.toLowerCase())).toList();
-
+  filter(term) => (items) {
+    if (term.length < minSearchTermLength) {
+      return [];
+    }
+    
+    return term.isEmpty ? items : items.where((i) => labelFor(i).toLowerCase().contains(term.toLowerCase())).toList();
+  };
+  
   // Only "name" or "label" for now
   sort(fieldName) => (items) {
     if (fieldName != "name" && fieldName != "label") throw new UnimplementedError("sort only support 'name' or 'label' for now!");
