@@ -4,19 +4,19 @@
   <template>
 
       <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
-      
+
       <link rel="stylesheet"  href="../semantic/elements/button.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/elements/header.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/elements/icon.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/elements/input.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
-      
+
       <link rel="stylesheet"  href="../semantic/modules/checkbox.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/modules/dropdown.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/modules/modal.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/modules/dimmer.min.css" no-shim>
       <link rel="stylesheet"  href="../semantic/modules/transition.min.css" no-shim>
-      
+
       <link rel="stylesheet"  href="../css/style.css" no-shim>
       <div class="ui form">
         <!-- Document(s) -->
@@ -49,11 +49,11 @@
           </div>
 
         </template>
-        
+
         <template if="{{type == 'text'}}">
-          
+
           <!-- Checkbox -->
-          <template if="{{datatype == 'boolean'}}"> 
+          <template if="{{datatype == 'boolean'}}">
             <div class="ui checkbox">
               <input id="widget" type="checkbox" checked="{{value}}" required?="{{required}}"/>
               <label for="widget"></label>
@@ -71,14 +71,14 @@
             <option template repeat="{{option in options}}">{{option}}</option>
           </select>
         </template>
-        
+
         <template if="{{type == 'textarea'}}">
           <textarea class="ui textarea" id="widget" value="{{value}}"></textarea>
         </template>
-        
+
         <!-- Blob -->
-        <template if="{{type == 'blob'}}">
-          <input id="widget" type="file" name="file" on-change="{{onFileSelected}}" required?="{{required}}">
+        <template if="{{type == 'blob' || type == 'bloblist'}}">
+          <input id="widget" type="file" name="file" on-change="{{onFileSelected}}" required?="{{required}}" multiple?="{{type == 'bloblist'}}">
           <div hidden?="{{value == null}}">
             <div>Size: {{value.length | asFileSize}}.</div>
           </div>
