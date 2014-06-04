@@ -1,5 +1,6 @@
 library nx_widget;
 
+import 'dart:async' show Future, Completer;
 import 'dart:js' as js;
 import 'dart:html';
 import 'package:polymer/polymer.dart';
@@ -42,17 +43,26 @@ class NXWidget extends PolymerElement {
   get asFileSize => new FileSizeToString();
 
   onFileSelected() {
-    File file = input.files[0];
-    if (file == null) return;
-    new FileReader()
-    ..onLoadEnd.listen((e) {
-      value = new http.Blob(
-          content: e.target.result,
-          mimetype: file.type,
-          filename: file.name);
-    })
-    ..onError.listen((e) => throw new Exception(e.target.error))
-    ..readAsArrayBuffer(file);
+    _upload(input.files).then((files) {
+        value = (type == "blob") ? files[0] : files;
+    });
   }
 
+  Future _upload(files) {
+    var futures = [];
+    files.forEach((file) {
+      var completer = new Completer();
+      new FileReader()
+      ..onLoadEnd.listen((e) {
+        completer.complete(new http.Blob(
+            content: e.target.result,
+            mimetype: file.type,
+            filename: file.name));
+      })
+      ..onError.listen((e) => completer.completeError(e.target.error))
+      ..readAsArrayBuffer(file);
+      futures.add(completer.future);
+    });
+    return Future.wait(futures);
+  }
 }
