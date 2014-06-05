@@ -70,6 +70,8 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
   final List<NxParameterValue> params = toObservable([]);
 
+  @observable var batch;
+
   @observable nuxeo.Request request;
   @observable var response;
   final List errors = toObservable([]);
@@ -205,6 +207,14 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
         errors.add(e.message);
       }
      });
+  }
+
+  referenceBatch(Event e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    async((_) {
+      modal('.ui.modal');
+    });
   }
 
   get capitalize => new Capitalize();

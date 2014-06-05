@@ -7,18 +7,10 @@ import 'package:nuxeo_client/browser_client.dart' as nuxeo;
 import 'package:nuxeo_client/http.dart' as http;
 import 'package:polymer/polymer.dart';
 
+import 'nx_batch_reference.dart';
 import 'ui_module.dart';
 import 'semantic.dart';
 
-/// [Batch] holds information about files uploaded in a batch
-class Batch {
-  String id;
-  List filenames;
-  Batch(List<nuxeo.Upload> uploads) {
-    id = uploads[0].batchId;
-    filenames = toObservable(uploads.map((u) => u.file.filename));
-  }
-}
 
 @CustomTag(NXBatchUpload.TAG)
 class NXBatchUpload extends NXModule with SemanticUI {
@@ -34,8 +26,6 @@ class NXBatchUpload extends NXModule with SemanticUI {
 
   @observable String batchId;
   @observable List<http.Blob> blobs = toObservable([]);
-
-  final List batches = toObservable([]);
 
   factory NXBatchUpload() => new Element.tag(TAG);
 
@@ -59,7 +49,8 @@ class NXBatchUpload extends NXModule with SemanticUI {
   upload(_) {
     Future.wait(blobs.map((blob) => _uploader.uploadFile(blob)))
     .then((uploads) {
-      batches.add(new Batch(uploads));
+      var batchId = uploads[0].batchId;
+      ($["batches"] as NXBatchReference).addBatch(batchId);
       _newBatchUpload();
     });
   }

@@ -1,3 +1,4 @@
+<link rel="import" href="nx_batch_upload.html">
 <link rel="import" href="nx_request_monitor.html">
 <link rel="import" href="nx_request_options.html">
 <link rel="import" href="nx_widget.html">
@@ -12,18 +13,21 @@
     <link rel="stylesheet"  href="../semantic/elements/input.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/label.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
-  
+
     <link rel="stylesheet"  href="../semantic/collections/breadcrumb.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/grid.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/menu.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/message.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/table.min.css" no-shim>
-    
+
     <link rel="stylesheet"  href="../semantic/modules/accordion.min.css" no-shim>
-    
+    <link rel="stylesheet"  href="../semantic/modules/dimmer.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/modules/modal.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/modules/transition.min.css" no-shim>
+
     <link rel="stylesheet"  href="../semantic/views/list.min.css" no-shim>
-    
+
     <link rel="stylesheet"  href="../css/style.css" no-shim>
 
     <!-- Sidebar -->
@@ -70,11 +74,11 @@
           </div>
       </div>
     </ui-sidebar>
-    
+
     <!-- Main page -->
     <div class="ui page grid">
       <div id="main" class="column">
-        
+
         <!-- Breadcrumb -->
         <div class="ui segment">
          <div class="ui breadcrumb">
@@ -89,7 +93,7 @@
           </template>
         </div>
        </div>
-        
+
         <template if="{{endpoint == null}}">
           <div class="ui raised segment">
             <h3 class="ui blue header">{{title}}</h3>
@@ -100,10 +104,10 @@
               </div>
             </div>
           </div>
-        </template>  
-        
+        </template>
+
         <template if="{{endpoint}}">
-          <div class="ui huge header">{{operation.method}} /api/v1{{endpoint.path}}</div> 
+          <div class="ui huge header">{{operation.method}} /api/v1{{endpoint.path}}</div>
           <div class="ui description segment">{{operation.summary}}</div>
           <div class="ui medium blue header">Parameters</div>
           <div class="ui form">
@@ -130,28 +134,45 @@
                       value="{{param.value}}">
                       </nx-widget>
                     </div>
+                    <!-- Reference a batch -->
+                    <template if="{{param.name == 'document' && (endpointKey == 'id' || endpointKey == 'path') && (operation.method == 'POST' || operation.method == 'PUT')}}">
+                       <div class="ui right floated button" on-click="{{referenceBatch}}">Reference a Batch</div>
+                       <div class="ui modal" style="width: auto;">
+                        <i class="close icon"></i>
+                        <div class="header">
+                          Select a batch
+                        </div>
+                        <div class="content">
+                          <template if="{{batch}}">
+                            <div class="ui ribbon label">{{batch.id}}</div>
+                            <textarea>{{batch.asJson}}</textarea>
+                         </template>
+                          <nx-batch-reference connectionId="{{connectionId}}" selected="{{batch}}"></nx-batch-reference>
+                        </div>
+                      </div>
+                    </template>
                   </td>
                   <td>{{param.description}}</td>
                   <td>{{param.dataType}}<span class="ui small label" style="float:right">{{param.type}}</span></td>
                 </tr>
               </tbody>
            </table>
-        
           </div>
-          
+
           <!-- Run with options -->
-          <div id="options" class="ui fluid accordion">                        
+          <div id="options" class="ui fluid accordion">
             <div class="title" style="text-align: right;">
               <i class="settings icon"></i>
+
               <!-- Submit button -->
               <div class="ui red submit button" on-click="{{runRequest}}">Run</div>
             </div>
-            
+
             <div class="content">
               <nx-request-options connectionId="{{connectionId}}"></nx-request-options>
             </div>
           </div>
-          
+
            <template if="{{errors.isNotEmpty}}">
             <div class="ui bottom attached error message">
               <template repeat="{{error in errors}}">
@@ -159,16 +180,16 @@
               </template>
             </div>
           </template>
-            
+
           <br/>
-          
+
           <!-- Output -->
           <nx-request-monitor request="{{request}}" response="{{response}}"></nx-request-monitor>
-          
-        </template>           
+
+        </template>
       </div>
     </div>
-    
+
   </template>
   <script type="application/dart" src="nx_resource_endpoints.dart"></script>
 

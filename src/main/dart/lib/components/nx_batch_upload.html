@@ -1,3 +1,4 @@
+<link rel="import" href="nx_batch_reference.html">
 <link rel="import" href="nx_widget.html">
 <polymer-element name="nx-batch-upload">
   <template>
@@ -45,28 +46,16 @@
         <div class="ui form attached segment">
           <input type="text" value="{{batchId}}" required>
           <nx-widget type="bloblist" required="true" value="{{blobs}}"></nx-widget>
-          <div class="ui red submit button" style="align:right" on-click="{{upload}}">Upload</div>
+          <template if="{{blobs.isNotEmpty}}">
+            <div class="ui red right floated submit button" on-click="{{upload}}">Upload</div>
+          </template>
+          <template if="{{blobs.isEmpty}}">
+            <div class="ui right floated disabled button">Upload</div>
+          </template>
         </div>
 
         <!-- Uploads list -->
-        <div class="ui animated divided selection list">
-          <template repeat="{{batch in batches}}">
-            <div class="item">
-              <div class="content">
-                <div class="header">{{batch.id}}</div>
-                {{batch.filenames.length}} file(s):
-                <div class="ui horizontal bulleted list">
-                  <template repeat="{{filename in batch.filenames}}">
-                  <div class="item">
-                    {{filename}}
-                  </div>
-                  </template>
-                </div>
-
-              </div>
-            </div>
-          </template>
-        </div>
+        <nx-batch-reference id="batches" connectionId="{{connectionId}}"></nx-batch-reference>
 
       </div>
     </div>
