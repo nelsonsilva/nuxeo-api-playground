@@ -31,7 +31,7 @@ class NxOperationParamValue implements Comparable<NxOperationParamValue> {
 
   String get dataType => _param.type;
 
-  String get widget => (_param.widget == null) ? "text" : _param.widget;
+  String get widget => (_param.name == 'xpath') ? "xpath" : (_param.widget == null) ? "text" : _param.widget;
 
   bool get required => _param.isRequired;
 
