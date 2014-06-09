@@ -21,7 +21,7 @@
             <i class="circle left icon"></i>
             {{title}}
           </a>
-          <div class="item" style="overflow:auto">
+          <div class="item">
             <!-- Endpoints -->
             <nx-tree root="/" connectionId="{{connectionId}}" selected="{{documentId}}"></nx-tree>
           </div>
@@ -31,12 +31,12 @@
     <div class="ui page grid">
       <div class="column">
       
-        <!--  Breadcrum -->
-        <div class="ui segment">
+        <!--  Breadcrumb -->
+        <div class="ui segment brdcrmb">
           <div class="ui breadcrumb">
             <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
             <div class="divider"> / </div>
-             <span class="active section" style="color:#00adff">{{title}}</span>
+             <span class="active section">{{title}}</span>
              <template if="{{document}}">
               <div class="divider"> / </div>
               <div class="active section">{{document.title}}</div>
