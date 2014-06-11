@@ -36,7 +36,7 @@
         </div>
 
         <!-- Schemas, Facets and Doctypes -->
-        <div class="ui fluid blue accordion" style="overflow:hidden">
+        <div id="datastructures" class="ui fluid blue accordion" style="overflow:hidden">
 
           <template repeat="{{type in items.keys}}">
             <template if="{{(items[type] | filter(searchFilter)).isNotEmpty}}">
@@ -62,11 +62,11 @@
     </ui-sidebar>
 
     <!-- Main page -->
-    <div class="ui page grid">
+    <div class="ui page grid" id="main-page">
       <div id="main" class="column">
 
         <!-- Breadcrumb -->
-        <div class="ui segment">
+        <div class="ui segment brdcrmb">
          <div class="ui breadcrumb">
           <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
           <div class="divider"> / </div>
@@ -103,12 +103,10 @@
           <template if="{{selectedType == 'schemas'}}">
 
             <template if="{{selectedItem.prefix.isNotEmpty}}">
-              <div class="ui label">
+              <div class="ui gutter label">
                 PREFIX: {{selectedItem.prefix}}
               </div>
             </template>
-
-            <br/>
 
             <table class="ui large basic blue table">
               <thead>
@@ -144,7 +142,7 @@
 
             <template if="{{selectedItem.parent}}">
               <div class="ui label">
-                EXTENDS: <a style="color:#00adff;" on-click="{{select}}" data-id="types-{{selectedItem.parent}}">{{selectedItem.parent}}</a>
+                EXTENDS: <a on-click="{{select}}" data-id="types-{{selectedItem.parent}}">{{selectedItem.parent}}</a>
               </div>
             </template>
 

@@ -11,20 +11,12 @@
     <link rel="stylesheet"  href="../semantic/collections/message.min.css" no-shim>
     
     <link rel="stylesheet"  href="../css/style.css" no-shim>
-    
-    <style>
-        .connection {
-          margin: 0em;
-          overflow: hidden;
-          background-color: #00adff;
-          color: white;
-        }
-    </style>
+
     <div class="connection">
       <div class="ui page grid">
       
         <!-- TODO - Make this the same size as the sidebar button  -->
-        <div class="column" style="margin-top: 3px; margin-bottom: 3px">
+        <div class="column connectblock">
         
           <!-- Not connected -->
           <template if="{{!isConnected}}">
@@ -33,18 +25,20 @@
             <p>Connect the playground with your server and browse repository, data structures, resources and command endpoints, adapters, REST contributors and business objects.</p>
             
             <div class="ui form attached segment">
-              <div class="four fields">
-                <div class="field">
+              <div class="ui grid">
+                <div class="row">
+                <div class="seven wide column">
                   <input placeholder="http://localhost:8080/nuxeo" type="text" value="{{nuxeoUrl}}">
                 </div>
-                <div class="field">
+                <div class="three wide column">
                   <input placeholder="Login" type="text" value="{{username}}">
                 </div>
-                <div class="field">
+                <div class="three wide column">
                   <input placeholder="Password" type="password" value="{{password}}">
                 </div>
-                <div class="field">
+                <div class="three wide column">
                   <div class="ui fluid red button" on-click="{{connect}}">Connect</div>
+                </div>
                 </div>
               </div>
             </div>

@@ -17,45 +17,31 @@
     
   </head>
   <body><style>
-        body {
-            background: #fafafa;
-            margin: 0px;
-            padding: 0px;
-            /* sidebar transitions */
-            -webkit-transition: margin 0.3s ease, -webkit-transform 0.3s ease /*rtl:append:,padding 0.3s ease*/;
-            -moz-transition: margin 0.3s ease, -moz-transform 0.3s ease /*rtl:append:,padding 0.3s ease*/;
-            transition: margin 0.3s ease, transform 0.3s ease /*rtl:append:,padding 0.3s ease*/;
+      body {
+       background: #fafafa;
+       margin: 0;
+       padding: 0;
+       font-family: Aregular;
+       /* sidebar transitions */
+       -webkit-transition: margin 0.2s ease, -webkit-transform 0.2s ease /*rtl:append:,padding 0.2s ease*/;
+       -moz-transition: margin 0.2s ease, -moz-transform 0.2s ease /*rtl:append:,padding 0.2s ease*/;
+       transition: margin 0.2s ease, transform 0.2s ease /*rtl:append:,padding 0.2s ease*/;
         }
 
-        /* Font Faces don't work in the shadow DOM yet :( */
-
-        /* http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700 */
+        /* Nuxeo Fonts */
         @font-face {
-          font-family: 'Open Sans';
-          font-style: normal;
-          font-weight: 300;
-          src: local('Open Sans Light'), local('OpenSans-Light'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff) format('woff');
-        }
+          font-family:Aregular;
+          src:url(http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Regular.eot);
+          src:url(http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Regular.eot?#iefix) format('embedded-opentype'),url(http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Regular.woff) format('woff'),url(http://0.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Regular.ttf) format('truetype'),url(http://0.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Regular.svg#Aregular) format('svg');
+          font-weight:400;
+          font-style:normal }
 
         @font-face {
-          font-family: 'Open Sans';
-          font-style: normal;
-          font-weight: 700;
-          src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
-        }
-        @font-face {
-          font-family: 'Open Sans';
-          font-style: italic;
-          font-weight: 300;
-          src: local('Open Sans Light Italic'), local('OpenSansLight-Italic'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/PRmiXeptR36kaC0GEAetxh_xHqYgAV9Bl_ZQbYUxnQU.woff) format('woff');
-        }
-
-        @font-face {
-          font-family: 'Open Sans';
-          font-style: normal;
-          font-weight: 400;
-          src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v8/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-        }
+          font-family:Ademi;
+          src:url(http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Demi.eot);
+          src:url(http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Demi.eot?#iefix) format('embedded-opentype'),url(http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Demi.woff) format('woff'),url(http://0.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Demi.ttf) format('truetype'),url(http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/fonts/AvenirNextLTPro/AvenirNextLTPro-Demi.svg#ademi) format('svg');
+          font-weight:400;
+          font-style:normal }
 
         /* Semantic icons */
         @font-face {
@@ -71,15 +57,35 @@
         /* Add enough space for the header */
         /* Note: Don't forget to update the sidebar */
         body {
-          margin-top: 50px;
+          margin-top: 60px;
         }
-        #header {
-          background:white url('images/nuxeo_logo.png') no-repeat 10px 10px;
-          position:absolute;
-          left:0px;
-          top:0px;
-          height:50px;
-          width:100%;
+
+        header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 1em 2em 0;
+        right: 0;
+        background-color: #fff;
+        z-index: 1000;
+        height: 60px;
+        box-sizing: border-box;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+
+        #logo {
+        background:transparent url('images/nuxeo_logo.png') no-repeat;
+        background-size: cover;
+        display: inline-block;
+        height:28px;
+        width:160px;
+        }
+
+        header span {
+        color: #003f7d;
+        font-size: 1.8em;
+        vertical-align: top;
+        padding: 0 0 0 1em;
         }
     </style>
 
@@ -264,8 +270,8 @@ You can replace platform.js and polymer.html with different versions if desired.
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -287,14 +293,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -315,17 +431,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -335,7 +458,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -346,8 +469,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -388,20 +516,12 @@ input:required:valid:after {
 .hljs {
     background: none;
 }</style>
-    
-    <style>
-        .connection {
-          margin: 0em;
-          overflow: hidden;
-          background-color: #00adff;
-          color: white;
-        }
-    </style>
+
     <div class="connection">
       <div class="ui page grid">
       
         <!-- TODO - Make this the same size as the sidebar button  -->
-        <div class="column" style="margin-top: 3px; margin-bottom: 3px">
+        <div class="column connectblock">
         
           <!-- Not connected -->
           <template if="{{!isConnected}}">
@@ -410,18 +530,20 @@ input:required:valid:after {
             <p>Connect the playground with your server and browse repository, data structures, resources and command endpoints, adapters, REST contributors and business objects.</p>
             
             <div class="ui form attached segment">
-              <div class="four fields">
-                <div class="field">
+              <div class="ui grid">
+                <div class="row">
+                <div class="seven wide column">
                   <input placeholder="http://localhost:8080/nuxeo" type="text" value="{{nuxeoUrl}}">
                 </div>
-                <div class="field">
+                <div class="three wide column">
                   <input placeholder="Login" type="text" value="{{username}}">
                 </div>
-                <div class="field">
+                <div class="three wide column">
                   <input placeholder="Password" type="password" value="{{password}}">
                 </div>
-                <div class="field">
+                <div class="three wide column">
                   <div class="ui fluid red button" on-click="{{connect}}">Connect</div>
+                </div>
                 </div>
               </div>
             </div>
@@ -526,19 +648,20 @@ input:required:valid:after {
       -webkit-box-shadow: none;
       box-shadow: none;
       max-width: none;
+      width: auto;
       }
 
       .ui.tree.accordion .title,
       .ui.tree.accordion .accordion .title {
       background-color: transparent;
       border-top: none;
-      padding-left: 0em;
-      padding-right: 0em;
+      padding: .3em 0;
+      color: #203f7d;
       }
 
       .ui.tree.accordion .content,
       .ui.tree.accordion .accordion .content {
-      padding: 0em 2em;
+      padding: 0 .3em 0 .6em;
       }
 
       .ui.tree.accordion .active.title,
@@ -546,8 +669,8 @@ input:required:valid:after {
       background-color: transparent;
       }
 
-      .ui.tree.accordion .selected:after {
-      content: "\2713";
+      .ui.tree.accordion .selected {
+      color: #00adff;
       }
     </style>
     
@@ -620,16 +743,29 @@ body{-webkit-transition:margin .3s ease,-webkit-transform .3s ease;-moz-transiti
     <style>
       /* Add enough space for the header */
       .ui.sidebar {
-        margin-top: 50px !important;
-      }
+        padding-top: 60px !important;}
+
+      .launch.button {
+        position: fixed;
+        top: 153px;
+        z-index: 800;}
+
+      #leftmenu {
+        border-radius: 0;
+        padding: .5em .2em .5em .5em;
+        background-color: #ff452a;
+        box-shadow: 0 0 2px rgba(0,0,0,0.3)!important;}
+      #leftmenu:hover {
+        background-color: #dd1c00;}
+
     </style>
     <!-- Sidebar -->
     <div class="ui wide vertical sidebar">
         <content></content>
     </div>
     <!-- Button -->
-    <div class="ui launch right attached button" style="color:white;background-color:#888;width:50px" on-click="{{toggleSidebar}}">
-        <i class="icon list layout"></i>
+    <div class="ui red launch right attached button" id="leftmenu" on-click="{{toggleSidebar}}">
+        <i class="reorder icon"></i>
     </div>
   </template>
   
@@ -755,8 +891,8 @@ body{-webkit-transition:margin .3s ease,-webkit-transform .3s ease;-moz-transiti
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -778,14 +914,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -806,17 +1052,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -826,7 +1079,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -837,8 +1090,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -887,7 +1145,7 @@ input:required:valid:after {
             <i class="circle left icon"></i>
             {{title}}
           </a>
-          <div class="item" style="overflow:auto">
+          <div class="item">
             <!-- Endpoints -->
             <nx-tree root="/" connectionid="{{connectionId}}" selected="{{documentId}}"></nx-tree>
           </div>
@@ -897,12 +1155,12 @@ input:required:valid:after {
     <div class="ui page grid">
       <div class="column">
       
-        <!--  Breadcrum -->
-        <div class="ui segment">
+        <!--  Breadcrumb -->
+        <div class="ui segment brdcrmb">
           <div class="ui breadcrumb">
             <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
             <div class="divider"> / </div>
-             <span class="active section" style="color:#00adff">{{title}}</span>
+             <span class="active section">{{title}}</span>
              <template if="{{document}}">
               <div class="divider"> / </div>
               <div class="active section">{{document.title}}</div>
@@ -1145,8 +1403,8 @@ ul.ui.list,ol.ui.list,.ui.list{list-style-type:none;margin:1em 0;padding:0}ul.ui
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -1168,14 +1426,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -1196,17 +1564,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -1216,7 +1591,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -1227,8 +1602,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -1286,7 +1666,7 @@ input:required:valid:after {
         </div>
 
         <!-- Schemas, Facets and Doctypes -->
-        <div class="ui fluid blue accordion" style="overflow:hidden">
+        <div id="datastructures" class="ui fluid blue accordion" style="overflow:hidden">
 
           <template repeat="{{type in items.keys}}">
             <template if="{{(items[type] | filter(searchFilter)).isNotEmpty}}">
@@ -1312,11 +1692,11 @@ input:required:valid:after {
     </ui-sidebar>
 
     <!-- Main page -->
-    <div class="ui page grid">
+    <div class="ui page grid" id="main-page">
       <div id="main" class="column">
 
         <!-- Breadcrumb -->
-        <div class="ui segment">
+        <div class="ui segment brdcrmb">
          <div class="ui breadcrumb">
           <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
           <div class="divider"> / </div>
@@ -1353,12 +1733,10 @@ input:required:valid:after {
           <template if="{{selectedType == 'schemas'}}">
 
             <template if="{{selectedItem.prefix.isNotEmpty}}">
-              <div class="ui label">
+              <div class="ui gutter label">
                 PREFIX: {{selectedItem.prefix}}
               </div>
             </template>
-
-            <br>
 
             <table class="ui large basic blue table">
               <thead>
@@ -1394,7 +1772,7 @@ input:required:valid:after {
 
             <template if="{{selectedItem.parent}}">
               <div class="ui label">
-                EXTENDS: <a style="color:#00adff;" on-click="{{select}}" data-id="types-{{selectedItem.parent}}">{{selectedItem.parent}}</a>
+                EXTENDS: <a on-click="{{select}}" data-id="types-{{selectedItem.parent}}">{{selectedItem.parent}}</a>
               </div>
             </template>
 
@@ -1486,8 +1864,8 @@ ul.ui.list,ol.ui.list,.ui.list{list-style-type:none;margin:1em 0;padding:0}ul.ui
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -1509,14 +1887,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -1537,17 +2025,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -1557,7 +2052,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -1568,8 +2063,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -1810,8 +2310,8 @@ input:required:valid:after {
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -1833,14 +2333,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -1861,17 +2471,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -1881,7 +2498,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -1892,8 +2509,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -2085,8 +2707,8 @@ ul.ui.list,ol.ui.list,.ui.list{list-style-type:none;margin:1em 0;padding:0}ul.ui
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -2108,14 +2730,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -2136,17 +2868,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -2156,7 +2895,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -2167,8 +2906,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -2414,8 +3158,8 @@ ul.ui.list,ol.ui.list,.ui.list{list-style-type:none;margin:1em 0;padding:0}ul.ui
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -2437,14 +3181,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -2465,17 +3319,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -2485,7 +3346,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -2496,8 +3357,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -2831,8 +3697,8 @@ Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiac
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -2854,14 +3720,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -2882,17 +3858,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -2902,7 +3885,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -2913,8 +3896,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -3049,8 +4037,8 @@ input:required:valid:after {
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -3072,14 +4060,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -3100,17 +4198,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -3120,7 +4225,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -3131,8 +4236,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -3466,8 +4576,8 @@ ul.ui.list,ol.ui.list,.ui.list{list-style-type:none;margin:1em 0;padding:0}ul.ui
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -3489,14 +4599,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -3517,17 +4737,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -3537,7 +4764,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -3548,8 +4775,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -3621,9 +4853,9 @@ input:required:valid:after {
                 <template repeat="{{operation in resource.value.operations}}">
                     <div class="item">
                       <div class="content">
-                        <div on-click="{{select}}" data-target="{{key}}/{{resource.index}}/{{operation.method}}">
-                          <span class="ui left corner {{methodColors[operation.method]}} label">{{operation.method}}</span> {{resource.value.path}}
-                        </div>
+                        <a on-click="{{select}}" data-target="{{key}}/{{resource.index}}/{{operation.method}}">
+                          <span class="ui top left attached {{methodColors[operation.method]}} label">{{operation.method}}</span> {{resource.value.path}}
+                        </a>
                       </div>
                     </div>
                 </template>
@@ -3637,11 +4869,11 @@ input:required:valid:after {
     </ui-sidebar>
 
     <!-- Main page -->
-    <div class="ui page grid">
+    <div class="ui page grid" id="main-page">
       <div id="main" class="column">
 
         <!-- Breadcrumb -->
-        <div class="ui segment">
+        <div class="ui segment brdcrmb">
          <div class="ui breadcrumb">
           <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
           <div class="divider"> / </div>
@@ -3923,8 +5155,8 @@ input:required:valid:after {
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -3946,14 +5178,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -3974,17 +5316,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -3994,7 +5343,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -4005,8 +5354,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -4351,8 +5705,8 @@ ul.ui.list,ol.ui.list,.ui.list{list-style-type:none;margin:1em 0;padding:0}ul.ui
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -4374,14 +5728,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -4402,17 +5866,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -4422,7 +5893,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -4433,8 +5904,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -4514,11 +5990,11 @@ input:required:valid:after {
     </ui-sidebar>
 
     <!-- Main page -->
-    <div class="ui page grid">
+    <div class="ui page grid" id="main-page">
       <div class="column">
         
         <!-- Breadcrumb -->
-        <div class="ui segment">
+        <div class="ui segment brdcrmb">
          <div class="ui breadcrumb">
           <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
           <div class="divider"> / </div>
@@ -4631,8 +6107,8 @@ input:required:valid:after {
 
 :host {
   height: 100%;
-  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  color: #555555;
+  font-family: "Aregular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
   text-rendering: optimizeLegibility;
 }
 
@@ -4654,14 +6130,124 @@ a {
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border-radius: 0px;
+  border-radius: 0;
   color: gray;
-  padding: 0px;
+  padding: 0;
 }
+
+.ui.raised.segment {
+-webkit-box-shadow: 0 0 0 1px #d9d9d9;
+box-shadow: 0 0 0 1px #d9d9d9;
+}
+
+/* Home */
+
+.connection {
+  margin: 0em;
+  overflow: hidden;
+  background: url(../images/segment_bg.png) no-repeat center left #00adff;
+  color: white;
+}
+
+.connectblock {
+  margin: 1rem 0 2rem;
+}
+
+.connectblock .ui.segment.attached {
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.5);
+}
+
+/* Modules */
+#modules {
+  padding: 3% 8% 5%;
+}
+
+#main-page {
+  min-height: 800px;
+}
+
+.ui.segment.brdcrmb {
+  background-color: transparent;
+  border: none 0;
+  box-shadow: none;
+}
+
+.ui.gutter.label  {
+  margin: 0 0 1em;
+}
+
+/* Left menu */
+.ui.vertical.menu.fluid {
+  overflow-y: auto;
+  padding-bottom: 80px;
+}
+
+.vertical.menu .left.attached.label {
+  border-top-left-radius: 0;
+  padding: .2em .4em 0 .2em;
+  font-size: .8em;
+  line-height: initial;
+}
+
+.vertical.menu div[on-click]:hover {
+  cursor: pointer;
+}
+
+.vertical.menu .ui.tree.accordion,
+.vertical.menu .ui.tree.accordion .accordion {
+  width: auto;
+  max-width: inherit;
+}
+
+#endpoints .ui.list .item>.content,
+#operations .ui.list .item>.content,
+#datastructures .ui.list .item>.content {
+  display: block;
+  padding: 0;
+}
+
+#endpoints .ui.list a,
+#operations .ui.list a,
+#datastructures .ui.list a {
+  display: block;
+  color: #203f7d;
+  padding: 1.3em 1em;
+}
+
+/* Footer */
+.site-footer {
+  background:#404040;
+  line-height:24px;
+  color:#fff }
+
+.ui.grid.site-footer>.column,
+.ui.grid.site-footer>.row>.column {
+  font-size:85%;
+}
+
+.site-footer ul{padding: 1em 0 0;list-style:none;margin:0}
+.site-footer ul.sub{padding: 0}
+.site-footer ul li a{font-weight:bold}
+.site-footer ul.sub li a{font-weight:400}
+.site-footer ul a{text-decoration:none;color:#fff;font-size: 85%;}
+.site-footer ul a:hover{color:#00adff}
+.site-footer ul.icons{margin:0}
+.site-footer ul.icons li{float:left;margin-right:14px}
+.site-footer #copyright{font-size:12px;line-height:22px;margin:20px 0}
+.site-footer #copyright:before,
+.site-footer #copyright:after{content:" ";display:table}
+.site-footer #copyright:after{clear:both}
+
 
 /*******************************
           UI Overrides
 *******************************/
+
+.ui.button,
+.ui.segment {
+  border-radius: 0;
+}
 
 .ui.red.button {
   background-color: #ff452a;
@@ -4682,17 +6268,24 @@ a {
 }
 
 .ui.table thead th:first-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
 .ui.table thead th:last-child {
-  border-radius: 0px;
+  border-radius: 0;
 }
 
-.ui.blue.table th {
+.ui.blue.table th,
+.ui.blue.button,
+.ui.blue.buttons .button  {
   background-color: #00adff;
+  box-shadow:none;
   color: white;
 }
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover  {
+  background-color: #0075af; }
 
 .ui.white.label {
   background-color: white !important;
@@ -4702,7 +6295,7 @@ a {
 }
 
 .ui.vertical.menu {
-    height: 100%;
+  height: 100%;
 }
 
 .ui.vertical.menu > .item:first-child {
@@ -4713,8 +6306,13 @@ a {
   float: left;
 }
 
-.ui.blue.accordion .title,
-.ui.blue.accordion .accordion .title {
+ui-sidebar .ui.accordion,
+ui-sidebar .ui.accordion .accordion {
+  border-radius: 0;
+}
+
+.ui.accordion .title,
+.ui.accordion .accordion .title {
   color: #203f7d;
 }
 
@@ -4757,7 +6355,7 @@ input:required:valid:after {
 }</style>
   <!-- Home -->
   <template if="{{module == null}}">
-    <div class="ui two column stackable page grid">
+    <div class="ui two column stackable page grid" id="modules">
       <template repeat="{{key in modules.keys}}">
         <div class="column">
           <div class="ui raised segment">
@@ -4767,7 +6365,7 @@ input:required:valid:after {
               <div class="twelve wide column">
                 <p class="description">{{modules[key].description}}</p>
                 <template if="{{connection.isConnected}}">
-                  <div class="ui right floated red button" on-click="{{navigate}}" data-target="{{key}}">{{modules[key].action}}</div>
+                  <div class="ui right floated blue button" on-click="{{navigate}}" data-target="{{key}}">{{modules[key].action}}</div>
                 </template>
                 <template if="{{!connection.isConnected}}">
                   <div class="ui right floated disabled button">{{modules[key].action}}</div>
@@ -4778,6 +6376,76 @@ input:required:valid:after {
         </div>
       </template>
     </div>
+
+    <div class="ui page grid site-footer">
+       <div class="ui five stackable column grid">
+         <div class="row">
+          <div class="column">
+             <ul>
+                <li><a href="http://www.nuxeo.com/products/">Products</a></li>
+                <ul class="sub">
+                   <li><a href="http://www.nuxeo.com/products/content-management-platform/">Nuxeo Platform</a></li>
+                   <li><a href="http://www.nuxeo.com/products/nuxeo-cloud/">Nuxeo Cloud</a></li>
+                   <li><a href="http://www.nuxeo.com/products/document-management/">Document Management</a></li>
+                   <li><a href="http://www.nuxeo.com/products/digital-asset-management/">Digital Asset Management</a></li>
+                   <li><a href="http://www.nuxeo.com/products/case-management/">Case Management</a></li>
+                   <li><a href="http://www.nuxeo.com/products/pricing/">Pricing</a></li>
+                </ul>
+             </ul>
+             <div id="copyright">@ 2014 Nuxeo</div>
+          </div>
+          <div class="column">
+             <ul>
+                <li><a href="http://www.nuxeo.com/services/">Services</a></li>
+                <ul class="sub">
+                   <li><a href="http://www.nuxeo.com/services/support/">Support</a></li>
+                   <li><a href="http://www.nuxeo.com/services/training/">Training</a></li>
+                   <li><a href="http://www.nuxeo.com/services/consulting/">Consulting</a></li>
+                </ul>
+             </ul>
+          </div>
+          <div class="column">
+             <ul>
+                <li><a href="http://www.nuxeo.com/customers/">Customers</a></li>
+                <li><a href="http://www.nuxeo.com/partners/">Partners</a></li>
+             </ul>
+          </div>
+          <div class="column">
+             <ul>
+                <li><a href="/resources">Learning</a></li>
+                <ul class="sub">
+                   <li><a href="http://www.nuxeo.com/resources/">Resources</a></li>
+                   <li><a href="http://www.nuxeo.com/events/">Events</a></li>
+                   <li><a href="http://www.nuxeo.com/blog/">Blogs</a></li>
+                   <li><a href="http://doc.nuxeo.com/display/MAIN/Nuxeo+Documentation+Center+Home">Documentation</a></li>
+                   <li><a href="http://answers.nuxeo.com/">Answers</a></li>
+                   <li><a href="http://nuxeo.github.io/">GitHub</a></li>
+                </ul>
+             </ul>
+          </div>
+          <div class="column">
+             <ul>
+                <li><a href="http://www.nuxeo.com/about/">About Us</a></li>
+                <ul class="sub">
+                   <li><a href="http://www.nuxeo.com/about/leadership/">Leadership</a></li>
+                   <li><a href="http://www.nuxeo.com/media-center/">Media Center</a></li>
+                   <li><a href="http://www.nuxeo.com/careers/">Careers</a></li>
+                   <li><a href="http://www.nuxeo.com/about/contact/">Contact</a></li>
+                </ul>
+                <li><a href="http://connect.nuxeo.com">My Connect</a></li>
+             </ul>
+             <div id="copyright">
+                <ul class="icons f-right">
+                   <li><a href="https://www.facebook.com/Nuxeo"><img alt="facebook" title="facebook" src="http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/imgs/footer-icon-fb.png" width="30" height="30"></a></li>
+                   <li><a href="http://www.linkedin.com/groups/Nuxeo-Community-43314?home=&amp;gid=43314&amp;trk=anet_ug_hm"><img alt="linkedin" title="linkedin" src="http://0.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/imgs/footer-icon-ln.png" width="30" height="30"></a></li>
+                   <li><a href="https://twitter.com/nuxeo"><img alt="twitter" title="twitter" src="http://1.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/imgs/footer-icon-tw.png" width="30" height="30"></a></li>
+                   <li><a href="https://plus.google.com/u/0/+nuxeo/posts"><img alt="google+" title="google+" src="http://0.assets.nuxeo.com/wp-content/themes/nuxeo.com_wp/imgs/footer-icon-gp.png" width="30" height="30"></a></li>
+                </ul>
+             </div>
+          </div>
+       </div>
+     </div>
+    </div>
   </template>
 
   <!-- Module -->
@@ -4787,7 +6455,10 @@ input:required:valid:after {
 
 </polymer-element>
 <script src="packages/nuxeo_api_playground/javascript/jquery-2.0.3.min.js"></script><script src="packages/nuxeo_api_playground/javascript/semantic-0.15.4.min.js"></script><script src="packages/nuxeo_api_playground/javascript/highlight-8.0.pack.js"></script>
-    <div id="header"></div>
+    <header>
+      <a href="packages/nuxeo_api_playground/app.html" id="logo"></a>
+      <span class="">API Playground</span>
+    </header>
     <!-- Connection Area -->
     <nx-connection id="connection"></nx-connection>
     <!-- App -->
