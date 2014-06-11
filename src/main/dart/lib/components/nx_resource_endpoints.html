@@ -60,9 +60,9 @@
                 <template repeat="{{operation in resource.value.operations}}">
                     <div class="item">
                       <div class="content">
-                        <div on-click="{{select}}" data-target="{{key}}/{{resource.index}}/{{operation.method}}">
-                          <span class="ui left corner {{methodColors[operation.method]}} label">{{operation.method}}</span> {{resource.value.path}}
-                        </div>
+                        <a on-click="{{select}}" data-target="{{key}}/{{resource.index}}/{{operation.method}}">
+                          <span class="ui top left attached {{methodColors[operation.method]}} label">{{operation.method}}</span> {{resource.value.path}}
+                        </a>
                       </div>
                     </div>
                 </template>
@@ -76,11 +76,11 @@
     </ui-sidebar>
 
     <!-- Main page -->
-    <div class="ui page grid">
+    <div class="ui page grid" id="main-page">
       <div id="main" class="column">
 
         <!-- Breadcrumb -->
-        <div class="ui segment">
+        <div class="ui segment brdcrmb">
          <div class="ui breadcrumb">
           <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
           <div class="divider"> / </div>
