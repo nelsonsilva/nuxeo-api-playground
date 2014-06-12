@@ -134,6 +134,10 @@
                       value="{{param.value}}">
                       </nx-widget>
                     </div>
+                    <!-- Copy default body -->
+                    <template if="{{operation.method == 'PUT' && param.isBodyParam}}">
+                      <div class="ui right floated button" on-click="{{setDefaultBody}}">Fetch {{param.name}}</div>
+                    </template>
                     <!-- Reference a batch -->
                     <template if="{{param.name == 'document' && (endpointKey == 'id' || endpointKey == 'path') && (operation.method == 'POST' || operation.method == 'PUT')}}">
                        <div class="ui right floated button" on-click="{{referenceBatch}}">Reference a Batch</div>

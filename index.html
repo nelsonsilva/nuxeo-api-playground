@@ -5347,6 +5347,10 @@ input:required:valid:after {
                       <nx-widget datatype="{{(param.name == 'docPath' || param.name == 'docId') ? 'document' : 'string'}}" type="{{param.widget}}" required="{{param.required}}" value="{{param.value}}">
                       </nx-widget>
                     </div>
+                    <!-- Copy default body -->
+                    <template if="{{operation.method == 'PUT' &amp;&amp; param.isBodyParam}}">
+                      <div class="ui right floated button" on-click="{{setDefaultBody}}">Fetch {{param.name}}</div>
+                    </template>
                     <!-- Reference a batch -->
                     <template if="{{param.name == 'document' &amp;&amp; (endpointKey == 'id' || endpointKey == 'path') &amp;&amp; (operation.method == 'POST' || operation.method == 'PUT')}}">
                        <div class="ui right floated button" on-click="{{referenceBatch}}">Reference a Batch</div>
