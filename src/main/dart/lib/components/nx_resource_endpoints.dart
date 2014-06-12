@@ -217,6 +217,27 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     });
   }
 
+  /// Perform a GET request with the given parameters to get a default value for the body (if any)
+  setDefaultBody() {
+    var bodyParam = params.where((p) => p.isBodyParam).first;
+
+    String path = endpoint.path;
+
+    // replace parameters
+    params.where((p) => p.isPathParam).forEach((param) {
+      path = path.replaceAll("{${param.name}}", (param.value == null)? "" : param.value);
+    });
+
+    // Call the op using 'execute' which does not handle the response
+    NX.newRequest(path).method("GET").execute()
+    .then((res) { bodyParam.value = res.body; })
+    .catchError((e) {
+      if (e is nuxeo.ClientException) {
+        errors.add(e.message);
+      }
+     });
+  }
+
   get capitalize => new Capitalize();
 
   /// Clear request, response and errors
