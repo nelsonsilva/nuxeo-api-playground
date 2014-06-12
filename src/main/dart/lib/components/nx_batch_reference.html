@@ -1,7 +1,10 @@
-<link rel="import" href="nx_widget.html">
+<link rel="import" href="nx_batch.html">
 <polymer-element name="nx-batch-reference">
   <template>
+    <link rel="stylesheet"  href="../semantic/elements/button.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/elements/header.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/icon.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/elements/input.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/label.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
 
@@ -11,26 +14,26 @@
 
     <link rel="stylesheet"  href="../css/style.css" no-shim>
 
-    <div class="ui divided selection list">
-      <template repeat="{{batch in batches}}">
-        <div class="item" on-click="{{select}}" data-id="{{batch.id}}">
-          <i class="big upload icon"></i>
-          <div class="right floated"><i class="big trash icon" on-click="{{delete}}" data-id="{{batch.id}}"></i></div>
-          <div class="content">
-            <div class="header">{{batch.id}}</div>
-            {{batch.filenames.length}} file(s):
-            <div class="ui horizontal bulleted list">
-              <template repeat="{{filename in batch.filenames}}">
-              <div class="item">
-                {{filename}}
-              </div>
-              </template>
-            </div>
-          </div>
-        </div>
-      </template>
-    </div>
-
+    <style>
+      nx-batch {
+        display: block;
+        border-top: 1px solid rgba(0,0,0,.1);
+        cursor: pointer;
+        color: rgba(0,0,0,.4);
+        padding: .5em;
+      }
+      nx-batch:hover {
+        background-color: rgba(0,0,0,.02);
+        color: rgba(0,0,0,.7);
+      }
+    </style>
+    <template repeat="{{batchId in batches}}">
+      <nx-batch readonly="{{readonly}}" batchId="{{batchId}}" connectionId="{{connectionId}}" on-click="{{select}}">
+        <template if="{{!readonly}}">
+          <i class="big trash action icon" style="float: right;" on-click="{{delete}}" data-id="{{batchId}}"></i>
+        </template>
+      </nx-batch>
+    </template>
 
   </template>
 <script type="application/dart" src="nx_batch_reference.dart"></script>

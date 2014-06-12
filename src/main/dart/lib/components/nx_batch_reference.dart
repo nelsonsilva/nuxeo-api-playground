@@ -1,35 +1,9 @@
 library nx_batch_reference;
 
-import 'dart:async' show Future;
-import 'dart:convert' show JSON;
-import 'package:nuxeo_client/browser_client.dart' as nuxeo;
 import 'package:polymer/polymer.dart';
 import 'package:nuxeo_api_playground/cookies.dart';
+import 'nx_batch.dart';
 import 'ui_module.dart';
-
-/// [Batch] holds information about files uploaded in a batch
-class Batch extends Observable {
-  String id;
-  List filenames;
-
-  Batch(this.id);
-
-  factory Batch.fromJSON(String id, json) {
-    return new Batch(id)..filenames = json.map((f) => f["name"]).toList();
-  }
-
-  String get asJson {
-    var files = [];
-    for (var i = 0; i < filenames.length; i++) {
-      var file = filenames[i];
-      files.add({"upload-batch":"$id", "upload-fileId":"$i"});
-    };
-    if (files.length == 1) {
-      return JSON.encode(files[0]);
-    }
-    return JSON.encode(files.map((f) => {"file": f}).toList());
-  }
-}
 
 @CustomTag("nx-batch-reference")
 class NXBatchReference extends NXElement {
@@ -37,14 +11,12 @@ class NXBatchReference extends NXElement {
   static const NX_BATCHES_COOKIE = "Nuxeo-Batches";
 
   final List batches = toObservable([]);
-  @published Batch selected;
+
+  @published bool readonly = false;
+  @published NXBatch selected;
 
   NXBatchReference.created() : super.created() {
 
-  }
-
-  enteredView() {
-    super.enteredView();
   }
 
   onConnect() {
@@ -52,38 +24,39 @@ class NXBatchReference extends NXElement {
   }
 
   addBatch(String batchId) {
-    _fetchBatch(batchId).then((batch) {
-      if (batch != null) {
-        batches.add(batch);
-        // Update the cookie
-        cookies[NX_BATCHES_COOKIE] = batches.map((b) => b.id).join(",");
-      }
-    });
-
+    if (!batches.contains(batchId)) {
+      batches.add(batchId);
+      // Wait for the nx-batch node to be added
+      async((_) {
+         // Fetch updated batch info from the server
+         var batch = _getBatch(batchId);
+         batch.fetch()
+        .then((_) {
+          // Update the cookie
+          cookies[NX_BATCHES_COOKIE] = batches.join(",");
+        })
+        .catchError((_) {
+          batch.remove();
+        });
+      });
+    }
   }
 
   select(event, detail, target) {
-    selected = batches.where((b) => b.id == target.dataset["id"]).first;
+    selected = target;
+    return false;
   }
 
   delete(event, detail, target) {
-    var batch = batches.where((b) => b.id == target.dataset["id"]).first;
-    //TODO(nfgs): Move this request to the NX client
-    NX.httpClient.get(Uri.parse("${connection.nuxeoUrl}/site/automation/batch/drop/${batch.id}"))
-    .send()
-    .then((response) => batches.remove(batch))
-    .catchError((e) => null);
+    var batchId = target.dataset["id"];
+    _getBatch(batchId)
+     .delete()
+    .then((_) => batches.remove(batchId));
   }
 
-  Future<Batch> _fetchBatch(batchId) =>
-      //TODO(nfgs): Move this request to the NX client
-      NX.httpClient.get(Uri.parse("${connection.nuxeoUrl}/site/automation/batch/files/$batchId"))
-      .send()
-      .then((response) {
-        var json = JSON.decode(response.body);
-        return (json.isNotEmpty) ? new Batch.fromJSON(batchId, json) : null;
-      })
-      .catchError((e) => null);
+  NXBatch _getBatch(batchId) =>
+      shadowRoot.querySelectorAll("nx-batch")
+      .firstWhere((b) => b.batchId == batchId, orElse: () => null);
 
   _updateBatches() {
     // Get the batches from the cookie
