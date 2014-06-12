@@ -1,0 +1,40 @@
+<link rel="import" href="nx_batch.html">
+<polymer-element name="nx-batch-reference">
+  <template>
+    <link rel="stylesheet"  href="../semantic/elements/button.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/elements/header.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/elements/icon.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/elements/input.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/elements/label.min.css" no-shim>
+    <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
+
+    <link rel="stylesheet"  href="../semantic/modules/transition.min.css" no-shim>
+
+    <link rel="stylesheet"  href="../semantic/views/list.min.css" no-shim>
+
+    <link rel="stylesheet"  href="../css/style.css" no-shim>
+
+    <style>
+      nx-batch {
+        display: block;
+        border-top: 1px solid rgba(0,0,0,.1);
+        cursor: pointer;
+        color: rgba(0,0,0,.4);
+        padding: .5em;
+      }
+      nx-batch:hover {
+        background-color: rgba(0,0,0,.02);
+        color: rgba(0,0,0,.7);
+      }
+    </style>
+    <template repeat="{{batchId in batches}}">
+      <nx-batch readonly="{{readonly}}" batchId="{{batchId}}" connectionId="{{connectionId}}" on-click="{{select}}">
+        <template if="{{!readonly}}">
+          <i class="big trash action icon" style="float: right;" on-click="{{delete}}" data-id="{{batchId}}"></i>
+        </template>
+      </nx-batch>
+    </template>
+
+  </template>
+<script type="application/dart" src="nx_batch_reference.dart"></script>
+</polymer-element>
