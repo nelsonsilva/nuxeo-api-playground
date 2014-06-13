@@ -29,7 +29,7 @@ class NXBatch extends NXElement {
   /// List of Blobs waiting to be uploaded
   @observable List<http.Blob> blobs = [];
 
-  nuxeo.AutomationUploader _uploader;
+  nuxeo.BatchUploader _uploader;
 
   NXBatch.created() : super.created() {
   }
@@ -44,7 +44,7 @@ class NXBatch extends NXElement {
   Future upload(Event e) {
     // create the uploader
     if (_uploader == null) {
-      _uploader = NX.createUploader(
+      _uploader = new nuxeo.BatchUploader(NX,
             batchId: batchId,
             uploadTimeout: new Duration(minutes: 20));
       // Set the proper index to start uploading files
