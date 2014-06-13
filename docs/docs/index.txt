@@ -1969,7 +1969,7 @@ nuxeo_api_playground/nx_batch_upload.NXBatchUpload.NXBatchUpload-created constru
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.TAG property
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.action property
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.description property
-nuxeo_api_playground/nx_batch_upload.NXBatchUpload.domReady method
+nuxeo_api_playground/nx_batch_upload.NXBatchUpload.enteredView method
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.icon property
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.onUpload method
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.setupRoutes method
