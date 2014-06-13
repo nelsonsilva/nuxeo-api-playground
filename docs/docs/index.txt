@@ -1324,6 +1324,7 @@ nuxeo_api_playground/nx_batch.HtmlElement.HtmlElement- constructor
 nuxeo_api_playground/nx_batch.HtmlElement.HtmlElement-created constructor
 nuxeo_api_playground/nx_batch.NXBatch class
 nuxeo_api_playground/nx_batch.NXBatch.NXBatch-created constructor
+nuxeo_api_playground/nx_batch.NXBatch.TAG property
 nuxeo_api_playground/nx_batch.NXBatch.UPLOAD_EVENT property
 nuxeo_api_playground/nx_batch.NXBatch.asJson getter
 nuxeo_api_playground/nx_batch.NXBatch.batchId property
@@ -1332,7 +1333,6 @@ nuxeo_api_playground/nx_batch.NXBatch.delete method
 nuxeo_api_playground/nx_batch.NXBatch.fetch method
 nuxeo_api_playground/nx_batch.NXBatch.filenames property
 nuxeo_api_playground/nx_batch.NXBatch.readonly property
-nuxeo_api_playground/nx_batch.NXBatch.reset method
 nuxeo_api_playground/nx_batch.NXBatch.upload method
 nuxeo_api_playground/nx_batch.NXBatch.wasUploaded property
 nuxeo_api_playground/nx_batch.NXElement class
@@ -1969,6 +1969,7 @@ nuxeo_api_playground/nx_batch_upload.NXBatchUpload.NXBatchUpload-created constru
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.TAG property
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.action property
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.description property
+nuxeo_api_playground/nx_batch_upload.NXBatchUpload.domReady method
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.icon property
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.onUpload method
 nuxeo_api_playground/nx_batch_upload.NXBatchUpload.setupRoutes method
