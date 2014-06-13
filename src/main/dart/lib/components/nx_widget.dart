@@ -44,7 +44,14 @@ class NXWidget extends PolymerElement {
 
   onFileSelected() {
     _upload(input.files).then((files) {
-        value = (type == "blob") ? files[0] : files;
+      if (type == "blob") {
+        value = files[0];
+      } else { // bloblist
+        if (value == null) {
+          value = [];
+        }
+        value..clear()..addAll(files);
+      }
     });
   }
 

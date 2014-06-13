@@ -24,7 +24,10 @@ class NXBatchUpload extends NXModule with SemanticUI {
   factory NXBatchUpload() => new Element.tag(TAG);
 
   NXBatchUpload.created() : super.created() {
-    _resetBatch();
+  }
+
+  enteredView() {
+    _newBatch();
   }
 
   @override
@@ -33,14 +36,19 @@ class NXBatchUpload extends NXModule with SemanticUI {
 
   onUpload(Event event) {
     ($["batches"] as NXBatchReference).addBatch((event.target as NXBatch).batchId);
-    _resetBatch();
+    _newBatch();
   }
 
-  void _resetBatch() {
-    var batch = shadowRoot.querySelector("nx-batch") as NXBatch;
-    batch.batchId = "batch-" +
-            new DateTime.now().millisecondsSinceEpoch.toString() +
-            "-" + new Math.Random().nextInt(100000).toString();
-    batch.reset();
+  void _newBatch() {
+    var batch = new Element.tag(NXBatch.TAG) as NXBatch
+    ..connectionId = connectionId
+    ..batchId = "batch-" +
+        new DateTime.now().millisecondsSinceEpoch.toString() +
+        "-" + new Math.Random().nextInt(100000).toString()
+    ..on[NXBatch.UPLOAD_EVENT].listen(onUpload);
+
+    $["batch"]
+    ..nodes.clear()
+    ..append(batch);
   }
 }

@@ -31,13 +31,14 @@ class NXBatchReference extends NXElement {
          // Fetch updated batch info from the server
          var batch = _getBatch(batchId);
          batch.fetch()
-        .then((_) {
-          // Update the cookie
-          cookies[NX_BATCHES_COOKIE] = batches.join(",");
-        })
-        .catchError((_) {
-          batch.remove();
-        });
+         .catchError((_) {
+           batches.remove(batchId);
+           batch.remove();
+          })
+        . then((_) {
+           _updateCookie();
+          });
+
       });
     }
   }
@@ -51,11 +52,14 @@ class NXBatchReference extends NXElement {
     var batchId = target.dataset["id"];
     _getBatch(batchId)
      .delete()
-    .then((_) => batches.remove(batchId));
+    .then((_) {
+      batches.remove(batchId);
+      _updateCookie();
+    });
   }
 
   NXBatch _getBatch(batchId) =>
-      shadowRoot.querySelectorAll("nx-batch")
+      shadowRoot.querySelectorAll(NXBatch.TAG)
       .firstWhere((b) => b.batchId == batchId, orElse: () => null);
 
   _updateBatches() {
@@ -72,5 +76,9 @@ class NXBatchReference extends NXElement {
   _clearBatches() {
     batches.clear();
     cookies.remove(NX_BATCHES_COOKIE);
+  }
+
+  _updateCookie() {
+    cookies[NX_BATCHES_COOKIE] = batches.join(",");
   }
 }

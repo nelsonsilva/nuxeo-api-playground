@@ -9,8 +9,10 @@ import 'package:polymer/polymer.dart';
 import 'ui_module.dart';
 
 /// [NXBatch] holds information about files uploaded in a batch
-@CustomTag("nx-batch")
+@CustomTag(NXBatch.TAG)
 class NXBatch extends NXElement {
+
+  static const String TAG = "nx-batch";
 
   static const String UPLOAD_EVENT = "upload";
 
@@ -24,10 +26,10 @@ class NXBatch extends NXElement {
   @observable bool wasUploaded = false;
 
   /// List of filenames that belong to this batch
-  List filenames = toObservable([]);
+  final List filenames = toObservable([]);
 
   /// List of Blobs waiting to be uploaded
-  @observable List<http.Blob> blobs = [];
+  final List<http.Blob> blobs = toObservable([]);
 
   nuxeo.BatchUploader _uploader;
 
@@ -55,7 +57,7 @@ class NXBatch extends NXElement {
     return Future.wait(blobs.map((blob) => _uploader.uploadFile(blob)))
     // Clear the blob queue and fetch new info from the server
     .then((_) {
-      blobs = [];
+      blobs.clear();
       return fetch();
     })
     .then((_) {
@@ -71,16 +73,11 @@ class NXBatch extends NXElement {
     .send()
     .then((response) {
       var json = JSON.decode(response.body);
-      if (json.isNotEmpty) {
-          filenames..clear()..addAll(json.map((f) => f["name"]));
+      if (json.isEmpty) {
+        throw new Exception("Batch $batchId does not exist.");
       }
+      filenames..clear()..addAll(json.map((f) => f["name"]));
     });
-  }
-
-  reset() {
-    blobs = [];
-    filenames.clear();
-    wasUploaded = false;
   }
 
   String get asJson {
