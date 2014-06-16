@@ -9,7 +9,7 @@ class UISidebar extends PolymerElement with SemanticUI {
   UISidebar.created() : super.created() {
   }
 
-  enteredView() {
+  attached() {
     sidebar('.ui.sidebar', ['show']);
   }
 
@@ -17,7 +17,7 @@ class UISidebar extends PolymerElement with SemanticUI {
     sidebar('.ui.sidebar', ['toggle']);
   }
 
-  leftView() {
+  detached() {
     sidebar('.ui.sidebar', ['hide']);
   }
 

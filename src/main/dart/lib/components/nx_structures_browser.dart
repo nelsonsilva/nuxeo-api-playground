@@ -11,15 +11,33 @@ import 'nx_connection.dart';
 import '../yuml.dart' as yuml;
 import 'semantic.dart';
 
+class StructuresBrowser extends Module {
+  String title = "Data Structures",
+         icon = "data_structure.png",
+         description = "Browse all the available definitions of types, schemas and properties held by a document.",
+         action = "Browse",
+         tag = NXStructuresBrowser.TAG;
+
+  @observable var selectedType;
+  @observable var selectedId;
+
+  @override
+   void setupRoutes(Route route) {
+     route.addRoute(
+         name: 'view',
+         path: '/:type/:id',
+         enter: (e) {
+           selectedType = e.parameters['type'];
+           selectedId =  e.parameters['id'];
+         }
+     );
+   }
+}
+
 @CustomTag(NXStructuresBrowser.TAG)
 class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
   static const String TAG = "nx-structures-browser";
-
-  String title = "Data Structures",
-         icon = "data_structure.png",
-         description = "Browse all the available definitions of types, schemas and properties held by a document.",
-         action = "Browse";
 
   final Map<String, List> items = toObservable({
     "schemas": [],
@@ -34,21 +52,16 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
   List<nuxeo.Facet> get facets => items["facets"];
   List<nuxeo.Doctype> get doctypes => items["types"];
 
-  @observable String selectedType;
-  @observable String selectedId;
   @observable var selectedItem;
+
+  @observable String get selectedType => (module as StructuresBrowser).selectedType;
+  @observable String get selectedId => (module as StructuresBrowser).selectedId;
 
   factory NXStructuresBrowser() => new Element.tag(TAG);
 
   yuml.DiagramGenerator _diagram;
 
   NXStructuresBrowser.created() : super.created() {
-  }
-
-  enteredView() {
-    super.enteredView();
-    // Setup the accordion
-    accordion(".ui.accordion");
   }
 
   @observable String currentItemDiagram;
@@ -90,11 +103,15 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
     .then((_) {
 
+      async((_) { // Setup the accordion
+        accordion(".ui.accordion");
+      });
+
       // Setup the diagram generator
       _diagram = new yuml.DiagramGenerator(schemas: schemas, facets: facets, doctypes: doctypes);
 
       // Check for a selected item
-      _updateSelection();
+      updateSelection();
     })
     .catchError((e) {
       connection.alerts.add(
@@ -105,7 +122,9 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
   }
 
-  void _updateSelection() {
+  @ObserveProperty("module.selectedId")
+  void updateSelection() {
+    selectedItem = null;
     if (selectedId != null && items[selectedType].isNotEmpty) {
       selectedItem = items[selectedType].where((d) => d.name == selectedId).first;
     }
@@ -131,29 +150,12 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
     window.open(currentItemDiagram, selectedItem.name);
   }
 
-  @override
-   void setupRoutes(Route route) {
-     route.addRoute(
-         name: 'view',
-         path: '/:type/:id',
-         enter: (e) {
-           selectedItem = null;
-           selectedType = e.parameters['type'];
-           selectedId =  e.parameters['id'];
-           _updateSelection();
-         },
-         leave: (e) {
-           jQuery('.diagram').callMethod('popup', ["destroy"]);
-         }
-     );
-   }
-
   searchFilterChanged() {
     async((_) { accordion(".ui.accordion"); });
   }
 
   goRoot() {
-    selectedType = selectedId = selectedItem = null;
+    (module as StructuresBrowser).selectedType = (module as StructuresBrowser).selectedId = selectedItem = null;
     super.goRoot();
   }
 

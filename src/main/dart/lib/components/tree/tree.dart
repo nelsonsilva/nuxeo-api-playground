@@ -37,10 +37,8 @@ class Tree extends NXElement with SemanticUI {
 
   bool get valid => true;
 
-  bool get alwaysPrepare => true;
-
-  enteredView() {
-    super.enteredView();
+  attached() {
+    super.attached();
     accordion(".ui.accordion");
   }
 

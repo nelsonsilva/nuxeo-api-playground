@@ -47,23 +47,39 @@ class NxParameterValue extends Observable {
   }
 }
 
+class ResourceEndpoints extends Module {
+  String title = "Resource endpoints",
+         icon = "resources_endpoints.png",
+         description = "Discover the list of endpoints and see which adapters are available for each of them.",
+         action = "Discover",
+         tag = NXResourceEndpoints.TAG;
+
+  @observable String op;
+
+  void setupRoutes(Route route) {
+   route.addRoute(
+     name: 'rest',
+     path: '/:endpoint/:idx/:method',
+     defaultRoute: true,
+     enter: (e) {
+       var endpoint = e.parameters['endpoint'],
+           idx = e.parameters['idx'],
+           method = e.parameters['method'];
+       op = (endpoint != null && idx != null && method != null)? "$endpoint/$idx/$method" : null;
+     });
+  }
+}
+
 @CustomTag(NXResourceEndpoints.TAG)
 class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
   static const String TAG = "nx-resource-endpoints";
-
-  String title = "Resource endpoints",
-         icon = "resources_endpoints.png",
-         description = "Discover the list of endpoints and see which adapters are available for each of them.",
-         action = "Discover";
 
   final Map<String, List<swagger.Resource>> endpoints = toObservable({});
 
   final Map<String, String> methodColors = {
     "GET": "blue", "POST": "teal", "PUT": "green", "DELETE": "red"
   };
-
-  @observable String currentPath;
 
   @observable swagger.Resource endpoint;
   @observable swagger.Operation operation;
@@ -80,12 +96,9 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
   @observable String searchTerm = '';
   @observable String searchFilter = '';
 
-  factory NXResourceEndpoints() => new Element.tag(TAG);
-
   NXResourceEndpoints.created() : super.created() {
 
   }
-
 
   /// Triggered when the connection is established
   onConnect() {
@@ -105,28 +118,17 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     }))
     // After everything is loaded
     .then((_) {
-      currentPathChanged();
+      updateOperation();
       // let's setup the accordion
       async((_) => accordion("#endpoints"));
     });
 
   }
 
-  void setupRoutes(Route route) {
-   route.addRoute(
-     name: 'rest',
-     path: '/:endpoint/:idx/:method',
-     defaultRoute: true,
-     enter: (e) {
-       var endpoint = e.parameters['endpoint'],
-           idx = e.parameters['idx'],
-           method = e.parameters['method'];
-       currentPath = (endpoint != null && idx != null && method != null)? "$endpoint/$idx/$method" : null;
-     });
-  }
-
-  currentPathChanged() {
-    if (currentPath == null) {
+  @ObserveProperty("module.op")
+  updateOperation() {
+    var currentPath = (module as ResourceEndpoints).op;
+    if (endpoints.isEmpty || currentPath == null) {
       operation = null;
     } else {
       var parts = currentPath.split("/"),

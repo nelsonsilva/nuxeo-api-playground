@@ -31,8 +31,8 @@ class TreeNode extends NXElement with SemanticUI {
   TreeNode.created() : super.created() {
   }
 
-  enteredView() {
-    super.enteredView();
+  attached() {
+    super.attached();
     shadowRoot.querySelector(".icon").classes.add("expand");
     accordion(".ui.accordion");
   }
@@ -89,7 +89,7 @@ class TreeNode extends NXElement with SemanticUI {
     });
   }
 
-  void toggle(event, detail, target) {
+  toggle(event, detail, target) {
     _fetchChildren().then((_) {
       var classes = shadowRoot.querySelector(".icon").classes;
 

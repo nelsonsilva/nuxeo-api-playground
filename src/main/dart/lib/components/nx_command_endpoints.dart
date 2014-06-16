@@ -9,15 +9,32 @@ import 'ui_filters.dart';
 import 'ui_module.dart';
 import 'semantic.dart';
 
+class CommandEndpoints extends Module {
+  String title = "Command Endpoints",
+         icon = "command_endpoints.png",
+         description = "Discover the Nuxeo service that exposes common actions. Assemble them to create complex business rules and logic, without writing any Java code.",
+         action = "Discover",
+         tag = NXCommandEndpoints.TAG;
+
+  @observable String selectedOp = null;
+
+  @override
+  void setupRoutes(Route route) {
+    route.addRoute(
+        name: 'op',
+        path: '/:opId',
+        defaultRoute: true,
+        enter: (e) {
+          selectedOp = e.parameters["opId"];
+        }
+    );
+  }
+}
+
 @CustomTag(NXCommandEndpoints.TAG)
 class NXCommandEndpoints extends NXModule with SearchFilter, SemanticUI {
 
   static const String TAG = "nx-command-endpoints";
-
-  String title = "Command Endpoints",
-         icon = "command_endpoints.png",
-         description = "Discover the Nuxeo service that exposes common actions. Assemble them to create complex business rules and logic, without writing any Java code.",
-         action = "Discover";
 
   // Map with Category => List<Operation>
   final Map<String, List<nuxeo.Operation>> operations = toObservable({});
@@ -32,21 +49,7 @@ class NXCommandEndpoints extends NXModule with SearchFilter, SemanticUI {
   @observable bool canManageTraces = false;
   @observable bool tracesEnabled = false;
 
-  factory NXCommandEndpoints() => new Element.tag(TAG);
-
   NXCommandEndpoints.created() : super.created() {
-  }
-
-  @override
-  void setupRoutes(Route route) {
-    route.addRoute(
-        name: 'op',
-        path: '/:opId',
-        defaultRoute: true,
-        enter: (e) {
-          selectedOp = e.parameters["opId"];
-        }
-    );
   }
 
   @override
@@ -69,6 +72,11 @@ class NXCommandEndpoints extends NXModule with SearchFilter, SemanticUI {
       );
       return false;
     });
+  }
+
+  @ObserveProperty("module.selectedOp")
+  updateOperation() {
+    selectedOp = (module != null) ? (module as CommandEndpoints).selectedOp : null;
   }
 
   // Only show categories with operations

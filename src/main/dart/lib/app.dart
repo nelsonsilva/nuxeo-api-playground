@@ -19,25 +19,24 @@ class NXSandboxApp extends PolymerElement {
   @published String connectionId;
   @observable NXConnection connection;
 
-  Map<String, NXModule> modules = {
-    "browser": new NXRepositoryBrowser(),
-    "data": new NXStructuresBrowser(),
-    "resources": new NXResourceEndpoints(),
-    "commands": new NXCommandEndpoints(),
-    "uploads": new NXBatchUpload()
+  Map<String, Module> modules = {
+    "browser": new RepositoryBrowser(),
+    "data": new StructuresBrowser(),
+    "resources": new ResourceEndpoints(),
+    "commands": new CommandEndpoints(),
+    "uploads": new BatchUpload()
   };
 
-  @observable NXModule module = null;
-
-  // This lets the CSS "bleed through" into the Shadow DOM of this element.
-  @override bool get applyAuthorStyles => true;
+  @observable Module module = null;
 
   var router;
 
   connectionIdChanged() {
     connection = document.querySelector("#$connectionId");
-    // Setup the connectionId for all the modules
-    modules.values.forEach((NXModule m) { m.connectionId = connectionId; });
+    // Setup the connectionId for the current module if any
+    if ($['module'].children.isNotEmpty) {
+      ($['module'].children.first as NXModule).connectionId = connectionId;
+    }
   }
 
   NXSandboxApp.created() : super.created() {
@@ -49,9 +48,8 @@ class NXSandboxApp extends PolymerElement {
     // Setup the root
     router = new Router(useFragment: true);
 
-
     // Add a route for each module along with each module's custom subroutes
-    modules.forEach((path, module) {
+    modules.forEach((path, Module module) {
       router.root.addRoute(
           name: path,
           preEnter: (_) {
@@ -80,7 +78,9 @@ class NXSandboxApp extends PolymerElement {
   void moduleChanged() {
     $['module'].children..clear();
      if (module != null) {
-       $['module'].children.add(module);
+       var el = module.createElement();
+       el.connectionId = connectionId;
+       $['module'].children.add(el);
      }
   }
 

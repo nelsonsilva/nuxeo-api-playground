@@ -11,27 +11,26 @@ import 'ui_module.dart';
 import 'semantic.dart';
 
 
+class BatchUpload extends Module {
+  String title = "Batch Upload",
+         icon = "batch_upload.png",
+         description = "Create batches by uploading any number of files. These batches can later be referenced in Resource endpoints methods by clicking on the “Reference a batch” button",
+         action = "Upload",
+         tag = NXBatchUpload.TAG;
+}
+
 @CustomTag(NXBatchUpload.TAG)
 class NXBatchUpload extends NXModule with SemanticUI {
 
   static const String TAG = "nx-batch-upload";
-
-  String title = "Batch Upload",
-         icon = "batch_upload.png",
-         description = "Create batches by uploading any number of files. These batches can later be referenced in Resource endpoints methods by clicking on the “Reference a batch” button",
-         action = "Upload";
 
   factory NXBatchUpload() => new Element.tag(TAG);
 
   NXBatchUpload.created() : super.created() {
   }
 
-  enteredView() {
+  domReady() {
     _newBatch();
-  }
-
-  @override
-  void setupRoutes(Route route) {
   }
 
   onUpload(Event event) {

@@ -63,7 +63,7 @@ class NXOperation extends NXElement with SemanticUI {
   NXOperation.created() : super.created() {
   }
 
-  enteredView() {
+  domReady() {
     accordion(".ui.accordion");
 
     /* Update the according when the operations change

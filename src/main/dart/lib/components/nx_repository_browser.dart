@@ -6,21 +6,22 @@ import 'package:polymer/polymer.dart';
 import 'ui_module.dart';
 import 'semantic.dart';
 
+class RepositoryBrowser extends Module {
+  String title = "Repository",
+         icon = "repository.png",
+         description = "Browse your repository and discover the properties of your documents.",
+         action = "Explore",
+         tag = NXRepositoryBrowser.TAG;
+}
+
 @CustomTag(NXRepositoryBrowser.TAG)
 class NXRepositoryBrowser extends NXModule with SemanticUI {
 
   static const String TAG = "nx-repository-browser";
 
-  String title = "Repository",
-         icon = "repository.png",
-         description = "Browse your repository and discover the properties of your documents.",
-         action = "Explore";
-
   @published String documentId;
 
   @observable nuxeo.Document document;
-
-  factory NXRepositoryBrowser() => new Element.tag(TAG);
 
   NXRepositoryBrowser.created() : super.created() {
   }
@@ -31,8 +32,5 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
     } else {
       NX.doc(documentId).fetch().then((doc) { document = doc; });
     }
-  }
-
-  void setupRoutes(route) {
   }
 }
