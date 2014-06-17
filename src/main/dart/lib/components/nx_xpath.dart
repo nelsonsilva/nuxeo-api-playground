@@ -38,7 +38,7 @@ class NXXPath extends NXElement with SearchFilter {
       JSON.decode(response.body).forEach((s) {
         var schema = new nuxeo.Schema.fromJSON(s);
         schema.fields.forEach((f) {
-          fields.add("${schema.prefix}:${f.name}");
+          fields.add((schema.prefix.isEmpty) ? f.name : "${schema.prefix}:${f.name}");
         });
       });
     });
