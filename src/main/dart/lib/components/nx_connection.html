@@ -1,3 +1,4 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
 <polymer-element name="nx-connection">
   <template>
     <link rel="stylesheet"  href="../semantic/elements/button.min.css" no-shim>
@@ -5,25 +6,25 @@
     <link rel="stylesheet"  href="../semantic/elements/image.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/label.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
-  
+
     <link rel="stylesheet"  href="../semantic/collections/form.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/grid.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/message.min.css" no-shim>
-    
+
     <link rel="stylesheet"  href="../css/style.css" no-shim>
 
     <div class="connection">
       <div class="ui page grid">
-      
+
         <!-- TODO - Make this the same size as the sidebar button  -->
         <div class="column connectblock">
-        
+
           <!-- Not connected -->
           <template if="{{!isConnected}}">
             <h1>Browse your platform API</h1>
-     
+
             <p>Connect the playground with your server and browse repository, data structures, resources and command endpoints, adapters, REST contributors and business objects.</p>
-            
+
             <div class="ui form attached segment">
               <div class="ui grid">
                 <div class="row">
@@ -42,7 +43,7 @@
                 </div>
               </div>
             </div>
-                        
+
             <template if="{{alerts.isNotEmpty}}">
               <div class="ui bottom attached warning message">
                  <div class="ui top right attached small label" style="font-size:.6rem;">
@@ -53,12 +54,12 @@
                 </template>
               </div>
             </template>
-            
+
           </template>
-          
+
           <!-- Connected -->
           <template if="{{isConnected}}">
-            
+
             <div style="float:right">
 
                 {{nuxeoUrl}}
@@ -66,10 +67,10 @@
                 {{username}}
 
               <div class="ui red button" on-click="{{disconnect}}">Sign out</div>
-              
+
             </div>
           </template>
-          
+
         </div>
       </div>
     </div>
