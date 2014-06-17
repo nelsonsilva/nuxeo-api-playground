@@ -1,6 +1,9 @@
+<link rel="import" href="../../../packages/polymer/polymer.html">
 <link rel="import" href="nx_batch.html">
 <polymer-element name="nx-batch-reference">
   <template>
+    <link rel="stylesheet"  href="../semantic/collections/message.min.css" no-shim>
+
     <link rel="stylesheet"  href="../semantic/elements/button.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/header.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/icon.min.css" no-shim>
@@ -15,6 +18,11 @@
     <link rel="stylesheet"  href="../css/style.css" no-shim>
 
     <div id="batches">
+    <template if="{{batches.isEmpty}}">
+      <div class="ui warning message">
+        No batches created yet.
+      </div>
+    </template>
     <template repeat="{{batchId in batches}}">
       <nx-batch readonly="{{readonly}}" batchId="{{batchId}}" connectionId="{{connectionId}}" on-click="{{select}}">
         <template if="{{!readonly}}">

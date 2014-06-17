@@ -1,9 +1,10 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
 <polymer-element name="nx-tree-node">
   <template>
     <link rel="stylesheet"  href="../../semantic/elements/icon.min.css" no-shim>
     <link rel="stylesheet"  href="../../semantic/elements/image.min.css" no-shim>
     <link rel="stylesheet"  href="../../semantic/elements/label.min.css" no-shim>
-    
+
     <link rel="stylesheet"  href="../../semantic/modules/accordion.min.css" no-shim>
     <style>
       .ui.tree.accordion {
@@ -36,20 +37,20 @@
       color: #00adff;
       }
     </style>
-    
-    <div class="ui tree accordion">                        
+
+    <div class="ui tree accordion">
       <div class="title">
         <template if="{{isFolderish}}"><i class="icon" on-click="{{toggle}}"></i></template>
         <span class="label" on-click="{{toggleSelection}}"><img class="tiny image" src="{{icon}}"> {{doc.title}}</span>
       </div>
-      
+
       <div class="content">
         <template repeat="{{child in children}}">
             <nx-tree-node connectionId="{{connectionId}}" docId="{{child.uid}}"></nx-tree-node>
         </template>
       </div>
     </div>
-    
+
   </template>
   <script type="application/dart" src="tree_node.dart"></script>
 </polymer-element>
