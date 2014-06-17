@@ -29,14 +29,20 @@ class NXRequestMonitor extends NXElement {
 
   @observable
   String get CURLRequest {
-    var url = (request is nuxeo.OperationRequest) ? "${request.uri}/${request.id}" : request.uri.toString();
+    var url;
+    var data = request.requestData;
+    if (request is nuxeo.OperationRequest) {
+      url = (request.uploader == null) ? "${request.uri}/${request.id}" : "${request.uri}/batch/execute";
+    } else {
+      url = request.uri.toString();
+    }
     var method = request.request.method;
     var str = new StringBuffer("curl -X $method '$url'");
     request.headers.forEach((k, v) {
       str.write(" -H '$k: $v'");
     });
-    if (request.requestData != null) {
-      str.write(" -d '${request.requestData}'");
+    if (data != null) {
+      str.write(" -d '$data'");
     }
     return str.toString();
   }

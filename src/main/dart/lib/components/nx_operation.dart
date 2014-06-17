@@ -1,10 +1,13 @@
 library nx_operation;
 
 import 'dart:convert' show JSON;
-import 'ui_module.dart';
+
 import 'package:polymer/polymer.dart';
 import 'package:nuxeo_client/client.dart' as nuxeo;
+
+import 'nx_batch.dart';
 import 'semantic.dart';
+import 'ui_module.dart';
 
 class NxOperationMethod extends Observable {
   String name = "run";
@@ -54,6 +57,9 @@ class NXOperation extends NXElement with SemanticUI {
   @observable String label;
   @observable String description;
   final List<NxOperationParamValue> params = toObservable([]);
+
+  /// Batch reference
+  @observable NXBatch batch;
 
   final List<NxOperationMethod> methods = toObservable([]);
   @observable NxOperationMethod method;
@@ -143,11 +149,18 @@ class NXOperation extends NXElement with SemanticUI {
       opParams[param.name] = param.value;
     });
 
-    // Call the op
-    opRequest = NX.op(_op.id)
-    .input(method.input)
-    .params(opParams);
+    // Prepare the op
+    opRequest = NX.op(_op.id).params(opParams);
 
+    // Set the input
+    // Check for a batch reference
+    if (batch == null) {
+      opRequest.input(method.input);
+    } else {
+      opRequest.uploader.batchId = batch.batchId;
+    }
+
+    // Call the op
     opRequest.execute()
     .then((res) { opResponse = res; })
     .catchError((e) {
@@ -171,4 +184,17 @@ class NXOperation extends NXElement with SemanticUI {
     });
   }
 
+  clearBatch(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    batch = null;
+  }
+
+  referenceBatch(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    async((_) {
+      modal('.ui.modal');
+    });
+  }
 }
