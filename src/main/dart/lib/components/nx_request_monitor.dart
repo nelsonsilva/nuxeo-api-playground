@@ -64,7 +64,7 @@ class NXRequestMonitor extends NXElement {
     } else if (contentType == "text/plain") {
       body = response.body;
     } else { //  Handle Blob
-      body = new Uint8List.fromList(UTF8.encode(response.body));
+      body = response.buffer;
     }
 
     if (body != null) {
