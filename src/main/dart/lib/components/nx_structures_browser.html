@@ -1,3 +1,4 @@
+<link rel="import" href="nx_schema.html">
 <link rel="import" href="ui_sidebar.html">
 <polymer-element name="nx-structures-browser">
   <template>
@@ -7,17 +8,17 @@
     <link rel="stylesheet"  href="../semantic/elements/input.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/label.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/elements/segment.min.css" no-shim>
-  
+
     <link rel="stylesheet"  href="../semantic/collections/breadcrumb.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/grid.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/menu.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/collections/table.min.css" no-shim>
-    
+
     <link rel="stylesheet"  href="../semantic/modules/accordion.min.css" no-shim>
     <link rel="stylesheet"  href="../semantic/modules/transition.min.css" no-shim>
-    
+
     <link rel="stylesheet"  href="../semantic/views/list.min.css" no-shim>
-    
+
     <link rel="stylesheet"  href="../css/style.css" no-shim>
     <!-- Sidebar -->
     <ui-sidebar>
@@ -94,7 +95,7 @@
 
         <template if="{{selectedItem}}">
           <div class="ui huge header">{{selectedItem.name}}</div>
-          
+
           <template if="{{selectedItem != null && selectedType != 'schemas'}}">
             <i class="sitemap icon link" on-click="{{showDiagram}}"></i>
           </template>
@@ -108,20 +109,7 @@
               </div>
             </template>
 
-            <table class="ui large basic blue table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr template repeat="{{field in selectedItem.fields | sort('name')}}">
-                  <td>{{field.name}}</td>
-                  <td>{{field.type}}</td>
-                </tr>
-              </tbody>
-            </table>
+            <nx-schema schema="{{selectedItem}}"></nx-schema>
 
          </template>
 
@@ -163,11 +151,11 @@
             </template>
 
          </template>
-          
+
         </template>
       </div>
     </div>
-    
+
   </template>
   <script type="application/dart" src="nx_structures_browser.dart"></script>
 

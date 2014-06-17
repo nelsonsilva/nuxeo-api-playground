@@ -32,6 +32,8 @@ class SchemaField {
     }
   }
 
+  bool get isComplex => type is Schema;
+
   toString() => name;
 }
 
