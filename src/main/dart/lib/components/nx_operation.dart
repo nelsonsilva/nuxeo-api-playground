@@ -107,6 +107,8 @@ class NXOperation extends NXElement with SemanticUI {
     // Reset the selected method
     method = null;
     opRequest = opResponse = null;
+    // Clear the batch
+    batch = null;
 
     NX.registry.then((registry) {
       _op = registry[opid];
