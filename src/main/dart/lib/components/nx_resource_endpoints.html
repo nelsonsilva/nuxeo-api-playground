@@ -151,8 +151,17 @@
                           <template if="{{batch}}">
                             <div class="ui ribbon label">{{batch.id}}</div>
                             <textarea>{{batch.asJson}}</textarea>
-                         </template>
-                          <nx-batch-reference connectionId="{{connectionId}}" readonly="true" selected="{{batch}}"></nx-batch-reference>
+                          </template>
+                          <nx-batch-reference connectionId="{{connectionId}}" readonly="true" selected="{{batch}}">
+                            <div class="empty ui yellow message">
+                              <div class="content">
+                                <div class="header">
+                                  No batches created yet.
+                                </div>
+                                <p>You can use the <a href="#/uploads">Batch Upload</a> area to create and manage batches.</p>
+                              </div>
+                            </div>
+                          </nx-batch-reference>
                         </div>
                       </div>
                     </template>
