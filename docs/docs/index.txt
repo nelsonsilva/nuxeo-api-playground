@@ -884,6 +884,8 @@ nuxeo_api_playground/module.Polymer.detached method
 nuxeo_api_playground/module.Polymer.dispatchMethod method
 nuxeo_api_playground/module.Polymer.domReady method
 nuxeo_api_playground/module.Polymer.element getter
+nuxeo_api_playground/module.Polymer.eventController getter
+nuxeo_api_playground/module.Polymer.eventController= setter
 nuxeo_api_playground/module.Polymer.fetchTemplate method
 nuxeo_api_playground/module.Polymer.findStyleScope method
 nuxeo_api_playground/module.Polymer.fire method
@@ -1443,7 +1445,8 @@ nuxeo_api_playground/nx_batch.Polymer.detached method
 nuxeo_api_playground/nx_batch.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_batch.Polymer.domReady method
 nuxeo_api_playground/nx_batch.Polymer.element getter
-nuxeo_api_playground/nx_batch.Polymer.eventController property
+nuxeo_api_playground/nx_batch.Polymer.eventController getter
+nuxeo_api_playground/nx_batch.Polymer.eventController= setter
 nuxeo_api_playground/nx_batch.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_batch.Polymer.findStyleScope method
 nuxeo_api_playground/nx_batch.Polymer.fire method
@@ -1754,6 +1757,8 @@ nuxeo_api_playground/nx_batch_reference.Polymer.detached method
 nuxeo_api_playground/nx_batch_reference.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_batch_reference.Polymer.domReady method
 nuxeo_api_playground/nx_batch_reference.Polymer.element getter
+nuxeo_api_playground/nx_batch_reference.Polymer.eventController getter
+nuxeo_api_playground/nx_batch_reference.Polymer.eventController= setter
 nuxeo_api_playground/nx_batch_reference.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_batch_reference.Polymer.findStyleScope method
 nuxeo_api_playground/nx_batch_reference.Polymer.fire method
@@ -2091,6 +2096,8 @@ nuxeo_api_playground/nx_batch_upload.Polymer.detached method
 nuxeo_api_playground/nx_batch_upload.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_batch_upload.Polymer.domReady method
 nuxeo_api_playground/nx_batch_upload.Polymer.element getter
+nuxeo_api_playground/nx_batch_upload.Polymer.eventController getter
+nuxeo_api_playground/nx_batch_upload.Polymer.eventController= setter
 nuxeo_api_playground/nx_batch_upload.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_batch_upload.Polymer.findStyleScope method
 nuxeo_api_playground/nx_batch_upload.Polymer.fire method
@@ -2440,6 +2447,8 @@ nuxeo_api_playground/nx_command_endpoints.Polymer.detached method
 nuxeo_api_playground/nx_command_endpoints.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_command_endpoints.Polymer.domReady method
 nuxeo_api_playground/nx_command_endpoints.Polymer.element getter
+nuxeo_api_playground/nx_command_endpoints.Polymer.eventController getter
+nuxeo_api_playground/nx_command_endpoints.Polymer.eventController= setter
 nuxeo_api_playground/nx_command_endpoints.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_command_endpoints.Polymer.findStyleScope method
 nuxeo_api_playground/nx_command_endpoints.Polymer.fire method
@@ -2772,6 +2781,8 @@ nuxeo_api_playground/nx_connection.Polymer.detached method
 nuxeo_api_playground/nx_connection.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_connection.Polymer.domReady method
 nuxeo_api_playground/nx_connection.Polymer.element getter
+nuxeo_api_playground/nx_connection.Polymer.eventController getter
+nuxeo_api_playground/nx_connection.Polymer.eventController= setter
 nuxeo_api_playground/nx_connection.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_connection.Polymer.findStyleScope method
 nuxeo_api_playground/nx_connection.Polymer.fire method
@@ -3114,6 +3125,8 @@ nuxeo_api_playground/nx_operation.Polymer.detached method
 nuxeo_api_playground/nx_operation.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_operation.Polymer.domReady method
 nuxeo_api_playground/nx_operation.Polymer.element getter
+nuxeo_api_playground/nx_operation.Polymer.eventController getter
+nuxeo_api_playground/nx_operation.Polymer.eventController= setter
 nuxeo_api_playground/nx_operation.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_operation.Polymer.findStyleScope method
 nuxeo_api_playground/nx_operation.Polymer.fire method
@@ -3445,6 +3458,8 @@ nuxeo_api_playground/nx_repository_browser.Polymer.detached method
 nuxeo_api_playground/nx_repository_browser.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_repository_browser.Polymer.domReady method
 nuxeo_api_playground/nx_repository_browser.Polymer.element getter
+nuxeo_api_playground/nx_repository_browser.Polymer.eventController getter
+nuxeo_api_playground/nx_repository_browser.Polymer.eventController= setter
 nuxeo_api_playground/nx_repository_browser.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_repository_browser.Polymer.findStyleScope method
 nuxeo_api_playground/nx_repository_browser.Polymer.fire method
@@ -3503,6 +3518,10 @@ nuxeo_api_playground/nx_repository_browser.SemanticUI.onDomChange method
 nuxeo_api_playground/nx_repository_browser.SemanticUI.popup method
 nuxeo_api_playground/nx_repository_browser.SemanticUI.sidebar method
 nuxeo_api_playground/nx_request_monitor library
+nuxeo_api_playground/nx_request_monitor.BlobToURL class
+nuxeo_api_playground/nx_request_monitor.BlobToURL.BlobToURL- constructor
+nuxeo_api_playground/nx_request_monitor.BlobToURL.forward method
+nuxeo_api_playground/nx_request_monitor.BlobToURL.reverse method
 nuxeo_api_playground/nx_request_monitor.ChildNode class
 nuxeo_api_playground/nx_request_monitor.ChildNode.remove method
 nuxeo_api_playground/nx_request_monitor.Element class
@@ -3706,16 +3725,17 @@ nuxeo_api_playground/nx_request_monitor.NXElement.onDisconnect method
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor class
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.CURLRequest getter
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.NXRequestMonitor-created constructor
+nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.asBlobUrl property
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.body property
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.changeTab method
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.contentType property
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.currentTab property
-nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.downloadUrl property
+nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.downloads property
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.request property
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.requestChanged method
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.response property
 nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.responseChanged method
-nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.updateDownloadUrl method
+nuxeo_api_playground/nx_request_monitor.NXRequestMonitor.updateDownloads method
 nuxeo_api_playground/nx_request_monitor.Node class
 nuxeo_api_playground/nx_request_monitor.Node.append method
 nuxeo_api_playground/nx_request_monitor.Node.clone method
@@ -3771,6 +3791,8 @@ nuxeo_api_playground/nx_request_monitor.Polymer.detached method
 nuxeo_api_playground/nx_request_monitor.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_request_monitor.Polymer.domReady method
 nuxeo_api_playground/nx_request_monitor.Polymer.element getter
+nuxeo_api_playground/nx_request_monitor.Polymer.eventController getter
+nuxeo_api_playground/nx_request_monitor.Polymer.eventController= setter
 nuxeo_api_playground/nx_request_monitor.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_request_monitor.Polymer.findStyleScope method
 nuxeo_api_playground/nx_request_monitor.Polymer.fire method
@@ -3814,6 +3836,10 @@ nuxeo_api_playground/nx_request_monitor.Polymer.templateInstance getter
 nuxeo_api_playground/nx_request_monitor.Polymer.unbindAll method
 nuxeo_api_playground/nx_request_monitor.PolymerElement class
 nuxeo_api_playground/nx_request_monitor.PolymerElement.PolymerElement-created constructor
+nuxeo_api_playground/nx_request_monitor.Transformer class
+nuxeo_api_playground/nx_request_monitor.Transformer.forward method
+nuxeo_api_playground/nx_request_monitor.Transformer.inverse getter
+nuxeo_api_playground/nx_request_monitor.Transformer.reverse method
 nuxeo_api_playground/nx_request_options library
 nuxeo_api_playground/nx_request_options.ChildNode class
 nuxeo_api_playground/nx_request_options.ChildNode.remove method
@@ -4091,6 +4117,8 @@ nuxeo_api_playground/nx_request_options.Polymer.detached method
 nuxeo_api_playground/nx_request_options.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_request_options.Polymer.domReady method
 nuxeo_api_playground/nx_request_options.Polymer.element getter
+nuxeo_api_playground/nx_request_options.Polymer.eventController getter
+nuxeo_api_playground/nx_request_options.Polymer.eventController= setter
 nuxeo_api_playground/nx_request_options.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_request_options.Polymer.findStyleScope method
 nuxeo_api_playground/nx_request_options.Polymer.fire method
@@ -4449,6 +4477,8 @@ nuxeo_api_playground/nx_resource_endpoints.Polymer.detached method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.domReady method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.element getter
+nuxeo_api_playground/nx_resource_endpoints.Polymer.eventController getter
+nuxeo_api_playground/nx_resource_endpoints.Polymer.eventController= setter
 nuxeo_api_playground/nx_resource_endpoints.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.findStyleScope method
 nuxeo_api_playground/nx_resource_endpoints.Polymer.fire method
@@ -4766,6 +4796,8 @@ nuxeo_api_playground/nx_schema.Polymer.detached method
 nuxeo_api_playground/nx_schema.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_schema.Polymer.domReady method
 nuxeo_api_playground/nx_schema.Polymer.element getter
+nuxeo_api_playground/nx_schema.Polymer.eventController getter
+nuxeo_api_playground/nx_schema.Polymer.eventController= setter
 nuxeo_api_playground/nx_schema.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_schema.Polymer.findStyleScope method
 nuxeo_api_playground/nx_schema.Polymer.fire method
@@ -5109,6 +5141,8 @@ nuxeo_api_playground/nx_structures_browser.Polymer.detached method
 nuxeo_api_playground/nx_structures_browser.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_structures_browser.Polymer.domReady method
 nuxeo_api_playground/nx_structures_browser.Polymer.element getter
+nuxeo_api_playground/nx_structures_browser.Polymer.eventController getter
+nuxeo_api_playground/nx_structures_browser.Polymer.eventController= setter
 nuxeo_api_playground/nx_structures_browser.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_structures_browser.Polymer.findStyleScope method
 nuxeo_api_playground/nx_structures_browser.Polymer.fire method
@@ -5437,6 +5471,8 @@ nuxeo_api_playground/nx_widget.Polymer.detached method
 nuxeo_api_playground/nx_widget.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_widget.Polymer.domReady method
 nuxeo_api_playground/nx_widget.Polymer.element getter
+nuxeo_api_playground/nx_widget.Polymer.eventController getter
+nuxeo_api_playground/nx_widget.Polymer.eventController= setter
 nuxeo_api_playground/nx_widget.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_widget.Polymer.findStyleScope method
 nuxeo_api_playground/nx_widget.Polymer.fire method
@@ -5751,6 +5787,8 @@ nuxeo_api_playground/nx_xpath.Polymer.detached method
 nuxeo_api_playground/nx_xpath.Polymer.dispatchMethod method
 nuxeo_api_playground/nx_xpath.Polymer.domReady method
 nuxeo_api_playground/nx_xpath.Polymer.element getter
+nuxeo_api_playground/nx_xpath.Polymer.eventController getter
+nuxeo_api_playground/nx_xpath.Polymer.eventController= setter
 nuxeo_api_playground/nx_xpath.Polymer.fetchTemplate method
 nuxeo_api_playground/nx_xpath.Polymer.findStyleScope method
 nuxeo_api_playground/nx_xpath.Polymer.fire method
@@ -6293,6 +6331,8 @@ nuxeo_api_playground/ui_sidebar.Polymer.detached method
 nuxeo_api_playground/ui_sidebar.Polymer.dispatchMethod method
 nuxeo_api_playground/ui_sidebar.Polymer.domReady method
 nuxeo_api_playground/ui_sidebar.Polymer.element getter
+nuxeo_api_playground/ui_sidebar.Polymer.eventController getter
+nuxeo_api_playground/ui_sidebar.Polymer.eventController= setter
 nuxeo_api_playground/ui_sidebar.Polymer.fetchTemplate method
 nuxeo_api_playground/ui_sidebar.Polymer.findStyleScope method
 nuxeo_api_playground/ui_sidebar.Polymer.fire method
