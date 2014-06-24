@@ -6,7 +6,10 @@ import 'dart:html';
 import 'dart:typed_data';
 import 'ui_module.dart';
 import 'package:polymer/polymer.dart';
+import 'package:polymer_expressions/filter.dart';
 import 'package:nuxeo_client/client.dart' as nuxeo;
+import 'package:nuxeo_client/http.dart' as http;
+import 'package:nuxeo_client/http/multipart.dart' as multipart;
 
 @CustomTag("nx-request-monitor")
 class NXRequestMonitor extends NXElement {
@@ -16,7 +19,7 @@ class NXRequestMonitor extends NXElement {
 
   @observable var body;
   @observable String contentType;
-  @observable String downloadUrl;
+  final List downloads = toObservable([]);
 
   @observable String currentTab = "response";
 
@@ -79,15 +82,31 @@ class NXRequestMonitor extends NXElement {
   }
 
   @ObserveProperty("body contentType")
-  updateDownloadUrl() {
+  updateDownloads() {
+    downloads.clear();
+
     if (body == null || contentType == null) {
-      downloadUrl = null;
       return;
     }
 
-    var blob = new Blob([body], contentType);
-    downloadUrl = Url.createObjectUrlFromBlob(blob);
+    // Allow downloading the response as a blob
+    downloads.add(new http.Blob(
+        content: body,
+        mimetype: (contentType.startsWith("multipart/mixed") ? "multipart/mixed" : contentType)));
+
+    // For multipart also allow downloading each part as a blob
+    if (multipart.isMultipartContent(contentType)) {
+      var boundary = multipart.getMultipartBoundary(contentType);
+      // We only support parsing multipart responsed when the boundary is known beforehand
+      if (boundary != null) {
+        multipart.parse(new Uint8List.view(response.buffer), boundary).then((blobs) {
+          downloads.addAll(blobs);
+        });
+      }
+    }
   }
+
+  final Transformer asBlobUrl = new BlobToURL();
 
   _highlight() {
     shadowRoot.querySelectorAll('code').forEach((el) {
@@ -107,4 +126,11 @@ class NXRequestMonitor extends NXElement {
     async((_) { _highlight(); });
   }
 
+}
+
+/// [Transformer] to convert [http.Blob] into a Url
+class BlobToURL extends Transformer<String, http.Blob> {
+  BlobToURL();
+  String forward(http.Blob blob) => Url.createObjectUrlFromBlob(new Blob([blob.content], blob.mimetype));
+  http.Blob reverse(String s) => null; // TODO(nfgs)
 }
