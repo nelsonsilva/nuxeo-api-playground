@@ -167,7 +167,14 @@
                     </template>
                   </td>
                   <td>{{param.description}}</td>
-                  <td><a target="alt" href="http://doc.nuxeo.com/display/NXDOC/REST+API+Entity+Types#RESTAPIEntityTypes-{{param.dataType}}">{{param.dataType}}</a><span class="ui small label" style="float:right">{{param.type}}</span></td>
+                  <td>
+                  <template if="{{param.dataType=='document'||param.dataType=='directoryEntries'||param.dataType=='directoryEntry'||param.dataType=='user'||param.dataType=='group'}}">
+                  <a target="alt" href="http://doc.nuxeo.com/display/public/NXDOC/REST+API+Entity+Types#RESTAPIEntityTypes-{{param.dataType}}">{{param.dataType}}</a>
+                  </template>
+                  <template if="{{!(param.dataType=='document'||param.dataType=='directoryEntries'||param.dataType=='directoryEntry'||param.dataType=='user'||param.dataType=='group')}}">
+                  {{param.dataType}}
+                  </template>
+                  <span class="ui small label" style="float:right">{{param.type}}</span></td>
                 </tr>
               </tbody>
            </table>
