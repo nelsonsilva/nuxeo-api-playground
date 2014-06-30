@@ -30,7 +30,7 @@ import 'semantic.dart';
 class CommandEndpoints extends Module {
   String title = "Command Endpoints",
          icon = "command_endpoints.png",
-         description = "Discover the Nuxeo service that exposes common actions. Assemble them to create complex business rules and logic, without writing any Java code.",
+         description = "Browse the list of Automation operations and chains deployed on the server you are connected to. Try some automation calls, filling expected parameters and input.",
          action = "Discover",
          tag = NXCommandEndpoints.TAG;
 

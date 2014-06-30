@@ -32,7 +32,7 @@ import 'semantic.dart';
 class StructuresBrowser extends Module {
   String title = "Data Structures",
          icon = "data_structure.png",
-         description = "Browse all the available definitions of types, schemas and properties held by a document.",
+         description = "Browse all the definitions of types, schemas (with their properties) and facets that are configured on the Nuxeo Platform server you are connected to.",
          action = "Browse",
          tag = NXStructuresBrowser.TAG;
 
