@@ -90,6 +90,7 @@
         }
     </style><script src="packages/web_components/platform.js"></script>
 
+
 <!-- unminfied for debugging:
 <link rel="import" href="src/js/polymer/layout.html">
 <script src="src/js/polymer/polymer.concat.js"></script>
@@ -366,7 +367,10 @@ html /deep/ [segment], html /deep/ segment {
   border-radius: 5px 5px 5px 5px;
 }
 
-</style><script src="packages/polymer/src/js/polymer/polymer.js"></script>
+</style><script src="packages/polymer/src/js/polymer/polymer.js"></script><script>
+// TODO(sigmund): remove this script tag (dartbug.com/19650). This empty
+// script tag is necessary to work around a bug in Chrome 36.
+</script>
 
 
 
@@ -7727,4 +7731,4 @@ input:required:valid:after {
     <nx-sandbox-app connectionid="connection"></nx-sandbox-app>
   
 
-<script src="index.html_bootstrap.dart.js"></script></body></html>
+<script src="index.html_bootstrap.dart.js" async=""></script></body></html>
