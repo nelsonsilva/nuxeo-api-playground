@@ -3,7 +3,6 @@ part of nuxeo_api_playground.test;
 testContentBrowser() => group('Content Explorer', () {
   test('Browse repository', () {
     go("browser").then(expectAsync((_) {
-
       Element browser = app.shadowRoot.querySelector("nx-repository-browser");
       expect(browser, isNotNull);
 
@@ -14,12 +13,12 @@ testContentBrowser() => group('Content Explorer', () {
       expect(treeNode, isNotNull);
 
       // Wait for the root document to load
-      observePath(treeNode, 'doc').then((doc) {
+      observePath(treeNode, 'doc').then(expectAsync((doc) {
         expect(doc, isNotNull);
-      });
+      }));
 
       // Wait for the children to load
-      observeElement(treeNode.shadowRoot.querySelector(".content")).then((mutations) {
+      observeElement(treeNode.shadowRoot.querySelector(".content")).then(expectAsync((mutations) {
         var docs = treeNode.children;
 
         // Get /default-domain doc
@@ -34,14 +33,14 @@ testContentBrowser() => group('Content Explorer', () {
         Element child = children[docs.indexOf(doc)];
 
         // Wait for the document to load
-        observePath(child, 'doc').then((doc) {
+        observePath(child, 'doc').then(expectAsync((doc) {
           expect(doc, isNotNull);
 
           // Select the document
           child.shadowRoot.querySelector(".label").click();
-        });
+        }));
 
-      });
+      }));
 
     }));
   });

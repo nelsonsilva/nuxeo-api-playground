@@ -5,8 +5,10 @@ import 'dart:html';
 
 import 'package:nuxeo_api_playground/app.dart';
 import 'package:polymer/polymer.dart';
-import 'package:unittest/html_enhanced_config.dart';
+import 'package:unittest/html_config.dart';
 import 'package:unittest/unittest.dart';
+
+import 'junit.dart';
 
 part 'src/test_content_browser.dart';
 part 'src/test_login.dart';
@@ -19,19 +21,19 @@ NXSandboxApp app;
 go(module) =>  app.router.go(module, {});
 
 void main() {
-  useHtmlEnhancedConfiguration();
+  //useHtmlConfiguration();
+  useJUnitConfiguration();
 
   initPolymer();
 
-  Polymer.onReady.then((e) {
-
+  Polymer.onReady.then(((_) {
     app = document.querySelector('#app');
-
     testLogin();
     testContentBrowser();
-  });
+  }));
 
 }
+
 
 
 

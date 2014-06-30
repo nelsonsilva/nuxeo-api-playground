@@ -53,6 +53,19 @@
               </arguments>
             </configuration>
           </execution>
+	  <!-- Run tests -->
+          <execution>
+            <id>tests</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>tool/run_tests.sh</executable>
+              <workingDirectory>src/main/dart</workingDirectory>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
       <plugin>

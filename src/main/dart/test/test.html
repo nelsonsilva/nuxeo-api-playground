@@ -2,10 +2,11 @@
 <html>
   <head>
     <title>Nuxeo API Playground Tests</title>
+    <script src="packages/web_components/platform.js"></script>
+    <script src="packages/web_components/dart_support.js"></script>
     <link rel="import" href="packages/polymer/polymer.html">
     <link rel="import" href="packages/nuxeo_api_playground/app.html">
     <link rel="import" href="packages/nuxeo_api_playground/components/nx_connection.html">
-    <script type="text/javascript" src="packages/unittest/test_controller.js"></script> 
     <script src="packages/nuxeo_api_playground/javascript/jquery-2.0.3.min.js"></script>
     <script src="packages/nuxeo_api_playground/javascript/semantic-0.15.4.min.js"></script>
     <script src="packages/nuxeo_api_playground/javascript/highlight-8.0.pack.js"></script>
@@ -13,6 +14,8 @@
   <body>
     <nx-connection id="connection"></nx-connection>
     <nx-sandbox-app id="app" connectionId="connection"></nx-sandbox-app>
+    <script src="packages/browser/dart.js"></script>
+    <script src="packages/unittest/test_controller.js"></script>
     <script type="application/dart" src="test.dart"></script>
   </body>
 </html>

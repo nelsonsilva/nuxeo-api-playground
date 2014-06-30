@@ -7,8 +7,9 @@ testLogin() => group('Connection', () {
 
     var btn = conn.shadowRoot.querySelector(".button").click();
 
-    observePath(conn, 'isConnected').then((connected) {
+    observePath(conn, 'isConnected').then(expectAsync((connected) {
       expect(connected, isTrue);
-    });
+    }));
+
   });
 });
