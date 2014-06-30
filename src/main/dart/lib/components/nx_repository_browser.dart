@@ -9,7 +9,7 @@ import 'semantic.dart';
 class RepositoryBrowser extends Module {
   String title = "Repository",
          icon = "repository.png",
-         description = "Browse your repository and discover the properties of your documents.",
+         description = "Browse the repository you are connected to and discover the content that is inside.",
          action = "Explore",
          tag = NXRepositoryBrowser.TAG;
 }

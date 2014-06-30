@@ -50,7 +50,7 @@ class NxParameterValue extends Observable {
 class ResourceEndpoints extends Module {
   String title = "Resource endpoints",
          icon = "resources_endpoints.png",
-         description = "Discover the list of endpoints and see which adapters are available for each of them.",
+         description = "Discover the list of REST resources endpoints and try some REST calls to see the result.",
          action = "Discover",
          tag = NXResourceEndpoints.TAG;
 
