@@ -28,7 +28,7 @@ import 'semantic.dart';
 
 /// Model for the [NXCommandEndpoints] module.
 class CommandEndpoints extends Module {
-  String title = "Command Endpoints",
+  String title = "Command Endpoint",
          icon = "command_endpoints.png",
          description = "Browse the list of Automation operations and chains deployed on the server you are connected to. Try some automation calls, filling expected parameters and input.",
          action = "Discover",
