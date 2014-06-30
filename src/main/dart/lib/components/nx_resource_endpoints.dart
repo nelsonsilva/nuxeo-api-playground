@@ -1,3 +1,20 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
 library nx_resource_endpoints;
 
 import 'dart:async';
@@ -10,8 +27,10 @@ import 'ui_filters.dart';
 import '../swagger.dart' as swagger;
 import 'semantic.dart';
 
+/// A list of the endpoints to display
 const RESOURCE_ENDPOINTS = const ["path", "id", "directory", "user", "group"];
 
+/// Wrapper for a [swagger.Parameter] to store the current value and make it [Observable].
 class NxParameterValue extends Observable {
 
   swagger.Parameter _param;
@@ -47,6 +66,7 @@ class NxParameterValue extends Observable {
   }
 }
 
+/// Model for the [NXResourceEndpoints] module.
 class ResourceEndpoints extends Module {
   String title = "Resource endpoints",
          icon = "resources_endpoints.png",
@@ -54,6 +74,7 @@ class ResourceEndpoints extends Module {
          action = "Discover",
          tag = NXResourceEndpoints.TAG;
 
+  /// The key for the selected operation.
   @observable String op;
 
   void setupRoutes(Route route) {
@@ -70,22 +91,28 @@ class ResourceEndpoints extends Module {
   }
 }
 
+/// The Resource Endpoints module element.
 @CustomTag(NXResourceEndpoints.TAG)
 class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
   static const String TAG = "nx-resource-endpoints";
 
+  /// A Map of the endpoints
   final Map<String, List<swagger.Resource>> endpoints = toObservable({});
 
   final Map<String, String> methodColors = {
     "GET": "blue", "POST": "teal", "PUT": "green", "DELETE": "red"
   };
 
+  /// The current resource.
   @observable swagger.Resource endpoint;
+  /// The current operation.
   @observable swagger.Operation operation;
 
+  /// List of parameter values
   final List<NxParameterValue> params = toObservable([]);
 
+  /// The id of the referenced Batch Upload.
   @observable var batch;
 
   @observable nuxeo.Request request;
@@ -125,6 +152,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
   }
 
+  /// Update the current resource and operation.
   @ObserveProperty("module.op")
   updateOperation() {
     var currentPath = (module as ResourceEndpoints).op;
@@ -143,6 +171,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
   get endpointKey => endpoints.keys.firstWhere((k) => endpoints[k].contains(endpoint));
 
+  /// Called when the selected operation changes.
   operationChanged() {
     // Setup the parameters
     params.clear();
@@ -164,6 +193,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     router.go("$path.rest", {"endpoint": parts[0], "idx": parts[1], "method": parts[2]});
   }
 
+  /// Executes the requests.
   runRequest(evt) {
 
     // don't submit the form

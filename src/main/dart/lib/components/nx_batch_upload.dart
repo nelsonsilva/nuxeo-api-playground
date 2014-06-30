@@ -1,3 +1,20 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
 library nx_batch_upload;
 
 import 'dart:html';
@@ -10,7 +27,7 @@ import 'nx_batch_reference.dart';
 import 'ui_module.dart';
 import 'semantic.dart';
 
-
+/// Model for the [NXBatchUpload] module.
 class BatchUpload extends Module {
   String title = "Batch Upload",
          icon = "batch_upload.png",
@@ -19,6 +36,7 @@ class BatchUpload extends Module {
          tag = NXBatchUpload.TAG;
 }
 
+/// The Batch Upload module element.
 @CustomTag(NXBatchUpload.TAG)
 class NXBatchUpload extends NXModule with SemanticUI {
 

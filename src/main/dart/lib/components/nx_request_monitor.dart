@@ -1,3 +1,20 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
 library nx_request_monitor;
 
 import 'dart:convert';
@@ -11,6 +28,7 @@ import 'package:nuxeo_client/client.dart' as nuxeo;
 import 'package:nuxeo_client/http.dart' as http;
 import 'package:nuxeo_client/http/multipart.dart' as multipart;
 
+/// An element for monitoring requests and responses.
 @CustomTag("nx-request-monitor")
 class NXRequestMonitor extends NXElement {
 
@@ -19,6 +37,8 @@ class NXRequestMonitor extends NXElement {
 
   @observable var body;
   @observable String contentType;
+
+  /// A list of Blobs for downloading the response.
   final List downloads = toObservable([]);
 
   @observable String currentTab = "response";
@@ -30,6 +50,7 @@ class NXRequestMonitor extends NXElement {
     _doChangeTab(event.target.dataset["tab"]);
   }
 
+  /// Returns the current request as a **CURL** command.
   @observable
   String get CURLRequest {
     var url;

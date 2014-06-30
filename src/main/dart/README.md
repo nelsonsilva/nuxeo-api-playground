@@ -1,6 +1,6 @@
 ## Nuxeo API Playground
 
-A Nuxeo API Playground.
+A Nuxeo API Playground application built with [Dart](https://www.dartlang.org/) and [Polymer.dart](https://www.dartlang.org/polymer-dart).
 
 ## About Nuxeo
 

@@ -11,7 +11,7 @@ COMPONENTS=$(ls lib/components/*.dart)
 # Join library files with component library files
 R=$(for L in "${LIBS[@]}" "${COMPONENTS[@]}" ; do echo "$L" ; done)
 
-docgen --compile --package-root=./packages --no-include-sdk --no-include-dependent-packages --exclude-lib=app --start-page=nuxeo_api_playground $R
+docgen --compile --package-root=./packages --no-include-sdk --no-include-dependent-packages --start-page=nuxeo_api_playground $R
 
 pushd dartdoc-viewer/client/out/web/
 

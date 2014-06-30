@@ -1,3 +1,20 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
 library nx_operation;
 
 import 'dart:convert' show JSON;
@@ -9,6 +26,7 @@ import 'nx_batch.dart';
 import 'semantic.dart';
 import 'ui_module.dart';
 
+/// Wrapper for [nuxeo.OperationMethod]
 class NxOperationMethod extends Observable {
   String name = "run";
   @observable var input;
@@ -21,6 +39,7 @@ class NxOperationMethod extends Observable {
   }
 }
 
+/// Wrapper for [nuxeo.OperationParam]
 class NxOperationParamValue implements Comparable<NxOperationParamValue> {
 
   nuxeo.OperationParam _param;
@@ -45,25 +64,33 @@ class NxOperationParamValue implements Comparable<NxOperationParamValue> {
   int compareTo(NxOperationParamValue other) => _param.order - other._param.order;
 }
 
+/// An element that provides bindable parameters to execute a [nuxeo.Operation].
 @CustomTag("nx-operation")
 class NXOperation extends NXElement with SemanticUI {
 
+  /// The id of the [nuxeo.Operation] to bind to.
   @published String opid;
   nuxeo.Operation _op;
+
+  // The request and reponse are for monitoring purposes
   @observable nuxeo.OperationRequest opRequest;
   @observable var opResponse;
 
   @observable String name;
   @observable String label;
   @observable String description;
+
+  /// A list of parameters available in the current operation.
   final List<NxOperationParamValue> params = toObservable([]);
 
   /// Batch reference
   @observable NXBatch batch;
 
+  /// A list of methods available in the current operation.
   final List<NxOperationMethod> methods = toObservable([]);
   @observable NxOperationMethod method;
 
+  /// A list of errors found during the executation and/or validation of the operation.
   final List errors = toObservable([]);
 
   NXOperation.created() : super.created() {

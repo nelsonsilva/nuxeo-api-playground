@@ -1,3 +1,20 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
 library nx_structures_browser;
 
 import 'dart:async';
@@ -11,6 +28,7 @@ import 'nx_connection.dart';
 import '../yuml.dart' as yuml;
 import 'semantic.dart';
 
+/// Model for the [NXStructuresBrowser] module.
 class StructuresBrowser extends Module {
   String title = "Data Structures",
          icon = "data_structure.png",
@@ -34,11 +52,13 @@ class StructuresBrowser extends Module {
    }
 }
 
+/// The Data Structures Browser module element.
 @CustomTag(NXStructuresBrowser.TAG)
 class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
   static const String TAG = "nx-structures-browser";
 
+  /// A map with a list of [nuxeo.Doctypes]s, [nuxeo.Facet]s and [nuxeo.Schema]s.
   final Map<String, List> items = toObservable({
     "schemas": [],
     "facets": [],
@@ -52,6 +72,7 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
   List<nuxeo.Facet> get facets => items["facets"];
   List<nuxeo.Doctype> get doctypes => items["types"];
 
+  /// The selected item.
   @observable var selectedItem;
 
   @observable String get selectedType => (module as StructuresBrowser).selectedType;
@@ -64,6 +85,7 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
   NXStructuresBrowser.created() : super.created() {
   }
 
+  /// The URL for the current item's diagram.
   @observable String currentItemDiagram;
 
   @override
@@ -145,6 +167,7 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
     }
   }
 
+  /// Open a window with the Diagram of the selected item.
   showDiagram() {
     var options = "top=0,left=0,width=${window.screen.width},height=${window.screen.height}";
     window.open(currentItemDiagram, selectedItem.name);

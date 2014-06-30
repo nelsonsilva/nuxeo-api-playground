@@ -1,3 +1,20 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
 library nx_command_endpoints;
 
 import 'dart:html';
@@ -9,6 +26,7 @@ import 'ui_filters.dart';
 import 'ui_module.dart';
 import 'semantic.dart';
 
+/// Model for the [NXCommandEndpoints] module.
 class CommandEndpoints extends Module {
   String title = "Command Endpoints",
          icon = "command_endpoints.png",
@@ -16,6 +34,7 @@ class CommandEndpoints extends Module {
          action = "Discover",
          tag = NXCommandEndpoints.TAG;
 
+  /// The current selected [nuxeo.Operation] key.
   @observable String selectedOp = null;
 
   @override
@@ -31,14 +50,16 @@ class CommandEndpoints extends Module {
   }
 }
 
+/// The Command Endpoints module element.
 @CustomTag(NXCommandEndpoints.TAG)
 class NXCommandEndpoints extends NXModule with SearchFilter, SemanticUI {
 
   static const String TAG = "nx-command-endpoints";
 
-  // Map with Category => List<Operation>
+  /// Map of operations grouped by category
   final Map<String, List<nuxeo.Operation>> operations = toObservable({});
 
+/// The current selected [nuxeo.Operation] key.
   @observable String selectedOp = null;
 
   // SearchFilter
@@ -79,12 +100,13 @@ class NXCommandEndpoints extends NXModule with SearchFilter, SemanticUI {
     selectedOp = (module != null) ? (module as CommandEndpoints).selectedOp : null;
   }
 
-  // Only show categories with operations
+  /// Returns filtered categories with at least one operation.
   get categories => operations.keys.where((c) => filter(searchFilter)(operations[c]).isNotEmpty);
 
   @override
   String labelFor(item) => item.label;
 
+  /// Called when the searchFilter changes
   searchFilterChanged() {
     notifyPropertyChange(#categories, null, categories);
     async((_) { accordion(".ui.accordion"); });

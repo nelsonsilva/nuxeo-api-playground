@@ -1,3 +1,21 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
+/// Helper library for UI filters.
 library filters;
 
 import 'dart:async';
@@ -7,18 +25,21 @@ import 'dart:math' show max;
 // import 'dart:mirrors';
 import 'package:polymer_expressions/filter.dart';
 
+/// Transformer to capitalize a String.
 class Capitalize extends Transformer<String, String> {
   Capitalize();
   String forward(String s) => s.split(" ").map((p) => p.substring(0, 1) .toUpperCase() + p.substring(1)).join(" ");
   String reverse(String s) => s; //throw new UnimplementedError("Capitalize transformer is irreversible!");
 }
 
+/// Transformer to make a string safe to use as an HTML id.
 class StringToID extends Transformer<String, String> {
   StringToID();
   String forward(String s) => s.replaceAll(new RegExp(r'[^A-Za-z0-9]'), "-");
   String reverse(String s) => s; //throw new UnimplementedError("StringToID transformer is irreversible!");
 }
 
+/// Transformer to format a file size.
 class FileSizeToString extends Transformer<String, num> {
   FileSizeToString();
   String forward(num fileSizeInBytes) {
@@ -34,6 +55,7 @@ class FileSizeToString extends Transformer<String, num> {
   num reverse(String s) => 0; // TODO(nfgs)
 }
 
+/// Mixin to allow realtime text filtering.
 abstract class SearchFilter extends Object {
   // TODO(nfgs) - Find out why dart2js does not like the @observable annotation
   /// The term to filter with
@@ -66,6 +88,8 @@ abstract class SearchFilter extends Object {
 
   Timer _searchTimer;
 
+  /// Called when the searchTerm changes.
+  /// This updates searchFilter after a short delay to prevent very frequent updates.
   searchTermChanged(oldValue) {
     // If there's another keystroke during the delay then reset it
     if (_searchTimer != null) _searchTimer.cancel();

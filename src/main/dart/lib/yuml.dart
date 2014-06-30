@@ -1,3 +1,21 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
+/// Library to generate [yUML](http://yuml.me) diagrams
 library yuml;
 
 import 'doctypes.dart';
@@ -7,6 +25,7 @@ class DiagramStyle {
   static const String PLAIN = "plain";
 }
 
+/// A diagram generator for [DocType]s, [Facet]s and [Schema]s using [yUML](http://yuml.me)
 class DiagramGenerator {
 
   static const String STYLE = DiagramStyle.BORING;
@@ -28,8 +47,11 @@ class DiagramGenerator {
     facets.forEach((f){ this.facets[f.name] = f; });
   }
 
+  /// Returns a URL for a diagram for the given [Doctype].
   String generateForDoctype(String name) => URL + _umlForDoctype(name).join(",");
+  /// Returns a URL for a diagram for the given [Facet].
   String generateForFacet(String name) => URL + _umlForFacet(name).join(",");
+  /// Returns a URL for a diagram for the given [Schema].
   String generateForSchema(String name) => URL + _umlForSchema(name).join(",");
 
   List _umlForDoctype(String name) {

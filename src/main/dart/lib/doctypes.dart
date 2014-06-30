@@ -1,6 +1,25 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
+/// Nuxeo data types classes.
 library doctypes;
 
-/// [Doctype]
+/// Document type.
+/// A document type is defined by several [Schema]s and [Facet]s.
 class Doctype {
 
   static const NONE = "None!!!";
@@ -16,7 +35,7 @@ class Doctype {
   toString() => name;
 }
 
-/// [Schema] field
+/// A field in a [Schema].
 class SchemaField {
   String name;
   var type;
@@ -37,7 +56,7 @@ class SchemaField {
   toString() => name;
 }
 
-/// [Schema]
+/// A schema represents the names and structure (types) of a set of fields in a document.
 class Schema {
   String name, prefix;
   List<SchemaField> fields = [];
@@ -53,7 +72,8 @@ class Schema {
   toString() => name;
 }
 
-/// [Facet]
+/// A facet describes an aspect of a document that can apply to several document types or document instances.
+/// Facets can have zero, one or more [Schema]s associated to them.
 class Facet {
   String name;
   List<String> schemas = [];

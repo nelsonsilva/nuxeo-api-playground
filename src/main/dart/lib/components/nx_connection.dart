@@ -1,3 +1,20 @@
+/*
+ * (C) Copyright 2014 Nuxeo SA (http://nuxeo.com/) and contributors.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * Contributors:
+ *     Nelson Silva <nelson.silva@inevo.pt>
+ */
+
 library nx_connection;
 
 import 'dart:async';
@@ -8,6 +25,7 @@ import 'package:nuxeo_client/browser_client.dart' as nuxeo;
 import 'package:polymer/polymer.dart';
 import 'semantic.dart';
 
+/// An element that wraps a [nuxeo.Client]
 @CustomTag(NXConnection.TAG)
 class NXConnection extends PolymerElement with SemanticUI {
 
@@ -16,9 +34,10 @@ class NXConnection extends PolymerElement with SemanticUI {
   static const NX_AUTHENTICATION_TOKEN = "X-Authentication-Token";
   static const NX_URL_COOKIE = "Nuxeo-URL";
 
-  /// Global Nuxeo Automation Client instance
+  /// Nuxeo Client instance
   nuxeo.Client NX;
 
+  /// Indicates if this client is connected to the server.
   @observable bool isConnected = false;
 
   @observable String username = "Administrator";
@@ -31,7 +50,6 @@ class NXConnection extends PolymerElement with SemanticUI {
   @observable bool canManageTraces = false;
   @observable bool tracesEnabled = false;
 
-  // Error messages
   final List<Alert> alerts = toObservable([]);
 
   NXConnection.created() : super.created() {
@@ -99,6 +117,7 @@ class NXConnection extends PolymerElement with SemanticUI {
    _checkCanManageTraces().then((yes) { if(yes) tracesEnabledChanged(); });
   }
 
+  /// Disconnects from the server and removes any cookies.
   disconnect() {
     cookies.remove("X-Authentication-Token");
     cookies.remove("Nuxeo-URL");
