@@ -56,7 +56,7 @@ class NXRequestMonitor extends NXElement {
     var url;
     var data = request.requestData;
     if (request is nuxeo.OperationRequest) {
-      url = (request.uploader == null) ? "${request.uri}/${request.id}" : "${request.uri}/batch/execute";
+      url = (!(request as nuxeo.OperationRequest).hasBatchUpload) ? "${request.uri}/${request.id}" : "${request.uri}/batch/execute";
     } else {
       url = request.uri.toString();
     }
@@ -66,7 +66,16 @@ class NXRequestMonitor extends NXElement {
       str.write(" -H '$k: $v'");
     });
     if (data != null) {
-      str.write(" -d '$data'");
+      if (data is http.MultipartFormData) {
+        data.data.forEach((k, blob) {
+          // If key is "request" we know this is JSON so we can display it
+          // Everything else is considered a file
+          var value = (k == "request") ? new String.fromCharCodes(blob.content) : "@${blob.filename}";
+          str.write(" -F $k='$value;type=${blob.mimetype}'");
+        });
+      } else {
+        str.write(" -d '$data'");
+      }
     }
     return str.toString();
   }
