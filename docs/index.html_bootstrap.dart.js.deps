@@ -131,10 +131,6 @@ file:///home/ubuntu/dart/dart-sdk/lib/web_sql/dart2js/web_sql_dart2js.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/index.html.0.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/index.html_bootstrap.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/collection/equality.dart
-file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/collection/src/canonicalized_map.dart
-file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/collection/src/unmodifiable_wrappers.dart
-file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/collection/src/utils.dart
-file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/collection/wrappers.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/dartdoc_viewer/analytics.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/dartdoc_viewer/app.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/dartdoc_viewer/components/annotations.dart
@@ -188,10 +184,12 @@ file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dar
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/observe/src/observer_transform.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/observe/src/path_observer.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/observe/src/to_observable.dart
+file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/auto_binding.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/deserialize.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/polymer.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/src/build/utils.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/src/declaration.dart
+file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/src/events.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/src/instance.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/src/job.dart
 file:///home/ubuntu/src/github.com/nelsonsilva/nuxeo-api-playground/src/main/dart/dartdoc-viewer/client/out/web/packages/polymer/src/loader.dart
