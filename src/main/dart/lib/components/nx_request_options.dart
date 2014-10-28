@@ -28,7 +28,11 @@ class NXRequestOptions extends NXElement {
   Duration _timeout;
   List<String> _schemas;
   String _repository;
-  String _contentEnrichers;
+  
+  var contentEnrichers = toObservable({
+    "acls": false,
+    "thumbnail": false
+  });
 
   NXRequestOptions.created() : super.created() {
   }
@@ -37,7 +41,12 @@ class NXRequestOptions extends NXElement {
     timeout = NX.timeout;
     schemas = NX.schemas;
     repository = NX.repositoryName;
-    contentEnrichers = NX.headers["X-NXContext-Category"];
+    if (NX.headers["X-NXContext-Category"] != null) {
+      NX.headers["X-NXContext-Category"].split(",").forEach((k) { contentEnrichers[k] = true; });
+    }
+    contentEnrichers.changes.listen((_) {
+      NX.headers["X-NXContext-Category"] = contentEnrichers.keys.where((k) => contentEnrichers[k]).join(",");
+    });
   }
 
   //TODO(nfgs): Consider using a path observer
@@ -59,10 +68,8 @@ class NXRequestOptions extends NXElement {
     _repository = notifyPropertyChange(#repository, _repository, NX.repositoryName);
   }
 
-  @observable get contentEnrichers => _contentEnrichers;
-  @observable set contentEnrichers(c) {
-    NX.headers["X-NXContext-Category"] = c;
-    _contentEnrichers = notifyPropertyChange(#contentEnrichers, _contentEnrichers, NX.headers["X-NXContext-Category"]);
+  contentEnrichersChanged(oldV, newV) {
+    
   }
 
   // Filters
