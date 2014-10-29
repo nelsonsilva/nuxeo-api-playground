@@ -141,7 +141,10 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
         var json = JSON.decode(response.body);
         var listing = new swagger.Listing.fromJSON(json);
         endpoints[resourceKey] = listing.resources;
-      });
+      })
+      .catchError((e) {
+        print("Endpoint '$resourceKey' not available.");  
+      });   
     }))
     // After everything is loaded
     .then((_) {
