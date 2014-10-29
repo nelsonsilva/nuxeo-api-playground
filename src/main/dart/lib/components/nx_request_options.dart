@@ -31,7 +31,9 @@ class NXRequestOptions extends NXElement {
   
   var contentEnrichers = toObservable({
     "acls": false,
-    "thumbnail": false
+    "thumbnail": false,
+    "preview": false,
+    "permissions": false
   });
 
   NXRequestOptions.created() : super.created() {
@@ -66,10 +68,6 @@ class NXRequestOptions extends NXElement {
   @observable set repository(r) {
     NX.repositoryName = r;
     _repository = notifyPropertyChange(#repository, _repository, NX.repositoryName);
-  }
-
-  contentEnrichersChanged(oldV, newV) {
-    
   }
 
   // Filters
