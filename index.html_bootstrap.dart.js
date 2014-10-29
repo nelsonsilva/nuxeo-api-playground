@@ -14623,23 +14623,27 @@ $iswn:true},
 vE:{
 "^":"d9:60;a",
 $1:[function(a){var z=this.a
-return J.GC(J.ht(z.jQ).Cj("/doc/"+H.d(a)+".json"),"GET").rd().ml(new Y.tZ(z,a))},"$1",null,2,0,null,233,[],"call"],
+return J.GC(J.ht(z.jQ).Cj("/doc/"+H.d(a)+".json"),"GET").rd().ml(new Y.tZ(z,a)).OA(new Y.f1(a))},"$1",null,2,0,null,233,[],"call"],
 $isEH:true},
 tZ:{
 "^":"d9:60;b,c",
 $1:[function(a){J.qQ(this.b.XS,this.c,E.bu(C.xr.kV(J.aA(a))).tK)},"$1",null,2,0,null,179,[],"call"],
 $isEH:true},
-GW:{
+f1:{
 "^":"d9:60;d",
+$1:[function(a){P.JS("Endpoint '"+H.d(this.d)+"' not available.")},"$1",null,2,0,null,2,[],"call"],
+$isEH:true},
+GW:{
+"^":"d9:60;e",
 $1:[function(a){var z,y
-z=this.d
+z=this.e
 y=J.RE(z)
 y.IB(z)
 y.rW(z,new Y.Tq(z))},"$1",null,2,0,null,108,[],"call"],
 $isEH:true},
 Tq:{
-"^":"d9:60;e",
-$1:[function(a){return J.Zb(this.e,"#endpoints")},"$1",null,2,0,null,108,[],"call"],
+"^":"d9:60;f",
+$1:[function(a){return J.Zb(this.f,"#endpoints")},"$1",null,2,0,null,108,[],"call"],
 $isEH:true},
 tA:{
 "^":"d9:60;a",
