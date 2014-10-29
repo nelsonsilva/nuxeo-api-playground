@@ -39,13 +39,15 @@ X-NXRepository: myCustomRepositoryName"></i></label></div>
               </a>
               </label>
             </div>
-            <div class="field">
-                <select class="ui dropdown selection" value="{{contentEnrichers}}">
-                  <option></option>
-                  <option>acls</option>
-                  <option>thumbnail</option>
-                  <option>thumbnail,acls</option>
-                </select>
+            <div class="field grouped inline fields">
+              <template repeat="{{key in contentEnrichers.keys}}">
+                <div class="field">
+                  <div class="ui radio checkbox">
+                    <input type="checkbox" checked="{{contentEnrichers[key]}}">
+                    <label>{{key}}</label>
+                  </div>
+                </div>
+              </template>
             </div>
         </div>
     </div>
