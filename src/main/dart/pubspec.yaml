@@ -6,7 +6,7 @@ dependencies:
   browser: '>=0.10.0 <1.0.0'
   js: '>=0.3.0 <1.0.0'
   nuxeo_client:
-    git: https://github.com/nelsonsilva/nuxeo-dart-client.git
+    git: https://github.com/nuxeo/nuxeo-dart-client.git
   polymer: '>=0.15.0 <1.0.0'
   polymer_expressions: '>=0.13.0 <1.0.0'
   route_hierarchical: '>=0.6.0 <1.0.0'
