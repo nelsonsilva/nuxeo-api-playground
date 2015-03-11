@@ -69,6 +69,8 @@ abstract class SearchFilter extends Object {
 
   filter(term) => (items) => term.isEmpty ? items : items.where((i) => labelFor(i).toLowerCase().contains(term.toLowerCase())).toList();
 
+  alphabetically(items) => new List.from(items)..sort();
+
   // Only "name" or "label" for now
   sort(fieldName) => (items) {
     if (fieldName != "name" && fieldName != "label") throw new UnimplementedError("sort only support 'name' or 'label' for now!");

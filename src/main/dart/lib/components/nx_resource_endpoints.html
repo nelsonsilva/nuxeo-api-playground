@@ -50,7 +50,7 @@
         <!-- Endpoints -->
         <div id="endpoints" class="ui fluid blue accordion" style="overflow:hidden">
 
-          <template repeat="{{key in endpoints.keys}}">
+          <template repeat="{{key in endpoints.keys | alphabetically}}">
             <div class="title">
               <i class="dropdown icon"></i>
               {{key | capitalize}}

@@ -67,7 +67,7 @@ class Operation {
       ..type = json["type"]
       ..summary = json["summary"]
       ..notes = json["notes"]
-      ..parameters = json["parameters"].map((j) => new Parameter.fromJSON(j)).toList();
+      ..parameters = json.containsKey("parameters") ? json["parameters"].map((j) => new Parameter.fromJSON(j)).toList() : [];
 }
 
 /// The Parameter Object describes a single parameter to be sent in an operation.
