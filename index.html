@@ -81,7 +81,7 @@
     </style>
 
     <!-- Load Polymer -->
-    <script src="packages/web_components/platform.js"></script>
+    <script src="packages/web_components/webcomponents.min.js"></script>
 <script src="packages/web_components/dart_support.js"></script>
 
     
@@ -372,7 +372,7 @@ html /deep/ [segment], html /deep/ segment {
 
 </style>
 
-<script src="packages/polymer/src/js/polymer/polymer.js"></script>
+<script src="packages/polymer/src/js/polymer/polymer.min.js"></script>
 
 <script>
 // TODO(sigmund): remove this script tag (dartbug.com/19650). This empty
@@ -381,7 +381,7 @@ html /deep/ [segment], html /deep/ segment {
 
 <!-- unminified for debugging:
 <link rel="import" href="src/js/polymer/layout.html">
-<script src="src/js/polymer/polymer.concat.js"></script>
+<script src="src/js/polymer/polymer.js"></script>
 -->
 
 
@@ -6065,7 +6065,7 @@ input:required:valid:after {
         <!-- Endpoints -->
         <div id="endpoints" class="ui fluid blue accordion" style="overflow:hidden">
 
-          <template repeat="{{key in endpoints.keys}}">
+          <template repeat="{{key in endpoints.keys | alphabetically}}">
             <div class="title">
               <i class="dropdown icon"></i>
               {{key | capitalize}}

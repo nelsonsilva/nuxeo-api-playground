@@ -2,10 +2,10 @@
   <meta charset="utf-8">
   <!--  TODO: Remove once use of applyAuthorStyle is removed
   https://code.google.com/p/dart/issues/detail?id=18293 -->
-  <script>window.Platform = window.Platform || {};
-      Platform.flags = Platform.flags || {};
-      Platform.flags.shadow = 'noThankYou';</script>
-  <script src="packages/web_components/platform.js"></script>
+  <script>window.WebComponents = window.WebComponents || {};
+      WebComponents.flags = WebComponents.flags || {};
+      WebComponents.flags.shadow = 'noThankYou';</script>
+  <script src="packages/web_components/webcomponents.min.js"></script>
   <script src="packages/web_components/dart_support.js"></script>
   <style>/*!
  * Bootstrap v3.0.0
@@ -5768,7 +5768,7 @@ html /deep/ [segment], html /deep/ segment {
 
 </style>
 
-<script src="packages/polymer/src/js/polymer/polymer.js"></script>
+<script src="packages/polymer/src/js/polymer/polymer.min.js"></script>
 
 <script>
 // TODO(sigmund): remove this script tag (dartbug.com/19650). This empty
@@ -5777,7 +5777,7 @@ html /deep/ [segment], html /deep/ segment {
 
 <!-- unminified for debugging:
 <link rel="import" href="src/js/polymer/layout.html">
-<script src="src/js/polymer/polymer.concat.js"></script>
+<script src="src/js/polymer/polymer.js"></script>
 -->
 
   <polymer-element name="dartdoc-comment" extends="div">
@@ -6333,9 +6333,6 @@ html /deep/ [segment], html /deep/ segment {
                 <li><a on-click="{{toggleObjectMembers}}">
                   {{showOrHideObjectMembers}} Object Members
                 </a></li>
-                <li><a on-click="{{togglePkg}}">
-                  {{showOrHidePackages}} Packages
-                </a></li>
               </ul>
             </li>
 
@@ -6378,5 +6375,6 @@ html /deep/ [segment], html /deep/ segment {
   <script src="static/js/prettify.js"></script>
   
   <!-- Google Analytics -->
+  <!-- Survey Script -->
 
 <script src="index.html_bootstrap.dart.js" async=""></script></body></html>
