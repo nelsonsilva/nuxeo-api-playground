@@ -52,6 +52,8 @@ class NxParameterValue extends Observable {
 
   bool get isValid => !required || (required && value != null);
 
+  bool get isEmpty => value == null || value.toString().isEmpty;
+  
   String get widget {
 
     // We use the type to specify the field of the document we want to use
@@ -222,7 +224,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
     // Query parameters
     var queryParams = params.
-    where((p) => p.isQueryParam && p.value != null)
+    where((p) => p.isQueryParam && !p.isEmpty)
     .map((param) => "${param.name}=${param.value}")
     .join("&");
 
