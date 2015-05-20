@@ -42,9 +42,9 @@ X-NXRepository: myCustomRepositoryName"></i></label></div>
             <div class="field grouped inline fields">
               <template repeat="{{key in contentEnrichers.keys}}">
                 <div class="field">
-                  <div class="ui radio checkbox">
-                    <input type="checkbox" checked="{{contentEnrichers[key]}}">
-                    <label>{{key}}</label>
+                  <div class="ui checkbox">
+                    <input id="enricher-{{key}}" type="checkbox" checked="{{contentEnrichers[key]}}">
+                    <label for="enricher-{{key}}">{{key}}</label>
                   </div>
                 </div>
               </template>
