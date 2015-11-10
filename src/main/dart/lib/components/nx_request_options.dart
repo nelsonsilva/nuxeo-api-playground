@@ -17,7 +17,11 @@
 
 library nx_request_options;
 
+@MirrorsUsed(targets: 'nuxeo.Request', override: 'nuxeo')
+import 'dart:mirrors';
+
 import 'ui_module.dart';
+import 'package:nuxeo_client/client.dart' as nuxeo;
 import 'package:polymer/polymer.dart';
 import 'package:polymer_expressions/filter.dart';
 
@@ -25,49 +29,12 @@ import 'package:polymer_expressions/filter.dart';
 @CustomTag("nx-request-options")
 class NXRequestOptions extends NXElement {
 
-  Duration _timeout;
-  List<String> _schemas;
-  String _repository;
-  
-  var contentEnrichers = toObservable({
-    "acls": false,
-    "thumbnail": false,
-    "preview": false,
-    "permissions": false
-  });
+  @published nuxeo.Request request;
 
   NXRequestOptions.created() : super.created() {
   }
 
   onConnect() {
-    timeout = NX.timeout;
-    schemas = NX.schemas;
-    repository = NX.repositoryName;
-    if (NX.headers["X-NXContext-Category"] != null) {
-      NX.headers["X-NXContext-Category"].split(",").forEach((k) { contentEnrichers[k] = true; });
-    }
-    contentEnrichers.changes.listen((_) {
-      NX.headers["X-NXContext-Category"] = contentEnrichers.keys.where((k) => contentEnrichers[k]).join(",");
-    });
-  }
-
-  //TODO(nfgs): Consider using a path observer
-  @observable get timeout => _timeout;
-  @observable set timeout(t) {
-    NX.timeout = t;
-    _timeout = notifyPropertyChange(#timeout, _timeout, NX.timeout);
-  }
-
-  @observable get schemas => _schemas;
-  @observable set schemas(s) {
-    NX.schemas = s;
-    _schemas = notifyPropertyChange(#schemas, _schemas, NX.schemas);
-  }
-
-  @observable get repository => _repository;
-  @observable set repository(r) {
-    NX.repositoryName = r;
-    _repository = notifyPropertyChange(#repository, _repository, NX.repositoryName);
   }
 
   // Filters

@@ -189,6 +189,8 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     // Clear request and response
     _reset();
 
+    request = NX.newRequest(endpoint.path);
+
     // Setup the options
     async((_) => accordion("#options"));
   }
@@ -232,7 +234,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
     var body = (bodyParam.isEmpty) ? null : bodyParam.first.value;
 
-    request = NX.newRequest("$path?$queryParams");
+    request.uri = Uri.parse("${NX.restUri}/$path?$queryParams");
 
     // Call the op using 'execute' which does not handle the response
     request.method(operation.method).execute(body)
@@ -280,7 +282,6 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
   /// Clear request, response and errors
   _reset() {
     response = null;
-    request = null;
     errors.clear();
   }
 }

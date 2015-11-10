@@ -64,6 +64,11 @@ class Tree extends NXElement with SemanticUI {
     (shadowRoot.querySelector("nx-tree-node") as TreeNode).expand();
   }
 
+  deleteNode(String docId) {
+    _selection.remove(docId);
+    shadowRoot.querySelectorAll("* /deep/ nx-tree-node").firstWhere((node) => node.docId == docId).remove();
+  }
+
   nodeSelected(event, detail, target) {
 
     var oldValue = selected;

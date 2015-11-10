@@ -48,7 +48,7 @@
 
       <!-- Body -->
       <template if="{{contentType.startsWith('application/json') || contentType == 'text/plain'}}">
-        <pre><code>{{body}}</code></pre>
+        <pre><code id="code"></code></pre>
       </template>
     </template>
     <template if="{{currentTab == 'headers'}}">

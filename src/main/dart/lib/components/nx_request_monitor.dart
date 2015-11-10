@@ -44,6 +44,7 @@ class NXRequestMonitor extends NXElement {
   @observable String currentTab = "response";
 
   NXRequestMonitor.created() : super.created() {
+    requestChanged();
   }
 
   changeTab(event) {
@@ -98,8 +99,12 @@ class NXRequestMonitor extends NXElement {
 
     contentType = response.headers["content-type"];
     if (contentType == nuxeo.CTYPE_ENTITY || contentType == nuxeo.CTYPE_JSON) {
-      var json = JSON.decode(response.body);
-      body = new JsonEncoder.withIndent(" " * 2).convert(json);
+      if (response.body != null && response.body.isNotEmpty) {
+        var json = JSON.decode(response.body);
+        body = new JsonEncoder.withIndent(" " * 2).convert(json);
+      } else {
+        body = response.body;
+      }
     } else if (contentType == "text/plain") {
       body = response.body;
     } else { //  Handle Blob
@@ -153,7 +158,14 @@ class NXRequestMonitor extends NXElement {
         e.classes.remove("active");
       }
     });
-    async((_) { _highlight(); });
+    async((_) {
+      // highlight.js doesn't play well with data binding
+      var code = shadowRoot.getElementById("code");
+      if (code != null) {
+        code.innerHtml = body;
+      }
+      _highlight();
+    });
   }
 
 }
