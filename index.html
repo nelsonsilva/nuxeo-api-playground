@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><script src="packages/web_components/webcomponents.min.js"></script><script src="packages/web_components/dart_support.js"></script>
+<!DOCTYPE html><html><head><script src="packages/web_components/webcomponents.js"></script><script src="packages/web_components/dart_support.js"></script>
     <title>Nuxeo API Playground</title>
 
     <meta charset="utf-8">
@@ -369,7 +369,7 @@ html /deep/ [segment], html /deep/ segment {
 
 </style>
 
-<script src="packages/polymer_interop/src/js/polymer.min.js"></script>
+<script src="packages/polymer_interop/src/js/polymer.js"></script>
 
 <script>
 // This empty script tag is necessary to work around dartbug.com/19650
@@ -9082,7 +9082,85 @@ code {
 </template>
 
 </polymer-element>
-<script src="index.html.polymer.bootstrap.dart.js" async=""></script><script src="packages/nuxeo_api_playground/javascript/jquery-2.0.3.min.js"></script><script src="packages/nuxeo_api_playground/javascript/semantic-0.15.4.min.js"></script><script src="packages/nuxeo_api_playground/javascript/highlight-8.0.pack.js"></script></div>
+<script type="application/dart" src="index.html.polymer.bootstrap.dart"></script><script src="packages/nuxeo_api_playground/javascript/jquery-2.0.3.min.js"></script><script src="packages/nuxeo_api_playground/javascript/semantic-0.15.4.min.js"></script><script src="packages/nuxeo_api_playground/javascript/highlight-8.0.pack.js"></script><style type="text/css">/** Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+    for details. All rights reserved. Use of this source code is governed by a
+    BSD-style license that can be found in the LICENSE file. **/
+.build-logs {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  max-width: 80vw;
+  z-index: 10000;
+  font-family: sans-serif !important;
+}
+.build-logs .log {
+  padding: 0.6em;
+  background: black;
+  color: white;
+  border: solid 1px #666;
+  border-bottom: 0px;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+.build-logs .fine {
+  color: green;
+}
+.build-logs .info {
+  color: yellow;
+}
+.build-logs .warning {
+  color: orange;
+}
+.build-logs .error {
+  color: red;
+}
+.build-logs .message {
+  white-space: nowrap;
+  cursor: pointer;
+}
+.build-logs .message.expanded {
+  white-space: normal;
+}
+.build-logs .message a {
+  color: #CCF;
+  text-decoration: bold;
+}
+.build-logs .menu {
+  text-align: right;
+}
+.build-logs .menu div {
+  display: inline-block;
+  background: #666;
+  font-weight: bold;
+  cursor: pointer;
+  border: solid 1px black;
+  padding: 0.6em 1em;
+}
+.build-logs .menu div.active {
+  background: black;
+}
+.build-logs .menu div .num {
+  color: white;
+}
+.build-logs .content {
+  max-height: 75vh;
+  font-size: 1em;
+  overflow-y: auto;
+}
+.build-logs .content > div {
+  display: none;
+}
+.build-logs .content > div.active {
+  display: block;
+}
+
+.build-logs .content span.text {
+  padding: 0.4em 0.2em 0.2em 2em;
+  white-space: pre;
+  display: block;
+  font-family: monospace !important;
+}
+</style></div>
     <header>
       <a href="packages/nuxeo_api_playground/app.html" id="logo"></a>
       <span class="">API Playground</span>
@@ -9093,4 +9171,4 @@ code {
     <nx-sandbox-app connectionid="connection"></nx-sandbox-app>
   
 
-</body></html>
+<script src="packages/browser/dart.js"></script></body></html>
