@@ -44,6 +44,8 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
   @published String documentId;
 
   @observable nuxeo.Document document;
+  @observable var breadcrumb;
+  @observable String thumbnail;
 
   @published nuxeo.Request request;
   @observable var response;
@@ -69,12 +71,9 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
       document = null;
     } else {
       request = NX.doc(documentId);
+      request.enrichers = ["breadcrumb", "thumbnail"];
 
-      runRequest()
-      .then(request.handleResponse)
-      .then((document) {
-        this.document = document;
-      });
+      runRequest();
     }
   }
 
@@ -114,11 +113,25 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
       (shadowRoot.querySelector("#tree") as Tree).deleteNode(this.documentId);
     }
 
+    // process the response
+    if (response.headers["content-type"] == nuxeo.CTYPE_ENTITY || response.headers["content-type"] == nuxeo.CTYPE_JSON) {
+      var json = JSON.decode(response.body);
+
+      // if it's the current document update it
+      if (json["entity-type"] == "document") {
+        var document = new nuxeo.Document.fromJSON(json);
+        if (document.uid == documentId) {
+          this.document = document;
+        }
+      }
+    }
+
     return response;
   }
 
   documentChanged() {
-
+    _updateBreadcrumb();
+    _updateThumbnail();
     async((_) {
       // activate the accordions
       accordion("#adapters");
@@ -156,5 +169,26 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
         e.classes.remove("active");
       }
     });
+  }
+
+  _updateBreadcrumb() {
+    if (document != null && document.contextParameters != null && document.contextParameters.containsKey("breadcrumb")) {
+      this.breadcrumb = document.contextParameters["breadcrumb"]["entries"];
+    } else {
+      this.breadcrumb = [{"title" : document.title}];
+    }
+  }
+
+  _updateThumbnail() {
+    if (document != null) {
+      var thumbnail;
+      if (document.contextParameters != null && document.contextParameters.containsKey("thumbnail")) {
+          thumbnail = document.contextParameters["thumbnail"]["url"];
+      }
+      if (thumbnail == null) {
+        thumbnail = document.facets.contains("Folderish") ? "icons/folder_100.png" : "icons/file_100.png";
+      }
+      this.thumbnail = thumbnail;
+    }
   }
 }

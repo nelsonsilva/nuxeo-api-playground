@@ -51,10 +51,12 @@
             <a class="section" on-click="{{goHome}}"><i class="ui home icon"></i></a>
             <div class="divider"> / </div>
              <span class="active section">{{title}}</span>
-             <template if="{{document}}">
-              <div class="divider"> / </div>
-              <div class="active section">{{document.title}}</div>
-             </template>
+             <template if="{{breadcrumb}}">
+                <template repeat="{{entry in breadcrumb}}">
+                  <div class="divider"> / </div>
+                  <div class="active section">{{entry["title"]}}</div>
+                </template>
+              </template>
           </div>
        </div>
 
@@ -72,7 +74,10 @@
 
         <template if="{{document}}">
           <div class="ui vertical segment">
-            <div class="ui huge header">{{document.type}}</div>
+            <div class="ui basic segment">
+              <img class="ui small circular image" style="display:inline-block;background-color:white" _src="{{thumbnail}}">
+              <span class="ui middle aligned huge header">{{document.title}}</span>
+            </div>
             {{method}} /api/v1/id/[[documentId]]<template if="{{adapter}}">/@{{adapter.name}}</template>
          </div>
         </template>

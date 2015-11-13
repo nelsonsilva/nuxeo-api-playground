@@ -25,8 +25,6 @@ import 'ui_filters.dart';
 @CustomTag("nx-content-enrichers")
 class NXContentEnrichers extends PolymerElement {
 
-  static const HEADER = "X-NXenrichers.document";
-
   @published nuxeo.Request request;
 
   @published ObservableMap contentEnrichers = toObservable({
@@ -43,16 +41,16 @@ class NXContentEnrichers extends PolymerElement {
     contentEnrichers.changes.listen((_) {
       var enrichers = contentEnrichers.keys.where((k) => contentEnrichers[k]);
       if (enrichers.isEmpty) {
-        request.headers.remove(HEADER);
+        request.headers.remove(nuxeo.HEADER_NX_ENRICHERS);
       } else {
-        request.headers[HEADER] = enrichers.join(",");
+        request.headers[nuxeo.HEADER_NX_ENRICHERS] = enrichers.join(",");
       }
     });
   }
 
   requestChanged() {
-    if (request != null && request.headers != null && request.headers[HEADER] != null) {
-      request.headers[HEADER].split(",").forEach((k) { contentEnrichers[k] = true; });
+    if (request != null && request.headers != null && request.headers[nuxeo.HEADER_NX_ENRICHERS] != null) {
+      request.headers[nuxeo.HEADER_NX_ENRICHERS].split(",").forEach((k) { contentEnrichers[k] = true; });
     }
   }
 
