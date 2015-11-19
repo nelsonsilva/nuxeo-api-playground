@@ -136,7 +136,12 @@
 
               <div class="ui basic horizontal right aligned segment">
                 <!-- Copy default body -->
-                <div class="ui button" on-click="{{setDefaultBody}}">Copy document</div>
+                <template if="{{method == 'PUT'}}">
+                  <div class="ui button" on-click="{{copyBody}}">Copy document</div>
+                </template>
+                <template if="{{method == 'POST'}}">
+                  <div class="ui button" on-click="{{setDefaultBody}}">Sample document</div>
+                </template>
                 <div class="ui button" on-click="{{referenceBatch}}">Reference a Batch</div>
               </div>
 

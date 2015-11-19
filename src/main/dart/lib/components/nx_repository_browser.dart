@@ -26,6 +26,18 @@ import 'ui_module.dart';
 import 'semantic.dart';
 import 'tree/tree.dart';
 
+const String DEFAULT_DOCUMENT_BODY = """
+{
+  "entity-type": "document",
+  "name":"newDoc",
+  "type": "File",
+  "properties": {
+      "dc:title": "A new document",
+      "dc:description": "Created via the REST API"
+  }
+}
+""";
+
 /// Model for the [NXRepositoryBrowser] module.
 class RepositoryBrowser extends Module {
   String title = "Repository",
@@ -94,7 +106,7 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
         request.param(param.name, param.value);
       });
     }
-    return request.method(method).execute()
+    return request.method(method).execute(body)
       .then(_handleResponse)
       .catchError((e) {
         if (e is nuxeo.ClientException) {
@@ -148,6 +160,10 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
   }
 
   setDefaultBody() {
+    body = DEFAULT_DOCUMENT_BODY;
+  }
+
+  copyBody() {
     var json = JSON.decode(response.body);
     body = new JsonEncoder.withIndent(" " * 2).convert(json);
   }
@@ -162,6 +178,8 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
 
   methodChanged() {
     errors.clear();
+    adapter = null;
+
     shadowRoot.querySelectorAll("#methods .item").forEach((Element e) {
       if (e.dataset["method"] == method) {
         e.classes.add("active");

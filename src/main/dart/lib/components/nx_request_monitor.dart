@@ -82,11 +82,20 @@ class NXRequestMonitor extends NXElement {
   }
 
   requestChanged() {
+    if (request != null) {
+      request.onRequest.listen((_) { isLoading = true; });
+      request.onResponse.listen((_) { isLoading = false; });
+    }
     async((_) {
       shadowRoot.querySelectorAll(".ui.menu .item").forEach((e) {
         e.onClick.listen(changeTab);
       });
     });
+  }
+
+  set isLoading(bool flag) {
+    var classes = shadowRoot.getElementById("loading").classes;
+    flag ? classes.add("active") : classes.remove("active");
   }
 
   responseChanged() {
