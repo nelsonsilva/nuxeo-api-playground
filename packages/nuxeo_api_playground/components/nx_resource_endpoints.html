@@ -215,8 +215,9 @@
           <br/>
 
           <!-- Output -->
-          <nx-request-monitor request="{{request}}" response="{{response}}"></nx-request-monitor>
-
+          <template if="{{response}}">
+            <nx-request-monitor request="{{request}}" response="{{response}}"></nx-request-monitor>
+          </template>
         </template>
       </div>
     </div>
