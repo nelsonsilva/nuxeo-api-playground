@@ -78,7 +78,10 @@
               <img class="ui small circular image" style="display:inline-block;background-color:white" _src="{{thumbnail}}">
               <span class="ui middle aligned huge header">{{document.title}}</span>
             </div>
-            {{method}} /api/v1/id/[[documentId]]<template if="{{adapter}}">/@{{adapter.name}}</template>
+            <div class="ui basic segment">
+              {{method}} /api/v1/id/[[documentId]]<template if="{{adapter}}">/@{{adapter.name}}</template>
+              <div class="ui red submit button" style="float:right" on-click="{{runRequest}}">Execute</div>
+            </div>
          </div>
         </template>
 
