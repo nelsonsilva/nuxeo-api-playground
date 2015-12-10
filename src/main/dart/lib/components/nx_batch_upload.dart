@@ -59,9 +59,6 @@ class NXBatchUpload extends NXModule with SemanticUI {
   void _newBatch() {
     var batch = new Element.tag(NXBatch.TAG) as NXBatch
     ..connectionId = connectionId
-    ..batchId = "batch-" +
-        new DateTime.now().millisecondsSinceEpoch.toString() +
-        "-" + new Math.Random().nextInt(100000).toString()
     ..on[NXBatch.UPLOAD_EVENT].listen(onUpload);
 
     $["batch"]

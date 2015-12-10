@@ -53,11 +53,18 @@ class NXBatch extends NXElement {
   NXBatch.created() : super.created() {
   }
 
+  get uploader {
+    if (_uploader == null) {
+      _uploader = new nuxeo.BatchUploader(NX, uploadTimeout: new Duration(minutes: 20));
+      _uploader.batchId = batchId;
+      // Set the proper index to start uploading files
+      _uploader.uploadIdx = filenames.length;
+    }
+    return _uploader;
+  }
+
   /// Delete the batch from the server
-  Future delete() =>
-    //TODO(nfgs): Move this request to the NX client
-    NX.httpClient.get(Uri.parse("${connection.nuxeoUrl}/site/automation/batch/drop/$batchId"))
-    .send();
+  Future delete() => uploader.drop();
 
   /// Upload the files to the server
   Future upload(Event e) {
@@ -71,9 +78,11 @@ class NXBatch extends NXElement {
     }
 
     // Upload the blobs
-    return Future.wait(blobs.map((blob) => _uploader.uploadFile(blob)))
+    return uploader.initialize()
+    .then((_) => Future.wait(blobs.map((blob) => uploader.uploadFile(blob))))
     // Clear the blob queue and fetch new info from the server
     .then((_) {
+      batchId = uploader.batchId;
       blobs.clear();
       return fetch();
     })
@@ -85,14 +94,8 @@ class NXBatch extends NXElement {
   /// Fetch the files from the server
   Future fetch() {
     wasUploaded = true;
-    //TODO(nfgs): Move this request to the NX client
-    return NX.httpClient.get(Uri.parse("${connection.nuxeoUrl}/site/automation/batch/files/$batchId"))
-    .send()
-    .then((response) {
-      var json = JSON.decode(response.body);
-      if (json.isEmpty) {
-        throw new Exception("Batch $batchId does not exist.");
-      }
+    return uploader.info()
+    .then((json) {
       filenames..clear()..addAll(json.map((f) => f["name"]));
     });
   }
