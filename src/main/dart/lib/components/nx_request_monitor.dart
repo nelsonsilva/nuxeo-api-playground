@@ -107,14 +107,14 @@ class NXRequestMonitor extends NXElement {
     }
 
     contentType = response.headers["content-type"];
-    if (contentType == nuxeo.CTYPE_ENTITY || contentType == nuxeo.CTYPE_JSON) {
+    if (contentType != null && (contentType.startsWith(nuxeo.CTYPE_ENTITY) || contentType.startsWith(nuxeo.CTYPE_JSON))) {
       if (response.body != null && response.body.isNotEmpty) {
         var json = JSON.decode(response.body);
         body = new JsonEncoder.withIndent(" " * 2).convert(json);
       } else {
         body = response.body;
       }
-    } else if (contentType == "text/plain") {
+    } else if (contentType != null && contentType.startsWith("text/plain")) {
       body = response.body;
     } else { //  Handle Blob
       body = response.buffer;

@@ -53,7 +53,7 @@ class NXWidget extends PolymerElement {
     jqEl.callMethod('modal', ['show']);
   }
 
-  get valid => input.validity.valid;
+  get valid => (input == null) || input.validity.valid;
   get input => shadowRoot.querySelector("#widget");
 
   /// File handling
