@@ -26,7 +26,7 @@ class TreeNode extends NXElement with SemanticUI {
 
   @published String docId;
   @published nuxeo.Document doc;
-  @published List children = toObservable([]);
+  @published List docs = toObservable([]);
 
   TreeNode.created() : super.created() {
   }
@@ -71,11 +71,11 @@ class TreeNode extends NXElement with SemanticUI {
   }
 
   Future _fetchChildren() {
-    if (children.isNotEmpty) {
-      return new Future.value(children);
+    if (docs.isNotEmpty) {
+      return new Future.value(docs);
     }
     return NX.doc(docId).children().fetch().then((docs) =>
-      children..clear()..addAll(docs)
+      this.docs..clear()..addAll(docs)
     );
   }
 
