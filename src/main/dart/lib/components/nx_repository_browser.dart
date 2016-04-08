@@ -126,7 +126,8 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
     }
 
     // process the response
-    if (response.headers["content-type"] == nuxeo.CTYPE_ENTITY || response.headers["content-type"] == nuxeo.CTYPE_JSON) {
+    String contentType = response.headers["content-type"];
+    if (contentType != null && (contentType.startsWith(nuxeo.CTYPE_ENTITY) || contentType.startsWith(nuxeo.CTYPE_JSON))) {
       var json = JSON.decode(response.body);
 
       // if it's the current document update it
