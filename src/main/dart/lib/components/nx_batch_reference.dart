@@ -43,7 +43,7 @@ class NXBatchReference extends NXElement {
   /// Add the batch with the given id to the list.
   /// Information about the batch is retrieved from the Nuxeo server.
   addBatch(String batchId) {
-    if (!batches.contains(batchId)) {
+    if (batchId.isNotEmpty && !batches.contains(batchId)) {
       batches.add(batchId);
       // Wait for the nx-batch node to be added
       async((_) {

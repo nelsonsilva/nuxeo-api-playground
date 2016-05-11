@@ -70,9 +70,7 @@ class NXBatch extends NXElement {
   Future upload(Event e) {
     // create the uploader
     if (_uploader == null) {
-      _uploader = new nuxeo.BatchUploader(NX,
-            batchId: batchId,
-            uploadTimeout: new Duration(minutes: 20));
+      _uploader = new nuxeo.BatchUploader(NX, uploadTimeout: new Duration(minutes: 20));
       // Set the proper index to start uploading files
       _uploader.uploadIdx = filenames.length;
     }
@@ -104,7 +102,6 @@ class NXBatch extends NXElement {
   String get asJson {
     var files = [];
     for (var i = 0; i < filenames.length; i++) {
-      var file = filenames[i];
       files.add({"upload-batch":"$batchId", "upload-fileId":"$i"});
     };
     if (files.length == 1) {
