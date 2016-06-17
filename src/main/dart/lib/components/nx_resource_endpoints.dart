@@ -225,10 +225,10 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     });
 
     // Query parameters
-    var queryParams = params.
-    where((p) => p.isQueryParam && !p.isEmpty)
-    .map((param) => "${param.name}=${param.value}")
-    .join("&");
+    var queryParams = params
+        .where((p) => p.isQueryParam && !p.isEmpty)
+        .map((param) => "${param.name}=${Uri.encodeQueryComponent(param.value)}")
+        .join("&");
 
     var bodyParam = params.where((p) => p.isBodyParam);
 
