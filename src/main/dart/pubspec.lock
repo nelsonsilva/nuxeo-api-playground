@@ -135,11 +135,10 @@ packages:
     version: "0.9.3"
   nuxeo_client:
     description:
-      ref: HEAD
-      resolved-ref: "2d34198603b80ffbfe91cea02a9dc4369b0d34e2"
-      url: "https://github.com/nuxeo/nuxeo-dart-client.git"
-    source: git
-    version: "0.3.0"
+      name: nuxeo_client
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.1"
   observe:
     description:
       name: observe
