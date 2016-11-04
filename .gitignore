@@ -2,3 +2,8 @@ target
 src/main/dart/.buildlog
 src/main/dart/build
 .idea
+.classpath
+.project
+.settings/
+bin/
+
