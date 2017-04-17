@@ -106,7 +106,8 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
         request.param(param.name, param.value);
       });
     }
-    return request.method(method).execute(body)
+    var data = (method == 'PUT' || method == 'POST') ? body : null;
+    return request.method(method).execute(data)
       .then(_handleResponse)
       .catchError((e) {
         if (e is nuxeo.ClientException) {
