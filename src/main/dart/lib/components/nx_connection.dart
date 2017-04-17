@@ -90,7 +90,7 @@ class NXConnection extends PolymerElement with SemanticUI {
       // Try to get a token and if succeed store it as a cookie along with the URL
       var deviceId = "device-${new Math.Random().nextInt(999)}";
       _getToken("Nuxeo API Playground", deviceId, deviceId).then((token) {
-        cookies[NX_AUTHENTICATION_TOKEN] = token;
+        NX.headers[NX_AUTHENTICATION_TOKEN] = cookies[NX_AUTHENTICATION_TOKEN] = token;
         cookies[NX_URL_COOKIE] = nuxeoUrl;
       });
     });
