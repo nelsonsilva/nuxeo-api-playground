@@ -153,6 +153,8 @@ class NXOperation extends NXElement with SemanticUI {
       methods.addAll(_op.methods.map((m) => new NxOperationMethod(m)));
       method = methods.first;
 
+      // Prepare the op request
+      opRequest = NX.op(_op.id);
     });
   }
 
@@ -178,8 +180,8 @@ class NXOperation extends NXElement with SemanticUI {
       opParams[param.name] = param.value;
     });
 
-    // Prepare the op
-    opRequest = NX.op(_op.id).params(opParams);
+    // Set the op parameters
+    opRequest.params(opParams);
 
     // Set the input
     // Check for a batch reference

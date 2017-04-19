@@ -29,7 +29,7 @@ import 'package:polymer_expressions/filter.dart';
 @CustomTag("nx-request-options")
 class NXRequestOptions extends NXElement {
 
-  @published nuxeo.Request request;
+  @published nuxeo.BaseRequest request;
 
   NXRequestOptions.created() : super.created() {
   }
