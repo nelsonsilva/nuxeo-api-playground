@@ -96,6 +96,8 @@ class NXConnection extends PolymerElement with SemanticUI {
     });
   }
 
+  get token => NX.headers[NX_AUTHENTICATION_TOKEN];
+
   _login() => NX.login()
     .then((login) {
 

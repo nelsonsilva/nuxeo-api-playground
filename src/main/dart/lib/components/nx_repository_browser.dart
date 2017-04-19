@@ -204,6 +204,9 @@ class NXRepositoryBrowser extends NXModule with SemanticUI {
       var thumbnail;
       if (document.contextParameters != null && document.contextParameters.containsKey("thumbnail")) {
           thumbnail = document.contextParameters["thumbnail"]["url"];
+          if (connection.token != null) {
+            thumbnail += "?token=${connection.token}";
+          }
       }
       if (thumbnail == null) {
         thumbnail = document.facets.contains("Folderish") ? "icons/folder_100.png" : "icons/file_100.png";
