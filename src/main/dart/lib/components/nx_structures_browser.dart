@@ -40,16 +40,15 @@ class StructuresBrowser extends Module {
   @observable var selectedId;
 
   @override
-   void setupRoutes(Route route) {
-     route.addRoute(
-         name: 'view',
-         path: '/:type/:id',
-         enter: (e) {
-           selectedType = e.parameters['type'];
-           selectedId =  e.parameters['id'];
-         }
-     );
-   }
+  void setupRoutes(Route route) {
+    route.addRoute(
+      name: 'view',
+      path: '/:type/:id',
+      enter: (e) {
+       selectedType = e.parameters['type'];
+       selectedId = e.parameters['id'];
+    });
+  }
 }
 
 /// The Data Structures Browser module element.
@@ -74,9 +73,8 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
   /// The selected item.
   @observable var selectedItem;
-
-  @observable String get selectedType => (module as StructuresBrowser).selectedType;
-  @observable String get selectedId => (module as StructuresBrowser).selectedId;
+  @observable var selectedId;
+  @observable var selectedType;
 
   factory NXStructuresBrowser() => new Element.tag(TAG);
 
@@ -144,24 +142,31 @@ class NXStructuresBrowser extends NXModule with SemanticUI, SearchFilter {
 
   }
 
-  @ObserveProperty("module.selectedId")
+  @ObserveProperty("module.selectedId module.selectedType")
   void updateSelection() {
     selectedItem = null;
+    selectedType = (module as StructuresBrowser).selectedType;
+    var selectedId = (module as StructuresBrowser).selectedId;
+
     if (selectedId != null && items[selectedType].isNotEmpty) {
       selectedItem = items[selectedType].where((d) => d.name == selectedId).first;
     }
     _updateDiagram();
   }
 
+  bool isDoctype(item) => item != null && (item is nuxeo.Doctype);
+  bool isFacet(item) => item != null && (item is nuxeo.Facet);
+  bool isSchema(item) => item != null && (item is nuxeo.Schema);
+
   void _updateDiagram() {
     currentItemDiagram = null;
     if (_diagram != null && selectedItem != null) {
       // Update the UI
-      if (selectedItem is nuxeo.Doctype) {
+      if (isDoctype(selectedItem)) {
         currentItemDiagram = _diagram.generateForDoctype(selectedItem.name);
-      } else if (selectedItem is nuxeo.Facet) {
+      } else if (isFacet(selectedItem)) {
         currentItemDiagram = _diagram.generateForFacet(selectedItem.name);
-      } else if (selectedItem is nuxeo.Schema) {
+      } else if (isSchema(selectedItem)) {
         currentItemDiagram = _diagram.generateForSchema(selectedItem.name);
       }
     }
