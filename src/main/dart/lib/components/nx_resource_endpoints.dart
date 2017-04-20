@@ -28,7 +28,7 @@ import '../swagger.dart' as swagger;
 import 'semantic.dart';
 
 /// A list of the endpoints to display
-const RESOURCE_ENDPOINTS = const ["path", "id", "directory", "user", "group", "query", "workflow", "workflowModel", "task"];
+const RESOURCE_ENDPOINTS = const ["path", "id", "directory", "user", "group", "search", "workflow", "workflowModel", "task"];
 
 /// Wrapper for a [swagger.Parameter] to store the current value and make it [Observable].
 class NxParameterValue extends Observable {
