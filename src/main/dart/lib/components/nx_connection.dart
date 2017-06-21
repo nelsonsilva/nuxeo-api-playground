@@ -45,7 +45,7 @@ class NXConnection extends PolymerElement with SemanticUI {
   @observable String password = "Administrator";
   @observable String avatar = "https://avatars0.githubusercontent.com/u/6028";
 
-  @observable var nuxeoUrl = "http://demo.nuxeo.com/nuxeo"; // "http://localhost:8080/nuxeo";
+  @observable var nuxeoUrl = "https://demo.nuxeo.com/nuxeo"; // "http://localhost:8080/nuxeo";
 
   // Tracing
   @observable bool canManageTraces = false;
