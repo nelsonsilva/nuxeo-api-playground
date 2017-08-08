@@ -33,7 +33,11 @@ class NXContentEnrichers extends PolymerElement {
     "preview": false,
     "breadcrumb": false,
     "permissions": false,
-    "userVisiblePermissions": false
+    "userVisiblePermissions": false,
+    "favorites": false,
+    "runningWorkflows": false,
+    "runnableWorkflows": false,
+    "pendingTasks": false
   });
 
   NXContentEnrichers.created() : super.created() {

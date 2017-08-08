@@ -28,7 +28,7 @@ import '../swagger.dart' as swagger;
 import 'semantic.dart';
 
 /// A list of the endpoints to display
-const RESOURCE_ENDPOINTS = const ["path", "id", "directory", "user", "group", "query", "workflow", "workflowModel", "task"];
+const RESOURCE_ENDPOINTS = const ["path", "id", "directory", "user", "group", "search", "workflow", "workflowModel", "task", "facet", "schema", "docType"];
 
 /// Wrapper for a [swagger.Parameter] to store the current value and make it [Observable].
 class NxParameterValue extends Observable {
@@ -53,7 +53,7 @@ class NxParameterValue extends Observable {
   bool get isValid => !required || (required && value != null);
 
   bool get isEmpty => value == null || value.toString().isEmpty;
-  
+
   String get widget {
 
     // We use the type to specify the field of the document we want to use
@@ -145,8 +145,8 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
         endpoints[resourceKey] = listing.resources;
       })
       .catchError((e) {
-        print("Endpoint '$resourceKey' not available.");  
-      });   
+        print("Endpoint '$resourceKey' not available.");
+      });
     }))
     // After everything is loaded
     .then((_) {
@@ -225,10 +225,10 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
     });
 
     // Query parameters
-    var queryParams = params.
-    where((p) => p.isQueryParam && !p.isEmpty)
-    .map((param) => "${param.name}=${param.value}")
-    .join("&");
+    var queryParams = params
+        .where((p) => p.isQueryParam && !p.isEmpty)
+        .map((param) => "${param.name}=${Uri.encodeQueryComponent(param.value)}")
+        .join("&");
 
     var bodyParam = params.where((p) => p.isBodyParam);
 

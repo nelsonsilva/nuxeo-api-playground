@@ -19,6 +19,7 @@ library nx_connection;
 
 import 'dart:async';
 import 'dart:math' as Math;
+import 'dart:html';
 
 import 'package:nuxeo_api_playground/cookies.dart';
 import 'package:nuxeo_client/browser_client.dart' as nuxeo;
@@ -44,7 +45,7 @@ class NXConnection extends PolymerElement with SemanticUI {
   @observable String password = "Administrator";
   @observable String avatar = "https://avatars0.githubusercontent.com/u/6028";
 
-  @observable var nuxeoUrl = "http://demo.nuxeo.com/nuxeo"; // "http://localhost:8080/nuxeo";
+  @observable var nuxeoUrl = "https://demo.nuxeo.com/nuxeo"; // "http://localhost:8080/nuxeo";
 
   // Tracing
   @observable bool canManageTraces = false;
@@ -52,7 +53,19 @@ class NXConnection extends PolymerElement with SemanticUI {
 
   final List<Alert> alerts = toObservable([]);
 
+  Map<String, String> queryParams;
+
   NXConnection.created() : super.created() {
+    // Support auto connecting to server using hash fragment as url
+    // ex: (#/http://localhost:8080/nuxeo)
+    if (window.location.hash.startsWith("#/http")) {
+      nuxeoUrl = window.location.hash.substring(2);
+      username = '';
+      password = '';
+      NX = new nuxeo.Client(url: nuxeoUrl, schemas: ["*"],  username: null, password: null);
+      _login();
+      return;
+    }
     // Check if we have any token stored as a cookie
     String token = cookies[NX_AUTHENTICATION_TOKEN];
     if (token != null) {
@@ -77,11 +90,13 @@ class NXConnection extends PolymerElement with SemanticUI {
       // Try to get a token and if succeed store it as a cookie along with the URL
       var deviceId = "device-${new Math.Random().nextInt(999)}";
       _getToken("Nuxeo API Playground", deviceId, deviceId).then((token) {
-        cookies[NX_AUTHENTICATION_TOKEN] = token;
+        NX.headers[NX_AUTHENTICATION_TOKEN] = cookies[NX_AUTHENTICATION_TOKEN] = token;
         cookies[NX_URL_COOKIE] = nuxeoUrl;
       });
     });
   }
+
+  get token => NX.headers[NX_AUTHENTICATION_TOKEN];
 
   _login() => NX.login()
     .then((login) {
@@ -105,6 +120,22 @@ class NXConnection extends PolymerElement with SemanticUI {
     var request = NX.httpClient.get(Uri.parse("$nuxeoUrl/authentication/token?$p"));
     request.headers.set("X-No-Basic-Header", "true");
     return request.send().then((response) => response.body);
+  }
+
+  Map<String, String> _parseQuery() {
+    var params = <String,String>{};
+    var queryStr = window.location.search;
+    if (queryStr.startsWith('?')) {
+      queryStr = queryStr.substring(1);
+      queryStr.split('&').forEach((String keyValPair) {
+        List<String> keyVal = keyValPair.split('=');
+        var key = keyVal[0];
+        if (key.isNotEmpty) {
+          params[key] = Uri.decodeComponent(keyVal[1]);
+        }
+      });
+    }
+    return params;
   }
 
   isConnectedChanged() {

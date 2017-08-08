@@ -47,7 +47,7 @@
             <template if="{{alerts.isNotEmpty}}">
               <div class="ui bottom attached warning message">
                  <div class="ui top right attached small label" style="font-size:.6rem;">
-                  make sure you activated the <a href="http://doc.nuxeo.com/x/vIvZ" target="_blank">CORS config</a> on your Nuxeo server
+                  make sure you activated the <a href="http://doc.nuxeo.com/nxdoc/cross-origin-resource-sharing-cors" target="_blank">CORS config</a> on your Nuxeo server
                 </div>
                 <template repeat="{{alert in alerts}}">
                   <i class="icon warning"></i>{{alert.message}}<br/>
