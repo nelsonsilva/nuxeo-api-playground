@@ -80,7 +80,7 @@
             </div>
             <div class="ui basic segment">
               {{method}} /api/v1/id/[[documentId]]<template if="{{adapter}}">/@{{adapter.name}}</template>
-              <div class="ui red submit button" style="float:right" on-click="{{runRequest}}">Execute</div>
+              <div class="ui blue submit button" style="float:right" on-click="{{runRequest}}">Execute</div>
             </div>
          </div>
         </template>
@@ -183,7 +183,7 @@
 
             <!-- Submit button -->
             <div class="ui basic right aligned segment">
-              <div class="ui red submit button" on-click="{{runRequest}}">Execute</div>
+              <div class="ui blue submit button" on-click="{{runRequest}}">Execute</div>
             </div>
           </div>
 
