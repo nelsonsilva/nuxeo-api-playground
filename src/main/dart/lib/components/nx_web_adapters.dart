@@ -110,7 +110,7 @@ class NXWebAdapters extends NXElement with SemanticUI {
     } else {
       return Future.wait(
         ADAPTER_ENDPOINTS.map((name) {
-          var request = NX.newRequest("/doc/${name}Adapter.json");
+          var request = NX.newRequest("doc/${name}Adapter.json");
 
           // Execute the method (does not handle the response)
           return request.method("GET").execute()
