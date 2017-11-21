@@ -135,7 +135,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
     Future.wait(
      RESOURCE_ENDPOINTS.map((resourceKey) {
-      var request = NX.newRequest("/doc/$resourceKey.json");
+      var request = NX.newRequest("doc/$resourceKey.json");
 
       // Execute the method (does not handle the response)
       return request.method("GET").execute()
