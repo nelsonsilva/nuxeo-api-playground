@@ -234,7 +234,7 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
     var body = (bodyParam.isEmpty) ? null : bodyParam.first.value;
 
-    request.uri = Uri.parse("${NX.restUri}/$path?$queryParams");
+    request.uri = Uri.parse("${NX.restUri}$path?$queryParams");
 
     // Call the op using 'execute' which does not handle the response
     request.method(operation.method).execute(body)
