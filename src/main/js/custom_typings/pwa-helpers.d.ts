@@ -1,0 +1,1 @@
+declare function installRouter(locationUpdatedCallback: (location:Location, event: Event|null) => void): void;
