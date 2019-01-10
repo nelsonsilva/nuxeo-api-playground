@@ -1,7 +1,7 @@
 name: 'nuxeo_api_playground'
 description: Nuxeo API Playground
 environment:
-  sdk: '>=1.0.0 <2.0.0'
+  sdk: '>=1.0.0 <1.24.0'
 dependencies:
   browser: '>=0.10.0 <1.0.0'
   js: '>=0.3.0 <1.0.0'
