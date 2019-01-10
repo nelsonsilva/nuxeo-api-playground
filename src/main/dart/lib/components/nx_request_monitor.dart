@@ -145,7 +145,7 @@ class NXRequestMonitor extends NXElement {
 
     // Allow downloading the response as a blob
     downloads.add(new http.Blob(
-        content: body,
+        content: body is ByteBuffer ? (body as ByteBuffer).asUint8List() : body,
         mimetype: (contentType.startsWith("multipart/mixed") ? "multipart/mixed" : contentType)));
 
     // For multipart also allow downloading each part as a blob
