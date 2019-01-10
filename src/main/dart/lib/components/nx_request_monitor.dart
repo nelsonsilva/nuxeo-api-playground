@@ -181,7 +181,7 @@ class NXRequestMonitor extends NXElement {
       // highlight.js doesn't play well with data binding
       var code = shadowRoot.getElementById("code");
       if (code != null) {
-        code.innerHtml = body;
+        code.innerHtml = (body as String).replaceAll(new RegExp(r'<'),"&lt;");
       }
       _highlight();
     });
