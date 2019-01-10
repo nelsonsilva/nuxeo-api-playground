@@ -80,6 +80,7 @@ class NXRequestMonitor extends NXElement {
           str.write(" -F $k='$value;type=${blob.mimetype}'");
         });
       } else {
+        str.write(" -H '${http.HEADER_CONTENT_TYPE}: application/json'");
         str.write(" -d '$data'");
       }
     }
