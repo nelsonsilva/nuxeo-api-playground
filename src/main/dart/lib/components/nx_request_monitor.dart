@@ -22,6 +22,7 @@ import 'dart:js' as js;
 import 'dart:html';
 import 'dart:typed_data';
 import 'ui_module.dart';
+import 'nx_connection.dart';
 import 'package:polymer/polymer.dart';
 import 'package:polymer_expressions/filter.dart';
 import 'package:nuxeo_client/client.dart' as nuxeo;
@@ -64,8 +65,12 @@ class NXRequestMonitor extends NXElement {
     var method = request.request.method;
     var str = new StringBuffer("curl -X $method '$url'");
     request.headers.forEach((k, v) {
-      str.write(" -H '$k: $v'");
+      // write basic auth header at the end
+      if (k != NXConnection.NX_AUTHENTICATION_TOKEN) {
+        str.write(" -H '$k: $v'");
+      }
     });
+
     if (data != null) {
       if (data is http.MultipartFormData) {
         data.data.forEach((k, blob) {
@@ -78,6 +83,10 @@ class NXRequestMonitor extends NXElement {
         str.write(" -d '$data'");
       }
     }
+
+    var username = request.httpClient.username;
+    str.write(" -u $username:<PASSWORD>");
+
     return str.toString();
   }
 
