@@ -221,7 +221,12 @@ class NXResourceEndpoints extends NXModule with SemanticUI, SearchFilter {
 
     // replace parameters
     params.where((p) => p.isPathParam).forEach((param) {
-      path = path.replaceAll("{${param.name}}", (param.value == null)? "" : param.value);
+      var v = param.value == null ? "" : param.value;
+      // strip initial / from document paths
+      if (v is String && v.startsWith('/')) {
+        v = v.substring(1);
+      }
+      path = path.replaceAll("{${param.name}}", v);
     });
 
     // Query parameters
