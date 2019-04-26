@@ -16,11 +16,25 @@
     <module>nuxeo-api-playground-package</module>
   </modules>
 
+  <profiles>
+    <profile>
+      <id>ftest</id>
+      <modules>
+        <module>ftest/startup</module>
+      </modules>
+    </profile>
+  </profiles>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.nuxeo.ecm.platform</groupId>
         <artifactId>nuxeo-api-playground</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-api-playground-package</artifactId>
         <version>${project.version}</version>
         <type>zip</type>
       </dependency>
