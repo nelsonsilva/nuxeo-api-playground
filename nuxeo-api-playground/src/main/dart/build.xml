@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
 <project name="Nuxeo API Playground" default="build" basedir=".">
+  <condition property="cmd.pub" value="pub.bat" else="pub">
+    <os family="windows"/>
+  </condition>
   <target name="init" description="pub install">
-    <exec executable="pub" failonerror="true">
+    <exec executable="${cmd.pub}" failonerror="true">
       <arg value="install" />
     </exec>
   </target>
   <target name="build" depends="init" description="pub build">
-    <exec executable="pub" failonerror="true">
+    <exec executable="${cmd.pub}" failonerror="true">
       <arg value="build" />
     </exec>
     <copy todir="../../../target/classes/web/nuxeo.war/playground">
@@ -14,3 +17,4 @@
     </copy>
   </target>
 </project>
+
