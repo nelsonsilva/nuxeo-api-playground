@@ -1,10 +1,10 @@
 # Nuxeo API Playground
-[![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=addons_nuxeo-api-playground-master)](https://qa.nuxeo.org/jenkins/view/All/job/addons_nuxeo-api-playground-master/)
+[![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=master/addons_nuxeo-api-playground-master)](https://qa.nuxeo.org/jenkins/job/master/addons_nuxeo-api-playground-master)
 
 Nuxeo API Playground offers an interactive way to discover the Nuxeo Platform API.
 It is available online [here](http://nuxeo.github.io/api-playground/) and you can use it on any server as long as you deployed on it a CORS configuration.
 
-For further information please refer to the [documentation](https://doc.nuxeo.com/x/9QUuAQ).
+For further information please refer to the [documentation](https://doc.nuxeo.com/nxdoc/howto-nuxeo-api-playground).
 
 ## Building
 ### Requirements

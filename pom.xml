@@ -1,39 +1,45 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <parent>
     <groupId>org.nuxeo</groupId>
-    <artifactId>nuxeo-addons-parent</artifactId>
-    <version>8.3-SNAPSHOT</version>
+    <artifactId>nuxeo-ecm</artifactId>
+    <version>11.1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.nuxeo.ecm.platform</groupId>
-  <artifactId>nuxeo-api-playground</artifactId>
-  <name>Nuxeo API Playground</name>
-  <description>Nuxeo API Playground</description>
+  <artifactId>nuxeo-api-playground-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>Nuxeo API Playground - Parent POM</name>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>gulp-build</id>
-            <phase>process-resources</phase>
-            <configuration>
-              <target>
-                <ant antfile="${basedir}/src/main/dart/build.xml" dir="${basedir}/src/main/dart"></ant>
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <modules>
+    <module>nuxeo-api-playground</module>
+    <module>nuxeo-api-playground-package</module>
+  </modules>
+
+  <profiles>
+    <profile>
+      <id>ftest</id>
+      <modules>
+        <module>ftest/startup</module>
+      </modules>
+    </profile>
+  </profiles>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-api-playground</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.nuxeo.ecm.platform</groupId>
+        <artifactId>nuxeo-api-playground-package</artifactId>
+        <version>${project.version}</version>
+        <type>zip</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <repositories>
     <repository>
@@ -53,10 +59,36 @@
         <enabled>false</enabled>
       </releases>
       <snapshots>
+        <updatePolicy>always</updatePolicy>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>nuxeo-studio</id>
+      <url>https://connect.nuxeo.com/nuxeo/site/studio/maven</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
         <enabled>true</enabled>
       </snapshots>
     </repository>
   </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>public</id>
+      <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
+      <name>Nuxeo releases</name>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
   <scm>
     <connection>scm:git:git://github.com/nuxeo/nuxeo-api-playground.git</connection>

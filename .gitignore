@@ -1,4 +1,10 @@
 target
-src/main/dart/.buildlog
-src/main/dart/build
+nuxeo-api-playground/src/main/dart/.buildlog
+nuxeo-api-playground/src/main/dart/.packages
+nuxeo-api-playground/src/main/dart/build
 .idea
+.classpath
+.project
+.settings/
+bin/
+
